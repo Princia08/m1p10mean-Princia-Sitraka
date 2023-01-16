@@ -10,7 +10,7 @@ export class LogoutService implements CanActivate{
   constructor(private router : Router) { }
 
   canActivate(): boolean {
-    if(localStorage.getItem('token')) this.router.navigateByUrl('/home')
+    // if(localStorage.getItem('token')) this.router.navigateByUrl('/home')
     return true;
   }
 

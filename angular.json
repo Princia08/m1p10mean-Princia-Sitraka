@@ -36,7 +36,12 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "../../../../assets/plugins/jquery/jquery.min.js",
+              "../../../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js",
+              "../../../../assets/dist/js/adminlte.min.js",
+              "../../../../assets/dist/js/demo.js"
+            ]
           },
           "configurations": {
             "production": {
