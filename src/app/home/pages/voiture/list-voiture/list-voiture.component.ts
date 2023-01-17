@@ -25,7 +25,7 @@ export class ListVoitureComponent implements OnInit {
 
 }
 
-const ELEMENT_DATA: Voiture[] = [
+export const ELEMENT_DATA: Voiture[] = [
   {_id:'1',idclient: '1', marque: 'Citroen', model: "C4", matricule: '4565 TAB',dans_garage:'oui'},
   {_id:'2',idclient: '1', marque: 'Ford', model: "Ranger", matricule: '4444 WWT',dans_garage:'oui'},
   {_id:'3',idclient: '1', marque: 'Ford', model: "Raptor", matricule: '7899 TAH',dans_garage:'oui'},
