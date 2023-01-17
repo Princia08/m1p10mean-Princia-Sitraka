@@ -11,7 +11,6 @@ import {VoitureService} from "../../../../@core/services/voiture.service";
 export class ListVoitureComponent implements OnInit {
   titlesColumn = MODEL_PROPERTIES_MAP;
   voitures: Voiture[] | undefined;
-  voiture: Voiture | undefined;
 
   constructor(
     private router: Router,
@@ -24,7 +23,7 @@ export class ListVoitureComponent implements OnInit {
     console.log("voiture here "+this.voitures)
   }
 
-  getData() {
+   getData() {
     this.service.getVoitures().subscribe(response => {
       this.voitures = response;
       console.log(response);

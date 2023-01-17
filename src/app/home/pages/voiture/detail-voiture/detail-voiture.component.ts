@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Voiture} from "../../../../@core/models/voiture.model";
 import {ELEMENT_DATA} from "../list-voiture/list-voiture.component";
 import {ActivatedRoute} from "@angular/router";
+import {VoitureService} from "../../../../@core/services/voiture.service";
 
 @Component({
   selector: 'app-detail-voiture',
@@ -9,16 +10,26 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./detail-voiture.component.scss']
 })
 export class DetailVoitureComponent implements OnInit {
-  // vehicules: Voiture [];
-  vehicule: Voiture | undefined;
+  voitures: Voiture[] | undefined;
+  voiture: Voiture | undefined;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(
+    private route: ActivatedRoute,
+    private service : VoitureService
+  ) {
   }
 
   ngOnInit(): void {
-    // this.vehicules = ELEMENT_DATA;
-    const vehiculeId: string | null = this.route.snapshot.paramMap.get('id');
-    // this.vehicule = this.vehicules.find((vehicule) => vehicule._id == vehiculeId);
+    this.getData();
+  }
+
+  getData(){
+    const vehiclesId: string | null = this.route.snapshot.paramMap.get('id');
+    this.service.getVoitures().subscribe(response => {
+      this.voitures = response;
+      this.voiture =  this.voitures?.find((voiture)=>voiture._id == vehiclesId);
+      console.log(this.voiture?.marque);
+    })
   }
 
 }
