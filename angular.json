@@ -37,10 +37,10 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "../../../../assets/plugins/jquery/jquery.min.js",
-              "../../../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js",
-              "../../../../assets/dist/js/adminlte.min.js",
-              "../../../../assets/dist/js/demo.js"
+              "src/assets/plugins/jquery/jquery.min.js",
+              "src/assets/plugins/bootstrap/js/bootstrap.bundle.min.js",
+              "src/assets/dist/js/adminlte.min.js",
+              "src/assets/dist/js/demo.js"
             ]
           },
           "configurations": {
