@@ -2,10 +2,10 @@ div.row {
     display: flex;
     justify-content: space-between;
     background-color: #fcfdff;
-    div.col {
-        height: 100vh;
-    }
+    height: 100vh;
     overflow-x: hidden;
+    overflow-y: hidden;
+    
     div.header {
         div.background {
             position: relative;
