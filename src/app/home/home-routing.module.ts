@@ -5,9 +5,13 @@ import {DetailVoitureComponent} from "./pages/voiture/detail-voiture/detail-voit
 import {HomeComponent} from "./home.component";
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
-  {path: 'vehicules', component: ListVoitureComponent},
-  {path: 'vehicule/:id', component: DetailVoitureComponent},
+  {
+    path: '', component: HomeComponent,
+    children: [
+      {path: 'vehicules', component: ListVoitureComponent},
+      {path: 'vehicule/:id', component: DetailVoitureComponent}    
+    ]
+  },
 ];
 
 @NgModule({
