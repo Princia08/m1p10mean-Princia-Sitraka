@@ -27,16 +27,14 @@
             <table class="table table-bordered table-hover" id="example2">
               <thead>
               <tr>
-                <th>Rendering engine</th>
-                <th>Browser</th>
-                <th>Platform(s)</th>
-                <th>Engine version</th>
-                <th>CSS grade</th>
+                <th>{{titlesColumn.idclient.label}}</th>
+                <th>{{titlesColumn.marque.label}}</th>
+                <th>{{titlesColumn.model.label}}</th>
+                <th>{{titlesColumn.matricule.label}}</th>
               </tr>
               </thead>
               <tbody>
               <tr *ngFor="let voiture of voitures">
-                <td>{{ voiture.marque }}</td>
                 <td>{{ voiture.marque }}</td>
                 <td>{{ voiture.marque }}</td>
                 <td>{{ voiture.marque }}</td>
