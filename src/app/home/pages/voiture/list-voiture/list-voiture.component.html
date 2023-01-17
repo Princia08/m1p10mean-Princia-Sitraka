@@ -31,23 +31,25 @@
                 <th>{{titlesColumn.marque.label}}</th>
                 <th>{{titlesColumn.model.label}}</th>
                 <th>{{titlesColumn.matricule.label}}</th>
+                <th>Action</th>
               </tr>
               </thead>
               <tbody>
               <tr *ngFor="let voiture of voitures">
+                <td>{{ voiture.idclient }}</td>
                 <td>{{ voiture.marque }}</td>
-                <td>{{ voiture.marque }}</td>
-                <td>{{ voiture.marque }}</td>
-                <td><button (click)="getDetail(voiture)">Détails</button></td>
+                <td>{{ voiture.model }}</td>
+                <td>{{ voiture.matricule }}</td>
+                <td><button type="button" class="btn btn-block btn-dark btn-sm" (click)="getDetail(voiture)">Détails</button></td>
               </tr>
               </tbody>
               <tfoot>
               <tr>
-                <th>Rendering engine</th>
-                <th>Browser</th>
-                <th>Platform(s)</th>
-                <th>Engine version</th>
-                <th>CSS grade</th>
+                <th>{{titlesColumn.idclient.label}}</th>
+                <th>{{titlesColumn.marque.label}}</th>
+                <th>{{titlesColumn.model.label}}</th>
+                <th>{{titlesColumn.matricule.label}}</th>
+                <th>Action</th>
               </tr>
               </tfoot>
             </table>
