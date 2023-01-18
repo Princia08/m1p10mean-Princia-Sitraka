@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="left">
+        <div class="content">
+            <div class="header">
+                <div class="background">
+                    <p class="top">Inscription</p>
+                    <p class="bottom">Garglass</p>
+                </div>
+                <div class="title">
+                    <h1 style="color:#FEA56D;font-size:32px;">Inscription</h1>
+                </div>
+            </div>
+
+            <form class="form" [formGroup]="form" #formRef="ngForm" (submit)="inscription()">
+                <label class="form-control">
+                    <p>Nom</p>
+                    <input class="input" placeholder="RABENANAHARY Rojo" type="text" formControlName="nom"
+                        [ngStyle]="{'border-color': form.controls['nom'].hasError('required') && formRef.submitted ? 'red' : 'white' }">
+                </label>
+                <label class="form-control">
+                    <p>Mail</p>
+                    <input class="input" placeholder="Rojo.Raben@gmail.com" type="text" formControlName="mail"
+                        [ngStyle]="{'border-color': form.controls['mail'].hasError('required') && formRef.submitted ? 'red' : 'white' }">
+                </label>
+                <label class="form-control">
+                    <p>Mot de passe</p>
+                    <input class="input" placeholder="exemplepass" type="password" formControlName="mot_de_passe"
+                        [ngStyle]="{'border-color': form.controls['mot_de_passe'].hasError('required') && formRef.submitted ? 'red' : 'white' }">
+                </label>
+                <label class="form-control">
+                    <p>Adresse</p>
+                    <input class="input" placeholder="Ambohidratrimo" type="text" formControlName="adresse">
+                </label>
+                <div class="form-control" style="margin-top: 40px;">
+                    <button class="button outline-white" type="submit">S'inscrire</button>
+                    <p style="text-align: center; margin-top: 20px; color:rgb(255, 52, 52)">{{errorMessage}}</p>
+                </div>
+
+                <div class="form-control" style="margin-top: 20px; opacity: 0.3; text-align: center;">
+                    <a href="" style="text-decoration: none; color: white">Déjà inscrit?</a>
+                </div>
+            </form>
+
+            <small style="color: white; opacity: 0.5;">
+                Copyright - Princia - Sitraka
+            </small>
+        </div>
+        <img src="../../assets/curveInscription.svg" alt="" class="curve">
+    </div>
+    <div class="right"></div>
+
+</div>

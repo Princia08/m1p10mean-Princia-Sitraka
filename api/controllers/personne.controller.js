@@ -7,7 +7,7 @@ class PersonneController{
     
     create = async (req, res) => {
         try{ res.json(await this.personneService.create(req.body)) }
-        catch(e){ res.status(500).json({message: 'Internal Server Error'}) }
+        catch(e){ res.status(e.status || 500).json({message: e.message || 'Internal Server Error'}) }
     }
 
     login = async (req, res) => {
