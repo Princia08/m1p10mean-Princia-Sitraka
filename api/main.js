@@ -4,6 +4,7 @@ const {load} = require("./modules/database/database.module")
 const {UserRouter} = require("./router/user/user.router")
 const {PersonneRouter} = require("./router/personne.router")
 const {VoitureRouter} = require("./router/voiture.router");
+const {DepotRouter} = require("./router/depot.router");
 
 async function main() {
   try {
@@ -13,6 +14,7 @@ async function main() {
     // UserRouter('user')
     PersonneRouter('Personne')
     VoitureRouter('Voiture')
+    DepotRouter('Depot')
     app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'dist/bee-project/index.html')))
 
     app.listen(process.env.PORT, () => console.log(`Start on ${process.env.PORT}`))

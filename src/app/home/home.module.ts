@@ -6,6 +6,7 @@ import { HomeComponent } from './home.component';
 import { AccueilComponent } from './pages/accueil/accueil.component';
 import { ListVoitureComponent } from './pages/voiture/list-voiture/list-voiture.component';
 import { DetailVoitureComponent } from './pages/voiture/detail-voiture/detail-voiture.component';
+import { ValidationComponent } from './pages/voiture/validation/validation.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { DetailVoitureComponent } from './pages/voiture/detail-voiture/detail-vo
     HomeComponent,
     AccueilComponent,
     ListVoitureComponent,
-    DetailVoitureComponent
+    DetailVoitureComponent,
+    ValidationComponent
   ],
   imports: [
     CommonModule,
