@@ -14,7 +14,6 @@ class ReparationController {
   getReparation = async (req, res) => {
     try {
       const id = req.params.id;
-
       res.json(await this.reparationService.getReparation(id))
     } catch (e) {
       console.log(e.message)

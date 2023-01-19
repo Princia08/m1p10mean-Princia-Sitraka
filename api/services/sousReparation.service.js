@@ -12,11 +12,13 @@ class SousReparationService {
   }
   getSousReparation = async (idReparation) => {
     try {
-      const sousReparation = SousReparation.find({reparation: idReparation}).populate({path: 'reparation', populate:{path:'voiture'}})
-      console.log(sousReparation);
+      // const sousReparation = SousReparation.find({reparation: idReparation}).populate({path: 'reparation', populate:{path:'voiture'}}).exec((err, sousReparation) => {
+      //   console.log(sousReparation);
+      // });
+      const sousReparation = SousReparation.find({reparation: idReparation}).populate({path: 'reparation', populate:{path:'voiture'}});
       return sousReparation;
     } catch (e) {
-      console.log(e.message)
+      // console.log(e.message)
       throw e
     }
   }

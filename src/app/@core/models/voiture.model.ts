@@ -1,6 +1,8 @@
+import {Personne} from "./personne.model";
+
 export interface Voiture {
   _id: string;
-  idclient : string;
+  idclient : Personne;
   matricule: string;
   marque: string;
   model: string;

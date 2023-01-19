@@ -16,7 +16,7 @@ class SousReparationController {
       const id = req.params.id;
       res.json(await this.sousReparationService.getSousReparation(id));
     } catch (e) {
-      console.log(e.message)
+      // console.log(e.message)
       res.status(500).json({message: 'Internal Server Error'})
     }
   }
