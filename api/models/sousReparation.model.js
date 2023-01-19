@@ -13,7 +13,8 @@ const SousReparationSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.Number,
     },
     status : {
-        type: mongoose.Schema.Types.String
+        type: mongoose.Schema.Types.String,
+        default: "en cours"
     }
 })
 

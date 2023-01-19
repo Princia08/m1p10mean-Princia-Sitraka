@@ -43,16 +43,15 @@
               <div class="col-sm-4 invoice-col">
                 Voiture :
                 <address>
-                  <strong> {{voiture?.marque}}  {{voiture?.model}}</strong><br>
-                  {{reparation?.avancement}}<br>
-                  Reparation eto :
-                  Phone: (804) 123-5432<br>
-                  Email: info@almasaeedstudio.com
+                  <strong>{{reparation?.voiture?.marque}} {{reparation?.voiture?.model}}</strong><br>
+                  {{reparation?.voiture?.matricule}}<br>
+                  Date d'entrée : {{reparation?.date_entree}}<br>
+                  Etat : {{reparation?.avancement}} de réparation
                 </address>
               </div>
               <!-- /.col -->
               <div class="col-sm-4 invoice-col">
-                To
+                Client :
                 <address>
                   <strong>John Doe</strong><br>
                   795 Folsom Ave, Suite 600<br>
@@ -76,19 +75,26 @@
               <div class="card-header">
                 <h3 class="card-title">Ajouter de nouvelle réparation</h3>
               </div>
+
               <div class="card-body">
-                <div class="row">
-                  <div class="col-4">
-                    <input class="form-control" placeholder="Sous-réparation" type="text">
+                <form (ngSubmit)="addSousReparation(reparation)" [formGroup]="form">
+                  <div class="row">
+                    <div class="col-4">
+                      <input class="form-control" formControlName="reparation"
+                             type="hidden">
+                      <input class="form-control" formControlName="motif" placeholder="Motif de réparation ..."
+                             type="text">
+                    </div>
+                    <div class="col-4">
+                      <input class="form-control" formControlName="montant" placeholder="Montant" type="number">
+                    </div>
+                    <div class="col-4">
+                      <button [disabled]="!form.valid" class="form-control btn btn-success">Ajouter</button>
+                    </div>
                   </div>
-                  <div class="col-4">
-                    <input class="form-control" placeholder="Montant" type="text">
-                  </div>
-                  <div class="col-4">
-                    <input class="form-control btn btn-success" value="Ajouter" type="button">
-                  </div>
-                </div>
+                </form>
               </div>
+
               <!-- /.card-body -->
             </div>
             <!-- Table row -->
@@ -99,13 +105,13 @@
                   <tr>
                     <th>Description</th>
                     <th>Montant</th>
-                    <th>Status  #</th>
+                    <th>Status</th>
                   </tr>
                   </thead>
                   <tbody>
                   <tr *ngFor="let sousrep of sousreparations">
                     <td>{{sousrep.motif}}</td>
-                    <td>{{sousrep.montant}}</td>
+                    <td>{{sousrep.montant}} Ar</td>
                     <td>{{sousrep.status}}</td>
                   </tr>
                   </tbody>

@@ -4,7 +4,7 @@ const ReparationSchema = new mongoose.Schema({
     date_entree : {
         type: mongoose.Schema.Types.Date,
         required: false,
-        default:Date.now
+        default: Date.now
     },
     date_sortie : {
         type: mongoose.Schema.Types.Date,
