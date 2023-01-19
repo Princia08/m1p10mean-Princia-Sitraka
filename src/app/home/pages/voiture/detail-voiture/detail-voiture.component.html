@@ -106,6 +106,7 @@
                     <th>Description</th>
                     <th>Montant</th>
                     <th>Status</th>
+                    <th></th>
                   </tr>
                   </thead>
                   <tbody>
@@ -113,7 +114,9 @@
                     <td>{{sousrep.motif}}</td>
                     <td>{{sousrep.montant}} Ar</td>
                     <td>{{sousrep.status}}</td>
+                    <td><a class="btn btn-warning" href="#" (click)="setStatus()"><i class="nav-icon fas fa-edit"></i></a> - <a class="btn btn-danger" href="#" (click)="setStatus()"><i class="nav-icon fas fa-trash"></i></a></td>
                   </tr>
+
                   </tbody>
                 </table>
               </div>
