@@ -3,15 +3,18 @@ const mongoose = require('mongoose')
 const ReparationSchema = new mongoose.Schema({
     date_entree : {
         type: mongoose.Schema.Types.Date,
-        required: true
+        required: false,
+        default:Date.now
     },
     date_sortie : {
         type: mongoose.Schema.Types.Date,
-        required: true
+        required: false,
+        default: null
     },
     avancement : {
         type: mongoose.Schema.Types.String,
-        required: true
+        required: false,
+        default: "debut"
     },
     voiture : {
         ref: 'voiture',

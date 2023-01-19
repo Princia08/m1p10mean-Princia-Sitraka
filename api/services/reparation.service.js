@@ -2,12 +2,14 @@ const {Reparation} = require("../models/reparation.model");
 
 class ReparationService {
 
-  create = async (body) => {
+  create = async (voiture) => {
     try {
-      const reparation = new Reparation(body);
+      console.log(voiture);
+      const reparation = new Reparation({voiture: voiture});
       await reparation.save();
       return reparation;
     } catch (e) {
+      console.log(e.message)
       throw e
     }
   }

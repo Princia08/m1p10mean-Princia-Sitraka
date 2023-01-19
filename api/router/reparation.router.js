@@ -4,7 +4,7 @@ const {VoitureController} = require("../controllers/voiture.controller");
 const {ReparationService} = require("../services/reparation.service");
 const {ReparationController} = require("../controllers/reparation.controller");
 
-function VoitureRouter(base) {
+function ReparationRouter(base) {
 
   const service = new ReparationService()
   const controller = new ReparationController(service)
@@ -13,4 +13,4 @@ function VoitureRouter(base) {
   // app.get(`/api/${base}/voitures`, controller.getVoitures)
 }
 
-module.exports = {VoitureRouter}
+module.exports = {ReparationRouter}
