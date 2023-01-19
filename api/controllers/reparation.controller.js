@@ -5,6 +5,7 @@ class ReparationController {
 
   create = async (req, res) => {
     try {
+      console.log(req.body);
       res.json(await this.reparationService.create(req.body))
     } catch (e) {
       console.log(e.message)
@@ -23,6 +24,15 @@ class ReparationController {
     try {
       const id = req.params.id;
       res.json(await this.reparationService.getReparation(id))
+    } catch (e) {
+      console.log(e.message)
+      res.status(500).json({message: 'Internal Server Error'})
+    }
+  }
+  delete = async (req, res) => {
+    try {
+      const id = req.params.id;
+      await this.reparationService.delete(id);
     } catch (e) {
       console.log(e.message)
       res.status(500).json({message: 'Internal Server Error'})

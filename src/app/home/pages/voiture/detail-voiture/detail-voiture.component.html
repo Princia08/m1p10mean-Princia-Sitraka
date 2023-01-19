@@ -4,12 +4,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Invoice</h1>
+          <h1>Détails</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Invoice</li>
+            <li class="breadcrumb-item"><a href="#">Accueil</a></li>
+            <li class="breadcrumb-item active">Détails</li>
           </ol>
         </div>
       </div>
@@ -33,7 +33,7 @@
               <div class="col-12">
                 <h4>
                   <i class="fas fa-globe"></i> Garage, Inc.
-                  <small class="float-right">Date: 2/10/2014</small>
+                  <small class="float-right">Date: {{dateNow}}</small>
                 </h4>
               </div>
               <!-- /.col -->
@@ -114,7 +114,10 @@
                     <td>{{sousrep.motif}}</td>
                     <td>{{sousrep.montant}} Ar</td>
                     <td>{{sousrep.status}}</td>
-                    <td><a class="btn btn-warning" href="#" (click)="setStatus()"><i class="nav-icon fas fa-edit"></i></a> - <a class="btn btn-danger" href="#" (click)="setStatus()"><i class="nav-icon fas fa-trash"></i></a></td>
+                    <td>
+                      <button class="btn btn-warning" (click)="setStatus()"><i class="nav-icon fas fa-edit"></i></button>
+                      <button class="btn btn-danger" (click)="deleteSousReparation(sousrep)"><i class="nav-icon fas fa-trash"></i></button>
+                    </td>
                   </tr>
 
                   </tbody>
@@ -141,25 +144,21 @@
               </div>
               <!-- /.col -->
               <div class="col-6">
-                <p class="lead">Amount Due 2/22/2014</p>
+                <p class="lead">Total du {{dateNow}}</p>
 
                 <div class="table-responsive">
                   <table class="table">
                     <tr>
                       <th style="width:50%">Subtotal:</th>
-                      <td>$250.30</td>
+                      <td>250.030 Ar</td>
                     </tr>
                     <tr>
-                      <th>Tax (9.3%)</th>
-                      <td>$10.34</td>
-                    </tr>
-                    <tr>
-                      <th>Shipping:</th>
-                      <td>$5.80</td>
+                      <th>Pourboire</th>
+                      <td>10.34 Ar</td>
                     </tr>
                     <tr>
                       <th>Total:</th>
-                      <td>$265.24</td>
+                      <td>265.240 Ar</td>
                     </tr>
                   </table>
                 </div>
@@ -171,13 +170,12 @@
             <!-- this row will not appear when printing -->
             <div class="row no-print">
               <div class="col-12">
-                <a class="btn btn-default" href="invoice-print.html" rel="noopener" target="_blank"><i
-                  class="fas fa-print"></i> Print</a>
-                <button class="btn btn-success float-right" type="button"><i class="far fa-credit-card"></i> Submit
-                  Payment
+
+                <button class="btn btn-success float-right" type="button"><i class="fas fa-check-circle"></i>
+                  Valider Bon de Sortie
                 </button>
-                <button class="btn btn-primary float-right" style="margin-right: 5px;" type="button">
-                  <i class="fas fa-download"></i> Generate PDF
+                <button class="btn btn-primary float-right" style="margin-right: 5px;" type="button"><i
+                  class="fas fa-download"></i> Voir Bon de Sortie
                 </button>
               </div>
             </div>

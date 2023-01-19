@@ -18,6 +18,8 @@ export class DetailVoitureComponent implements OnInit {
   voiture: Voiture | undefined;
   reparation: Reparation | undefined;
   sousreparations: SousReparation [] | undefined;
+  date: Date = new Date();
+  dateNow = this.date.getDay() + "/" + this.date.getMonth()+1 + "/" + this.date.getFullYear();
 
   // modelForm = this.formBuilder.group({
   //   motif: ['', Validators.compose([Validators.required])],
@@ -31,10 +33,11 @@ export class DetailVoitureComponent implements OnInit {
     private formBuilder: FormBuilder,
   ) {
   }
+
   form = new FormGroup({
-    motif: new FormControl('',Validators.required),
-    montant:new FormControl('',Validators.required),
-    reparation:new FormControl('')
+    motif: new FormControl('', Validators.required),
+    montant: new FormControl('', Validators.required),
+    reparation: new FormControl('')
   })
 
   ngOnInit(): void {
@@ -52,18 +55,28 @@ export class DetailVoitureComponent implements OnInit {
       })
     }
   }
-  addSousReparation(reparation : any){
+
+  addSousReparation(reparation: any) {
     const idRep = reparation._id;
     this.form.get('reparation')?.setValue(reparation._id);
     console.log(this.form.value);
-    if(idRep){
-      this.serviceSousReparation.create(this.form.value).subscribe(response=>{
+    if (idRep) {
+      this.serviceSousReparation.create(this.form.value).subscribe(response => {
         this.form.reset();
-          this.getData();
+        this.getData();
       })
     }
   }
-  setStatus(){}
-  deleteSousReparation(){}
+
+  setStatus() {
+  }
+
+  deleteSousReparation(sp: SousReparation) {
+    console.log("clicked")
+    this.serviceSousReparation.delete(sp._id).subscribe(response => {
+      this.getData();
+    });
+  }
+
 
 }

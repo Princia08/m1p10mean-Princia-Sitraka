@@ -19,4 +19,10 @@ export class SousreparationService {
   create(sp: SousReparation): Observable<any> {
     return this.http.post(`${this.apiEndPint}/create`, sp);
   }
+  update(id: string): Observable<any> {
+    return this.http.get<any>(`${this.apiEndPint}/u/${id}`);
+  }
+  delete(id: string): Observable<any> {
+    return this.http.get<any>(`${this.apiEndPint}/d/${id}`);
+  }
 }

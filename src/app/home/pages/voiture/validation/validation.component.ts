@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DepotService} from "../../../../@core/services/depot.service";
 import {Depot} from "../../../../@core/models/depot.model";
+import {Voiture} from "../../../../@core/models/voiture.model";
 
 @Component({
   selector: 'app-validation',
@@ -29,6 +30,10 @@ export class ValidationComponent implements OnInit {
     this.serviceDepot.updateDepot(depot._id).subscribe(response => {
       this.getData();
       console.log("update");
-    })
+    });
+  }
+  verifyVoiture(depot:Depot){
+    // verifier client et voiture
+    if(depot.voiture._id){}
   }
 }

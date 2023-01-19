@@ -15,11 +15,22 @@ class SousReparationService {
       // const sousReparation = SousReparation.find({reparation: idReparation}).populate({path: 'reparation', populate:{path:'voiture'}}).exec((err, sousReparation) => {
       //   console.log(sousReparation);
       // });
-      const sousReparation = SousReparation.find({reparation: idReparation}).populate({path: 'reparation', populate:{path:'voiture'}});
+      const sousReparation = SousReparation.find({reparation: idReparation}).populate({
+        path: 'reparation',
+        populate: {path: 'voiture'}
+      });
       return sousReparation;
     } catch (e) {
       // console.log(e.message)
       throw e
+    }
+  }
+
+  deleteSousRep = async (idSp) => {
+    try {
+      await SousReparation.deleteOne({_id: idSp});
+    } catch (e) {
+      throw e;
     }
   }
 }
