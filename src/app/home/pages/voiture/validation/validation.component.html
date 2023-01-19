@@ -1,0 +1,57 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Vehicules</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Accueil</a></li>
+          <li class="breadcrumb-item active">Vehicules</li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Listes des véhicules en cours de réparation</h3>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <table class="table table-bordered table-hover" id="example2">
+              <thead>
+              <tr>
+                <th>Client</th>
+                <th>Voiture</th>
+                <th>Description</th>
+                <th>Action</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let dep of depots">
+                <td>{{ dep.voiture.idclient }}</td>
+                <td>{{ dep.voiture.marque }}{{ dep.voiture.model }} </td>
+                <td>{{ dep.description }}</td>
+
+                <td><button type="button" class="btn btn-block btn-success" (click)="confirmDepot(dep)">Confirmer</button><button type="button" class="btn btn-block btn-danger btn-sm" >Supprimer</button></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+        <!-- /.card -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>

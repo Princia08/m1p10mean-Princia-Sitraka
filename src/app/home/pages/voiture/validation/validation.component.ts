@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {DepotService} from "../../../../@core/services/depot.service";
+import {Depot} from "../../../../@core/models/depot.model";
 
 @Component({
   selector: 'app-validation',
@@ -6,10 +8,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./validation.component.scss']
 })
 export class ValidationComponent implements OnInit {
+  depots: Depot[] | undefined;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(
+    private serviceDepot: DepotService
+  ) {
   }
 
+  ngOnInit(): void {
+    this.getData()
+  }
+
+  getData() {
+    this.serviceDepot.getDepots().subscribe(response => {
+      this.depots = response;
+    })
+  }
+
+  confirmDepot(depot: Depot) {
+    this.serviceDepot.updateDepot(depot._id).subscribe(response => {
+      this.getData();
+      console.log("update");
+    })
+  }
 }

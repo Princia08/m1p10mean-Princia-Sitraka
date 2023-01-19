@@ -10,7 +10,8 @@ const DepotSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.String
     },
     valide: {
-        type: mongoose.Schema.Types.String
+        type: mongoose.Schema.Types.String,
+        default:"false"
     }
 })
 

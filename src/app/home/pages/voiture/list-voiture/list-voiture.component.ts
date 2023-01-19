@@ -23,24 +23,16 @@ export class ListVoitureComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getDatas();
+    this.getData();
     console.log("voiture here " + this.reparations)
   }
 
-   getDatas() {
+   getData() {
      this.serviceReparation.getReparations().subscribe(response => {
       this.reparations = response;
       console.log(this.reparations);
     })
   }
-  getData() {
-    this.serviceVoiture.getVoitures().subscribe(response => {
-      this.voitures = response;
-      console.log(response);
-    })
-  }
-
-
   getDetail(rep: Reparation) {
     this.router.navigate(['/home/vehicule', rep._id]);
   }

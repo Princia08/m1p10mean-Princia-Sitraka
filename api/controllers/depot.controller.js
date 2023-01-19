@@ -4,6 +4,12 @@ class DepotController {
   constructor(depotService) {
     this.depotService = depotService;
   }
+  create = async (req, res) => {
+    try{ res.json(await this.depotService.create(req.body)) }
+    catch(e){
+      console.log(e.message);
+      res.status(e.status || 500).json({message: e.message || 'Internal Server Error'}) }
+  }
 
   getVoitures = async (req, res) => {
     try {
