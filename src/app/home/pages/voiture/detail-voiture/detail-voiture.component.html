@@ -22,7 +22,7 @@
         <div class="col-12">
           <div class="callout callout-info">
             <h5><i class="fas fa-info"></i> Note:</h5>
-            Cette voiture est encore en cours de réparation
+            Cette voiture est encore en {{reparation?.avancement}} de réparation
           </div>
 
 
@@ -44,7 +44,8 @@
                 Voiture :
                 <address>
                   <strong> {{voiture?.marque}}  {{voiture?.model}}</strong><br>
-                  {{voiture?.matricule}}<br>
+                  {{reparation?.avancement}}<br>
+                  Reparation eto :
                   Phone: (804) 123-5432<br>
                   Email: info@almasaeedstudio.com
                 </address>
@@ -96,41 +97,16 @@
                 <table class="table table-striped">
                   <thead>
                   <tr>
-                    <th>Qty</th>
-                    <th>Product</th>
-                    <th>Serial #</th>
                     <th>Description</th>
-                    <th>Subtotal</th>
+                    <th>Montant</th>
+                    <th>Status  #</th>
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Call of Duty</td>
-                    <td>455-981-221</td>
-                    <td>El snort testosterone trophy driving gloves handsome</td>
-                    <td>$64.50</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>Need for Speed IV</td>
-                    <td>247-925-726</td>
-                    <td>Wes Anderson umami biodiesel</td>
-                    <td>$50.00</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>Monsters DVD</td>
-                    <td>735-845-642</td>
-                    <td>Terry Richardson helvetica tousled street art master</td>
-                    <td>$10.70</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>Grown Ups Blue Ray</td>
-                    <td>422-568-642</td>
-                    <td>Tousled lomo letterpress</td>
-                    <td>$25.99</td>
+                  <tr *ngFor="let sousrep of sousreparations">
+                    <td>{{sousrep.motif}}</td>
+                    <td>{{sousrep.montant}}</td>
+                    <td>{{sousrep.status}}</td>
                   </tr>
                   </tbody>
                 </table>

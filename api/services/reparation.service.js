@@ -13,10 +13,18 @@ class ReparationService {
       throw e
     }
   }
-  getReparation = async (idVoiture) => {
+  getReparations = async () => {
     try {
-      const reparation = Reparation.find({voiture:idVoiture}).populate('voiture');
-      console.log(reparation);
+      const reparation = Reparation.find().populate('voiture');
+      return reparation;
+    } catch (e) {
+      console.log(e.message)
+      throw e
+    }
+  }
+  getReparation = async (idRep) => {
+    try {
+      const reparation = Reparation.findOne({_id:idRep}).populate('voiture');
       return reparation;
     } catch (e) {
       console.log(e.message)

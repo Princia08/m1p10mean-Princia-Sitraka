@@ -27,20 +27,20 @@
             <table class="table table-bordered table-hover" id="example2">
               <thead>
               <tr>
-                <th>{{titlesColumn.idclient.label}}</th>
-                <th>{{titlesColumn.marque.label}}</th>
-                <th>{{titlesColumn.model.label}}</th>
-                <th>{{titlesColumn.matricule.label}}</th>
+                <th>Client</th>
+                <th>Voiture</th>
+                <th>Date d'entrée</th>
+                <th>Avancement</th>
                 <th>Action</th>
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let voiture of voitures">
-                <td>{{ voiture.idclient }}</td>
-                <td>{{ voiture.marque }}</td>
-                <td>{{ voiture.model }}</td>
-                <td>{{ voiture.matricule }}</td>
-                <td><button type="button" class="btn btn-block btn-dark btn-sm" (click)="getDetail(voiture)">Détails</button></td>
+              <tr *ngFor="let rep of reparations">
+                <td>{{ rep.voiture }}</td>
+                <td>{{ rep.voiture.marque }} {{rep.voiture.model}}</td>
+                <td>{{ rep.date_entree }}</td>
+                <td>{{ rep.avancement }}</td>
+                <td><button type="button" class="btn btn-block btn-dark btn-sm" (click)="getDetail(rep)">Détails</button></td>
               </tr>
               </tbody>
             </table>
