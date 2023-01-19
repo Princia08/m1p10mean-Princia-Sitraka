@@ -1,13 +1,25 @@
-class SousReparationService{
+const {SousReparation} = require("../models/sousReparation.model");
+
+class SousReparationService {
   create = async (body) => {
-    try{
-      const personne = new Personne(body)
-      personne.mot_de_passe = bcrypt.hashSync(personne.mot_de_passe, 10)
-      await personne.save()
-      personne.mot_de_passe = null
-      return personne
-    }catch(e){ throw e }
+    try {
+      const sousrep = new SousReparation(body)
+      await sousrep.save()
+      return sousrep;
+    } catch (e) {
+      throw e
+    }
+  }
+  getSousReparation = async (idReparation) => {
+    try {
+      const sousReparation = SousReparation.find({reparation: idReparation}).populate({path: 'reparation', populate:{path:'voiture'}})
+      console.log(sousReparation);
+      return sousReparation;
+    } catch (e) {
+      console.log(e.message)
+      throw e
+    }
   }
 }
 
-module.exports = { SousReparationService }
+module.exports = {SousReparationService}

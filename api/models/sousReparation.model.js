@@ -1,12 +1,16 @@
 const mongoose = require('mongoose')
 
 const SousReparationSchema = new mongoose.Schema({
+    motif : {
+      type: mongoose.Schema.Types.String,
+      default: "null"
+    },
     reparation : {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'reparation'
     },
     montant : {
-        type: mongoose.Schema.Types.Double
+        type: mongoose.Schema.Types.Number,
     },
     status : {
         type: mongoose.Schema.Types.String

@@ -11,6 +11,7 @@ function ReparationRouter(base) {
 
   app.post(`/api/${base}/create`, controller.create)
   // app.get(`/api/${base}/voitures`, controller.getVoitures)
+  app.get(`/api/${base}/rep/:id`, controller.getReparation);
 }
 
 module.exports = {ReparationRouter}
