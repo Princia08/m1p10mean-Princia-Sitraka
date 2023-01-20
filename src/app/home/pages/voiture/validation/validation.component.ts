@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {DepotService} from "../../../../@core/services/depot.service";
 import {Depot} from "../../../../@core/models/depot.model";
-import {Voiture} from "../../../../@core/models/voiture.model";
+import {ReparationService} from "../../../../@core/services/reparation.service";
+import {Reparation} from "../../../../@core/models/reparation.model";
+import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-validation',
@@ -10,9 +12,15 @@ import {Voiture} from "../../../../@core/models/voiture.model";
 })
 export class ValidationComponent implements OnInit {
   depots: Depot[] | undefined;
+  reparation: Reparation | undefined;
+
+  form = new FormGroup({
+    voiture: new FormControl('')
+  })
 
   constructor(
-    private serviceDepot: DepotService
+    private serviceDepot: DepotService,
+    private serviceReparation: ReparationService
   ) {
   }
 
@@ -27,13 +35,20 @@ export class ValidationComponent implements OnInit {
   }
 
   confirmDepot(depot: Depot) {
-    this.serviceDepot.updateDepot(depot._id).subscribe(response => {
+    this.form.get('voiture')?.setValue(depot.voiture._id);
+    this.serviceReparation.create(this.form.value).subscribe(response => {
       this.getData();
-      console.log("update");
+      console.log("insert here");
+      this.serviceDepot.updateDepot(depot._id).subscribe(response => {
+      });
     });
+
+
   }
-  verifyVoiture(depot:Depot){
+
+  verifyVoiture(depot: Depot) {
     // verifier client et voiture
-    if(depot.voiture._id){}
+    if (depot.voiture._id) {
+    }
   }
 }

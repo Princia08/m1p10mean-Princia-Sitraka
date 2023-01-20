@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
+import {Reparation} from "../models/reparation.model";
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +18,8 @@ export class ReparationService {
   }
   getReparation(id:string): Observable<any> {
     return this.http.get<any>(`${this.apiEndPint}/rep/${id}`);
+  }
+  create(sp: any): Observable<any> {
+    return this.http.post(`${this.apiEndPint}/create`, sp);
   }
 }

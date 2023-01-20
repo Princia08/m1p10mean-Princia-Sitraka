@@ -24,13 +24,11 @@ export class ListVoitureComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData();
-    console.log("voiture here " + this.reparations)
   }
 
    getData() {
      this.serviceReparation.getReparations().subscribe(response => {
       this.reparations = response;
-      console.log(this.reparations);
     })
   }
   getDetail(rep: Reparation) {

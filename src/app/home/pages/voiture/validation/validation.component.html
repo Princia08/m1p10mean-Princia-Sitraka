@@ -38,7 +38,12 @@
                 <td>{{ dep.voiture.idclient }}</td>
                 <td>{{ dep.voiture.marque }}{{ dep.voiture.model }} </td>
                 <td>{{ dep.description }}</td>
-                <td><button type="button" class="btn btn-block btn-success" (click)="confirmDepot(dep)">Confirmer</button><button type="button" class="btn btn-block btn-danger btn-sm" >Supprimer</button></td>
+                <td>
+<!--                  <button type="button" class="btn btn-block btn-success" (click)="confirmDepot(dep)">Confirmer</button>-->
+<!--                  <button type="button" class="btn btn-block btn-danger btn-sm" >Supprimer</button>-->
+                  <button class="btn btn-outline-success" (click)="confirmDepot(dep)"><i class="nav-icon fas fa-check">Confirmer</i></button>--
+                  <button class="btn btn-outline-danger" ><i class="nav-icon fas fa-trash">Refuser</i></button>
+                </td>
               </tr>
               </tbody>
             </table>
