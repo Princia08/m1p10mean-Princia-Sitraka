@@ -12,9 +12,6 @@ class SousReparationService {
   }
   getSousReparation = async (idReparation) => {
     try {
-      // const sousReparation = SousReparation.find({reparation: idReparation}).populate({path: 'reparation', populate:{path:'voiture'}}).exec((err, sousReparation) => {
-      //   console.log(sousReparation);
-      // });
       const sousReparation = SousReparation.find({reparation: idReparation}).populate({
         path: 'reparation',
         populate: {path: 'voiture'}
