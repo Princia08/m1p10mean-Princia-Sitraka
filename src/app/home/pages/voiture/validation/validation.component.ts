@@ -4,6 +4,8 @@ import {Depot} from "../../../../@core/models/depot.model";
 import {ReparationService} from "../../../../@core/services/reparation.service";
 import {Reparation} from "../../../../@core/models/reparation.model";
 import {FormControl, FormGroup} from "@angular/forms";
+import {MatDialog} from "@angular/material/dialog";
+import {DialogService} from "../../../../@core/services/dialog/dialog.service";
 
 @Component({
   selector: 'app-validation',
@@ -20,7 +22,8 @@ export class ValidationComponent implements OnInit {
 
   constructor(
     private serviceDepot: DepotService,
-    private serviceReparation: ReparationService
+    private serviceReparation: ReparationService,
+    private dialogService : DialogService
   ) {
   }
 
@@ -35,17 +38,25 @@ export class ValidationComponent implements OnInit {
   }
 
   confirmDepot(depot: Depot) {
-    this.form.get('voiture')?.setValue(depot.voiture._id);
-    this.serviceReparation.create(this.form.value).subscribe(response => {
-      this.getData();
-      console.log("insert here");
-      this.serviceDepot.updateDepot(depot._id).subscribe(response => {
-      });
-    });
-
+    this.openConfirmDialog();
+    // this.form.get('voiture')?.setValue(depot.voiture._id);
+    // this.serviceReparation.create(this.form.value).subscribe(response => {
+    //   this.getData();
+    //   console.log("insert here");
+    //   this.serviceDepot.updateDepot(depot._id).subscribe(response => {
+    //   });
+    // });
+  }
+  openConfirmDialog(){
+  const options = {
+    title: "Voulez vous vraiment confirmer le vehicule ? ",
+    cancelText : " Oui , Confirmer",
+    confirmText : "Non, Annuler",
+    width : '100px',
+  }
+    this.dialogService.open(options);
 
   }
-
   verifyVoiture(depot: Depot) {
     // verifier client et voiture
     if (depot.voiture._id) {
