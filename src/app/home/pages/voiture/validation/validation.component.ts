@@ -6,6 +6,7 @@ import {Reparation} from "../../../../@core/models/reparation.model";
 import {FormControl, FormGroup} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogService} from "../../../../@core/services/dialog/dialog.service";
+import {ConfirmDialogComponent} from "../../../confirm-dialog/confirm-dialog.component";
 
 @Component({
   selector: 'app-validation',
@@ -23,7 +24,8 @@ export class ValidationComponent implements OnInit {
   constructor(
     private serviceDepot: DepotService,
     private serviceReparation: ReparationService,
-    private dialogService : DialogService
+    private dialogService : DialogService,
+    private dialog : MatDialog
   ) {
   }
 
@@ -54,8 +56,7 @@ export class ValidationComponent implements OnInit {
     confirmText : "Non, Annuler",
     width : '100px',
   }
-    this.dialogService.open(options);
-
+    this.dialog.open(ConfirmDialogComponent);
   }
   verifyVoiture(depot: Depot) {
     // verifier client et voiture
