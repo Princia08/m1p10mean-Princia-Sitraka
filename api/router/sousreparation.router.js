@@ -7,6 +7,7 @@ function SousReparationRouter(base) {
   const controller = new SousReparationController(service)
 
   app.post(`/api/${base}/create`, controller.create)
+  app.get(`/api/${base}/d/:id`, controller.delete)
   // app.get(`/api/${base}/voitures`, controller.getVoitures)
   app.get(`/api/${base}/sp/:id`, controller.getSousreparation);
 }

@@ -10,7 +10,6 @@ function ReparationRouter(base) {
   const controller = new ReparationController(service)
 
   app.post(`/api/${base}/create`, controller.create)
-  // app.get(`/api/${base}/voitures`, controller.getVoitures)
   app.get(`/api/${base}/reparations`, controller.getReparations);
   app.get(`/api/${base}/rep/:id`, controller.getReparation);
 }

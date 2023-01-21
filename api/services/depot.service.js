@@ -14,7 +14,6 @@ class DepotService {
   update = async (idDepot) => {
     try {
       const depotUpdate = await Depot.findOneAndUpdate({_id: idDepot}, {$set: {valide: "true"}}, {new: true})
-      // console.log(depotUpdate);
       return depotUpdate;
     } catch (e) {
       throw e

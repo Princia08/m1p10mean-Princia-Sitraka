@@ -14,7 +14,7 @@ const ReparationSchema = new mongoose.Schema({
     avancement : {
         type: mongoose.Schema.Types.String,
         required: false,
-        default: "debut"
+        default: "en cours"
     },
     voiture : {
         ref: 'voiture',

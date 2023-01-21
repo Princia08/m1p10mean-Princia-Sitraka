@@ -9,6 +9,7 @@ import { DetailVoitureComponent } from './pages/voiture/detail-voiture/detail-vo
 import { ValidationComponent } from './pages/voiture/validation/validation.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { DepotComponent } from './pages/voiture/depot/depot.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 
 @NgModule({
@@ -17,8 +18,9 @@ import { DepotComponent } from './pages/voiture/depot/depot.component';
     AccueilComponent,
     ListVoitureComponent,
     DetailVoitureComponent,
+    DepotComponent,
     ValidationComponent,
-    DepotComponent
+    ConfirmDialogComponent
   ],
   imports: [
     CommonModule,

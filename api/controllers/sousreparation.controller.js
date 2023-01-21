@@ -20,6 +20,15 @@ class SousReparationController {
       res.status(500).json({message: 'Internal Server Error'})
     }
   }
+  delete = async (req, res) => {
+    try {
+      const id = req.params.id;
+      res.json(await this.sousReparationService.deleteSousRep(id));
+    } catch (e) {
+      // console.log(e.message)
+      res.status(500).json({message: 'Internal Server Error'})
+    }
+  }
 }
 
 module.exports = {SousReparationController}

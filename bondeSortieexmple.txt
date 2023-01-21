@@ -1,0 +1,107 @@
+Bon de sortie
+
+Nom du garage : Garagiste Inc.
+Adresse : 123 Rue Principale, Ville, Code Postal
+Téléphone : 555-555-5555
+Email : garagiste@garage.com
+
+Nom du client : John Doe
+Adresse : 456 Rue Secondaire, Ville, Code Postal
+Téléphone : 555-555-1234
+Email : johndoe@email.com
+
+Numéro de commande : 12345
+Date d'entrée : 01/01/2021
+Date de sortie : 01/03/2021
+
+Véhicule :
+Marque : Ford
+Modèle : F-150
+Année : 2018
+Kilométrage : 23,456
+Numéro d'immatriculation : XYZ 123
+
+Description des réparations effectuées :
+- Remplacement de la transmission
+- Réparation de la suspension avant
+- Remplacement des freins avant et arrière
+- Vidange d'huile et changement de filtre
+- Révision générale
+
+Prix des réparations : $3,500.00
+
+Merci de votre confiance!
+
+Signature du mécanicien : ___________
+Signature du client : ___________
+
+
+
+const doc = new PDFDocument();
+
+// Pipe the document to a file
+doc.pipe(fs.createWriteStream('bon_de_sortie.pdf'));
+
+// Add a title
+doc.fontSize(25).text('Bon de sortie de réparation de véhicule', {
+    underline: true,
+    align: 'center'
+});
+
+// Add some text
+doc.fontSize(12).text('Date : ' + new Date().toLocaleString(), {
+    align: 'right'
+});
+doc.moveDown();
+
+doc.text('Numéro de réparation : ' + '12345', {
+    align: 'left'
+});
+doc.text('Marque et modèle : ' + 'Ford Focus', {
+    align: 'left'
+});
+doc.text('Numéro d\'immatriculation : ' + 'XY-123-Z', {
+    align: 'left'
+});
+doc.text('Nom du client : ' + 'John Doe', {
+    align: 'left'
+});
+doc.text('Téléphone : ' + '+1 555 555 5555', {
+    align: 'left'
+});
+doc.text('Email : ' + 'johndoe@example.com', {
+    align: 'left'
+});
+doc.moveDown();
+
+doc.text('Réparations effectuées : ', {
+    align: 'left'
+});
+doc.text('- Remplacement des plaquettes de frein', {
+    align: 'left'
+});
+doc.text('- Vidange d\'huile', {
+    align: 'left'
+});
+doc.text('- Réparation de la fuite d\'huile', {
+    align: 'left'
+});
+doc.moveDown();
+
+doc.text('Prix total : ' + '$ 500', {
+    align: 'right'
+});
+doc.moveDown();
+
+doc.text('Remarques : ', {
+    align: 'left'
+});
+doc.text('- Les pièces de rechange utilisées sont garanties 6 mois.', {
+    align: 'left'
+});
+doc.text('- La garantie de la réparation est valable 3 mois.', {
+    align: 'left'
+});
+
+// End the document
+doc.end();
