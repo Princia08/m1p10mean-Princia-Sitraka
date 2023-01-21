@@ -8,6 +8,7 @@ import { ListVoitureComponent } from './pages/voiture/list-voiture/list-voiture.
 import { DetailVoitureComponent } from './pages/voiture/detail-voiture/detail-voiture.component';
 import { ValidationComponent } from './pages/voiture/validation/validation.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { DepotComponent } from './pages/voiture/depot/depot.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     AccueilComponent,
     ListVoitureComponent,
     DetailVoitureComponent,
-    ValidationComponent
+    ValidationComponent,
+    DepotComponent
   ],
   imports: [
     CommonModule,

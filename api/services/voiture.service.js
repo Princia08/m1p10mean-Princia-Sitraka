@@ -4,11 +4,9 @@ const {Depot} = require("../models/depot.model");
 class VoitureService {
   create = async (body) => {
     try {
-      const personne = new Personne(body)
-      personne.mot_de_passe = bcrypt.hashSync(personne.mot_de_passe, 10)
-      await personne.save()
-      personne.mot_de_passe = null
-      return personne
+      const voiture = new Voiture(body)
+      await voiture.save()
+      return voiture
     } catch (e) {
       throw e
     }
