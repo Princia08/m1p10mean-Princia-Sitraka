@@ -9,6 +9,10 @@ import {ReparationService} from "../../../../@core/services/reparation.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmDialogComponent} from "../../../confirm-dialog/confirm-dialog.component";
+import {BonSortieService} from "../../../../@core/services/bon-sortie.service";
+import { HttpClient } from '@angular/common/http';
+import {PdfDialogComponent} from "../../../pdf-dialog/pdf-dialog.component";
+
 
 @Component({
   selector: 'app-detail-voiture',
@@ -23,6 +27,7 @@ export class DetailVoitureComponent implements OnInit {
   date: Date = new Date();
   dateNow = this.date.getDay() + "/" + this.date.getMonth() + 1 + "/" + this.date.getFullYear();
   dialogIsOpen = false;
+  pdfSrc: string = '';
   // modelForm = this.formBuilder.group({
   //   motif: ['', Validators.compose([Validators.required])],
   //   montant: ['', Validators.compose([Validators.required, Validators.minLength(1)])],
@@ -33,7 +38,9 @@ export class DetailVoitureComponent implements OnInit {
     private serviceSousReparation: SousreparationService,
     private serviceReparation: ReparationService,
     private formBuilder: FormBuilder,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private serviceBonSortie: BonSortieService,
+    private http: HttpClient
   ) {
   }
 
@@ -45,6 +52,9 @@ export class DetailVoitureComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData();
+    this.http.get('src/assets/doc/bon_de_sortie.pdf', { responseType: 'blob' }).subscribe(pdf => {
+      this.pdfSrc = pdf.toString();
+    });
   }
 
   withBlur() {
@@ -103,7 +113,28 @@ export class DetailVoitureComponent implements OnInit {
       }
       this.noBlur();
     })
+  }
 
+  viewBonSortie(reparation: any) {
+    const id = reparation._id;
+    const filePath = this.serviceBonSortie.getPdfPath(id);
+    const dialogRef = this.dialog.open(PdfDialogComponent, {
+      data: {
+        title: "Voulez vous annuler cette réparation ? ",
+        confirmText: "Valider Bon de Sortie",
+        cancelText: "Fermer",
+      },
+      width: '50%',
+      height : '800px'
+    });
+    this.withBlur();
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+
+      } else {
+      }
+      this.noBlur();
+    })
   }
 
 

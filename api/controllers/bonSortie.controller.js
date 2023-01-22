@@ -33,7 +33,7 @@ class BonSortieController {
       const id = req.params.id;
       // const bonSortie = await this.bonSortieService.getBonSortie(id);
       // console.log(bonSortie);
-      await this.bonSortieService.getBonDeSortiePDF(id);
+      res.json(await this.bonSortieService.generatePdf(id));
 
     } catch (e) {
       console.log(e.message);

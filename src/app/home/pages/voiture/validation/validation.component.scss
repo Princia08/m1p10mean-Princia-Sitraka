@@ -6,4 +6,5 @@
 //}
 .blur-background{
   filter: blur(5px);
+  pointer-events: none;
 }

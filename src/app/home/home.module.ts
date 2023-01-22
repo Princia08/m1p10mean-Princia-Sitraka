@@ -11,6 +11,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { DepotComponent } from './pages/voiture/depot/depot.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import {MatButtonModule} from "@angular/material/button";
+import {PdfViewerModule} from "ng2-pdf-viewer";
+import { PdfDialogComponent } from './pdf-dialog/pdf-dialog.component';
 
 
 @NgModule({
@@ -21,14 +23,16 @@ import {MatButtonModule} from "@angular/material/button";
     DetailVoitureComponent,
     DepotComponent,
     ValidationComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    PdfDialogComponent
   ],
     imports: [
         CommonModule,
         HomeRoutingModule,
         FormsModule,
         ReactiveFormsModule,
-        MatButtonModule
+        MatButtonModule,
+        PdfViewerModule
     ]
 })
 export class HomeModule { }
