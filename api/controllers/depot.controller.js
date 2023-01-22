@@ -21,7 +21,7 @@ class DepotController {
   updateDepot = async (req, res) => {
     try {
       const id = req.params.id;
-      const depot = await this.depotService.update(id);
+      res.json(await this.depotService.update(id));
 
     } catch (e) {
       console.log(e.message)

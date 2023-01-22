@@ -62,7 +62,6 @@ export class ValidationComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
-
         this.form.get('voiture')?.setValue(depot.voiture._id);
         this.serviceReparation.create(this.form.value).subscribe(response => {
           this.serviceDepot.updateDepot(depot._id).subscribe(response => {

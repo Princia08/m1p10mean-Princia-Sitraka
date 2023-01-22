@@ -7,6 +7,8 @@ import {SousreparationService} from "../../../../@core/services/sousreparation.s
 import {SousReparation} from "../../../../@core/models/sousReparation.model";
 import {ReparationService} from "../../../../@core/services/reparation.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {MatDialog} from "@angular/material/dialog";
+import {ConfirmDialogComponent} from "../../../confirm-dialog/confirm-dialog.component";
 
 @Component({
   selector: 'app-detail-voiture',
@@ -19,7 +21,7 @@ export class DetailVoitureComponent implements OnInit {
   reparation: Reparation | undefined;
   sousreparations: SousReparation [] | undefined;
   date: Date = new Date();
-  dateNow = this.date.getDay() + "/" + this.date.getMonth()+1 + "/" + this.date.getFullYear();
+  dateNow = this.date.getDay() + "/" + this.date.getMonth() + 1 + "/" + this.date.getFullYear();
 
   // modelForm = this.formBuilder.group({
   //   motif: ['', Validators.compose([Validators.required])],
@@ -31,6 +33,7 @@ export class DetailVoitureComponent implements OnInit {
     private serviceSousReparation: SousreparationService,
     private serviceReparation: ReparationService,
     private formBuilder: FormBuilder,
+    private dialog: MatDialog
   ) {
   }
 
@@ -72,10 +75,25 @@ export class DetailVoitureComponent implements OnInit {
   }
 
   deleteSousReparation(sp: SousReparation) {
-    console.log("clicked")
-    this.serviceSousReparation.delete(sp._id).subscribe(response => {
-      this.getData();
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: "Voulez vous annuler la réparation ? ",
+        confirmText: " Oui , Annuler ",
+        cancelText: "Non, Garder",
+      },
+      width: '300px',
     });
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+        this.serviceSousReparation.delete(sp._id).subscribe(response => {
+          this.getData();
+        });
+      } else {
+        console.log("okzao ka")
+      }
+    })
+
   }
 
 
