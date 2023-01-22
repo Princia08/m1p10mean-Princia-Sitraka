@@ -10,12 +10,15 @@ export class ConfirmDialogComponent implements OnInit {
 
   constructor(
     public dialogRef : MatDialogRef<ConfirmDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public mess : string
+    @Inject(MAT_DIALOG_DATA) public data : any
   ) { }
 
   ngOnInit(): void {
   }
   onclickNo():void{
-    this.dialogRef.close();
+    this.dialogRef.close(false);
+  }
+  onclickYes():void{
+    this.dialogRef.close(true);
   }
 }

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { TokenService } from '../token/token.service';
+import {Component, OnInit} from '@angular/core';
+import {TokenService} from '../token/token.service';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +9,9 @@ import { TokenService } from '../token/token.service';
 export class HomeComponent implements OnInit {
   menuItems !: any[];
   nom !: string;
-  constructor(private tokenService : TokenService) { }
+
+  constructor(private tokenService: TokenService) {
+  }
 
   ngOnInit(): void {
     this.setItems();
@@ -17,15 +19,14 @@ export class HomeComponent implements OnInit {
   }
 
   setItems() {
-    if(this.tokenService.getUserByToken().role == 'repsonsable_atelier') {
+    if (this.tokenService.getUserByToken().role == 'repsonsable_atelier') {
       this.menuItems = [
-        { path: '/home/vehicule', title: 'Véhicule', icon: 'fas fa-warehouse' },
-        { path: '/home/validation', title: 'Validation', icon: 'fas fa-hourglass-half' }
+        {path: '/home/vehicule', title: 'Véhicule', icon: 'fas fa-warehouse'},
+        {path: '/home/validation', title: 'Validation', icon: 'fas fa-hourglass-half'}
       ]
-    }
-    else if(this.tokenService.getUserByToken().role == 'client') {
+    } else if (this.tokenService.getUserByToken().role == 'client') {
       this.menuItems = [
-        { path: '/home/depot', title: 'Dépôt', icon: 'fas fa-warehouse' }
+        {path: '/home/depot', title: 'Dépôt', icon: 'fas fa-warehouse'}
       ]
     }
   }

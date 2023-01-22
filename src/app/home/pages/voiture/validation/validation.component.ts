@@ -24,8 +24,8 @@ export class ValidationComponent implements OnInit {
   constructor(
     private serviceDepot: DepotService,
     private serviceReparation: ReparationService,
-    private dialogService : DialogService,
-    private dialog : MatDialog
+    private dialogService: DialogService,
+    private dialog: MatDialog
   ) {
   }
 
@@ -40,7 +40,7 @@ export class ValidationComponent implements OnInit {
   }
 
   confirmDepot(depot: Depot) {
-    this.openConfirmDialog();
+    this.openConfirmDialog(depot);
     // this.form.get('voiture')?.setValue(depot.voiture._id);
     // this.serviceReparation.create(this.form.value).subscribe(response => {
     //   this.getData();
@@ -49,15 +49,34 @@ export class ValidationComponent implements OnInit {
     //   });
     // });
   }
-  openConfirmDialog(){
-  const options = {
-    title: "Voulez vous vraiment confirmer le vehicule ? ",
-    cancelText : " Oui , Confirmer",
-    confirmText : "Non, Annuler",
-    width : '100px',
+
+  openConfirmDialog(depot: Depot) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: "Voulez vous vraiment confirmer le vehicule ? ",
+        confirmText: " Oui , Confirmer",
+        cancelText: "Non, Annuler",
+      },
+      width: '300px',
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+
+        this.form.get('voiture')?.setValue(depot.voiture._id);
+        this.serviceReparation.create(this.form.value).subscribe(response => {
+          this.serviceDepot.updateDepot(depot._id).subscribe(response => {
+            this.getData();
+            console.log("insert here");
+          });
+        });
+        console.log("confirmer le izy")
+      } else {
+        console.log("okzao ka")
+      }
+    })
   }
-    this.dialog.open(ConfirmDialogComponent);
-  }
+
   verifyVoiture(depot: Depot) {
     // verifier client et voiture
     if (depot.voiture._id) {

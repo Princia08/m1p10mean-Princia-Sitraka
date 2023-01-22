@@ -10,6 +10,7 @@ import { ValidationComponent } from './pages/voiture/validation/validation.compo
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { DepotComponent } from './pages/voiture/depot/depot.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import {MatButtonModule} from "@angular/material/button";
 
 
 @NgModule({
@@ -22,11 +23,12 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     ValidationComponent,
     ConfirmDialogComponent
   ],
-  imports: [
-    CommonModule,
-    HomeRoutingModule,
-    FormsModule,
-    ReactiveFormsModule
-  ]
+    imports: [
+        CommonModule,
+        HomeRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatButtonModule
+    ]
 })
 export class HomeModule { }

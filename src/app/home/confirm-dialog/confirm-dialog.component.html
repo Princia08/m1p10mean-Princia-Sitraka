@@ -1,6 +1,7 @@
-<div class="mat-dialog-container">
-  <h1>Confirmation</h1>
-  <p>Are you sure you want to proceed?</p>
-  <button mat-button >Cancel</button>
-  <button mat-button >OK</button>
+<div class="mat-dialog-title">
+  <div class="mat-dialog-actions">
+    <h3>{{data.title}}</h3>
+    <button (click)="onclickNo()" mat-button> {{data.cancelText}} </button>
+    <button (click)="onclickYes()" mat-button> {{data.confirmText}} </button>
+  </div>
 </div>
