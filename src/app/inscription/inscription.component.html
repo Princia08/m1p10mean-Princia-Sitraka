@@ -1,6 +1,6 @@
-<div class="row">
+<div class="roww">
     <div class="left">
-        <div class="content">
+        <div class="contentt">
             <div class="header">
                 <div class="background">
                     <p class="top">Inscription</p>
@@ -11,37 +11,37 @@
                 </div>
             </div>
 
-            <form class="form" [formGroup]="form" #formRef="ngForm" (submit)="inscription()">
-                <label class="form-control">
+            <form class="formm" [formGroup]="form" #formRef="ngForm" (submit)="inscription()">
+                <label class="form-controll">
                     <p>Nom</p>
-                    <input class="input" placeholder="RABENANAHARY Rojo" type="text" formControlName="nom"
+                    <input class="inputt" placeholder="RABENANAHARY Rojo" type="text" formControlName="nom"
                         [ngStyle]="{'border-color': form.controls['nom'].hasError('required') && formRef.submitted ? 'red' : 'white' }">
                 </label>
-                <label class="form-control">
+                <label class="form-controll">
                     <p>Mail</p>
-                    <input class="input" placeholder="Rojo.Raben@gmail.com" type="text" formControlName="mail"
+                    <input class="inputt" placeholder="Rojo.Raben@gmail.com" type="text" formControlName="mail"
                         [ngStyle]="{'border-color': form.controls['mail'].hasError('required') && formRef.submitted ? 'red' : 'white' }">
                 </label>
-                <label class="form-control">
+                <label class="form-controll">
                     <p>Mot de passe</p>
-                    <input class="input" placeholder="exemplepass" type="password" formControlName="mot_de_passe"
+                    <input class="inputt" placeholder="exemplepass" type="password" formControlName="mot_de_passe"
                         [ngStyle]="{'border-color': form.controls['mot_de_passe'].hasError('required') && formRef.submitted ? 'red' : 'white' }">
                 </label>
-                <label class="form-control">
+                <label class="form-controll">
                     <p>Adresse</p>
-                    <input class="input" placeholder="Ambohidratrimo" type="text" formControlName="adresse">
+                    <input class="inputt" placeholder="Ambohidratrimo" type="text" formControlName="adresse">
                 </label>
-                <div class="form-control" style="margin-top: 40px;">
-                    <button class="button outline-white" type="submit">S'inscrire</button>
+                <div class="form-controll" style="margin-top: 40px;">
+                    <button class="buttonn outline-white" type="submit">S'inscrire</button>
                     <p style="text-align: center; margin-top: 20px; color:rgb(255, 52, 52)">{{errorMessage}}</p>
                 </div>
 
-                <div class="form-control" style="margin-top: 20px; opacity: 0.3; text-align: center;">
+                <div class="form-controll" style="margin-top: 20px; opacity: 0.3; text-align: center;">
                     <a href="" style="text-decoration: none; color: white">Déjà inscrit?</a>
                 </div>
             </form>
 
-            <small style="color: white; opacity: 0.5;">
+            <small style="color: white; opacity: 0.5; margin-top: 13%;">
                 Copyright - Princia - Sitraka
             </small>
         </div>
