@@ -37,16 +37,14 @@
                   </thead>
                   <tbody>
                   <tr *ngFor="let dep of depots">
-                    <td>{{ dep.voiture.idclient }}</td>
+                    <td>{{ dep.voiture.idClient.nom }}</td>
                     <td>{{ dep.voiture.marque }}{{ dep.voiture.model }} </td>
                     <td>{{ dep.description }}</td>
                     <td>
-                      <!--                  <button type="button" class="btn btn-block btn-success" (click)="confirmDepot(dep)">Confirmer</button>-->
-                      <!--                  <button type="button" class="btn btn-block btn-danger btn-sm" >Supprimer</button>-->
                       <button (click)="confirmDepot(dep)" class="btn btn-outline-success"><i
-                        class="nav-icon fas fa-check">Confirmer</i></button>
+                        class="nav-icon fas fa-check"></i>Confirmer</button>
                       --
-                      <button class="btn btn-outline-danger"><i class="nav-icon fas fa-trash">Refuser</i></button>
+                      <button class="btn btn-outline-danger"><i class="nav-icon fas fa-trash"></i>Refuser</button>
                     </td>
                   </tr>
                   </tbody>

@@ -1,3 +1,17 @@
-<embed height="800px" src="http://localhost:8080/static/bon_de_sortie.pdf" type="application/pdf" width="900px">
-<button (click)="onclickNo()" mat-button> {{data.cancelText}} </button>
-<button (click)="onclickYes()" mat-button> {{data.confirmText}} </button>
+<div class="row">
+  <div class="col-md-4">
+    <button (click)="onclickYes()" class="btn btn-success float-right" type="button">
+      {{data.confirmText}}
+    </button>
+  </div>
+  <div class="col-md-6"></div>
+  <div class="col-md-2">
+    <button (click)="onclickNo()" class="btn btn-danger float-right" type="button">
+      {{data.cancelText}}
+    </button>
+  </div>
+  <br>
+</div>
+<embed height="800px" src="http://localhost:8080/static/bon_de_sortie.pdf" type="application/pdf" width="100%">
+
+

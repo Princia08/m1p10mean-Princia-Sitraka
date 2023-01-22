@@ -14,7 +14,10 @@ class ReparationService {
   }
   getReparations = async () => {
     try {
-      const reparation = Reparation.find().populate('voiture');
+      const reparation = Reparation.find().populate({
+        path: 'voiture',
+        populate: {path: 'idClient'}
+      });
       return reparation;
     } catch (e) {
       console.log(e.message)
@@ -23,7 +26,10 @@ class ReparationService {
   }
   getReparation = async (idRep) => {
     try {
-      const reparation = Reparation.findOne({_id:idRep}).populate('voiture');
+      const reparation = Reparation.findOne({_id:idRep}).populate({
+        path: 'voiture',
+        populate: {path: 'idClient'}
+      });
       return reparation;
     } catch (e) {
       console.log(e.message)

@@ -36,7 +36,7 @@
               </thead>
               <tbody>
               <tr *ngFor="let rep of reparations">
-                <td>{{ rep.voiture }}</td>
+                <td>{{ rep.voiture.idClient.nom }}</td>
                 <td>{{ rep.voiture.marque }} {{rep.voiture.model}}</td>
                 <td>{{ rep.date_entree }}</td>
                 <td>{{ rep.avancement }}</td>

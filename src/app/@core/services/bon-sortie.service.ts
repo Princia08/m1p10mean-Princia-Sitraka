@@ -9,6 +9,7 @@ import {Observable} from "rxjs";
 export class BonSortieService {
 
   private apiEndPint = `${environment.BASE}/bonSortie`;
+  private directoryEndPoint = `${environment.BASE}`;
 
   constructor(private http: HttpClient) {
   }

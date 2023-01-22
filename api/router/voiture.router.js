@@ -7,7 +7,7 @@ function VoitureRouter(base) {
   const service = new VoitureService()
   const controller = new VoitureController(service)
 
-  // app.post(`/api/${base}`, controller.create)
+  app.post(`/api/${base}/create`, controller.create)
   app.get(`/api/${base}/voitures`, controller.getVoitures)
 }
 

@@ -28,10 +28,7 @@ export class DetailVoitureComponent implements OnInit {
   dateNow = this.date.getDay() + "/" + this.date.getMonth() + 1 + "/" + this.date.getFullYear();
   dialogIsOpen = false;
   pdfSrc: string = '';
-  // modelForm = this.formBuilder.group({
-  //   motif: ['', Validators.compose([Validators.required])],
-  //   montant: ['', Validators.compose([Validators.required, Validators.minLength(1)])],
-  // });
+
   constructor(
     private route: ActivatedRoute,
     private service: VoitureService,
@@ -40,7 +37,6 @@ export class DetailVoitureComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
     private serviceBonSortie: BonSortieService,
-    private http: HttpClient
   ) {
   }
 
@@ -52,9 +48,6 @@ export class DetailVoitureComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData();
-    this.http.get('src/assets/doc/bon_de_sortie.pdf', { responseType: 'blob' }).subscribe(pdf => {
-      this.pdfSrc = pdf.toString();
-    });
   }
 
   withBlur() {
@@ -117,12 +110,15 @@ export class DetailVoitureComponent implements OnInit {
 
   viewBonSortie(reparation: any) {
     const id = reparation._id;
-    const filePath = this.serviceBonSortie.getPdfPath(id);
+    console.log("id :"+id)
+    const filePath = this.serviceBonSortie.getPdfPath(id).subscribe(response=>{
+      console.log(response);
+    });
     const dialogRef = this.dialog.open(PdfDialogComponent, {
       data: {
-        title: "Voulez vous annuler cette réparation ? ",
         confirmText: "Valider Bon de Sortie",
         cancelText: "Fermer",
+        pdf : ""
       },
       width: '50%',
       height : '800px'
