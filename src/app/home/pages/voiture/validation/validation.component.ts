@@ -16,6 +16,7 @@ import {ConfirmDialogComponent} from "../../../confirm-dialog/confirm-dialog.com
 export class ValidationComponent implements OnInit {
   depots: Depot[] | undefined;
   reparation: Reparation | undefined;
+  dialogIsOpen = false;
 
   form = new FormGroup({
     voiture: new FormControl('')
@@ -32,10 +33,16 @@ export class ValidationComponent implements OnInit {
   ngOnInit(): void {
     this.getData()
   }
-
+  withBlur() {
+    this.dialogIsOpen = true;
+  }
+  noBlur() {
+    this.dialogIsOpen = false;
+  }
   getData() {
     this.serviceDepot.getDepots().subscribe(response => {
       this.depots = response;
+      console.log(this.depots?.length)
     })
   }
 
@@ -59,6 +66,7 @@ export class ValidationComponent implements OnInit {
       },
       width: '300px',
     });
+    this.withBlur();
 
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
@@ -73,6 +81,7 @@ export class ValidationComponent implements OnInit {
       } else {
         console.log("okzao ka")
       }
+      this.noBlur();
     })
   }
 

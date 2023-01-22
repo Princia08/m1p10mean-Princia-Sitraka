@@ -1,2 +1,9 @@
 //@import "../../../../../assets/dist/css/adminlte.min.css";
-////@import "../../../../../assets/plugins/fontawesome-free/css/all.min.css";
+//@import "../../../../../assets/plugins/fontawesome-free/css/all.min.css";
+
+//:not(.mat-dialog-container) {
+//  filter: blur(5px);
+//}
+.blur-background{
+  filter: blur(5px);
+}

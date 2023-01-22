@@ -22,7 +22,7 @@ export class DetailVoitureComponent implements OnInit {
   sousreparations: SousReparation [] | undefined;
   date: Date = new Date();
   dateNow = this.date.getDay() + "/" + this.date.getMonth() + 1 + "/" + this.date.getFullYear();
-
+  dialogIsOpen = false;
   // modelForm = this.formBuilder.group({
   //   motif: ['', Validators.compose([Validators.required])],
   //   montant: ['', Validators.compose([Validators.required, Validators.minLength(1)])],
@@ -45,6 +45,14 @@ export class DetailVoitureComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData();
+  }
+
+  withBlur() {
+    this.dialogIsOpen = true;
+  }
+
+  noBlur() {
+    this.dialogIsOpen = false;
   }
 
   getData() {
@@ -77,12 +85,13 @@ export class DetailVoitureComponent implements OnInit {
   deleteSousReparation(sp: SousReparation) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
-        title: "Voulez vous annuler la réparation ? ",
+        title: "Voulez vous annuler cette réparation ? ",
         confirmText: " Oui , Annuler ",
         cancelText: "Non, Garder",
       },
-      width: '300px',
+      width: '325px',
     });
+    this.withBlur();
 
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
@@ -92,6 +101,7 @@ export class DetailVoitureComponent implements OnInit {
       } else {
         console.log("okzao ka")
       }
+      this.noBlur();
     })
 
   }
