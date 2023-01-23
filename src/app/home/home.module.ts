@@ -13,6 +13,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import {MatButtonModule} from "@angular/material/button";
 import {PdfViewerModule} from "ng2-pdf-viewer";
 import { PdfDialogComponent } from './pdf-dialog/pdf-dialog.component';
+import { SousreparationEditDialogComponent } from './pages/voiture/sousreparation-edit-dialog/sousreparation-edit-dialog.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { PdfDialogComponent } from './pdf-dialog/pdf-dialog.component';
     DepotComponent,
     ValidationComponent,
     ConfirmDialogComponent,
-    PdfDialogComponent
+    PdfDialogComponent,
+    SousreparationEditDialogComponent
   ],
     imports: [
         CommonModule,

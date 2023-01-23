@@ -10,8 +10,8 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmDialogComponent} from "../../../confirm-dialog/confirm-dialog.component";
 import {BonSortieService} from "../../../../@core/services/bon-sortie.service";
-import { HttpClient } from '@angular/common/http';
 import {PdfDialogComponent} from "../../../pdf-dialog/pdf-dialog.component";
+import {SousreparationEditDialogComponent} from "../sousreparation-edit-dialog/sousreparation-edit-dialog.component";
 
 
 @Component({
@@ -83,6 +83,22 @@ export class DetailVoitureComponent implements OnInit {
   }
 
   setStatus() {
+    const dialogRef = this.dialog.open(SousreparationEditDialogComponent, {
+      data: {
+        title: "Modification sous reparation : ",
+        confirmText: "Confirmer",
+        cancelText: "Annuler",
+      },
+      width:'300px'
+    });
+    this.withBlur();
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+
+      } else {
+      }
+      this.noBlur();
+    })
   }
 
   deleteSousReparation(sp: SousReparation) {
@@ -105,23 +121,34 @@ export class DetailVoitureComponent implements OnInit {
         console.log("okzao ka")
       }
       this.noBlur();
-    })
+    });
+  }
+
+  updateAvacementReparation() {
+    // @ts-ignore
+    // for(let sousrep of this.sousreparations){
+    //   if(sousrep.status!="termine"){
+    //
+    //   }else{
+    //
+    //   }
+    // }
   }
 
   viewBonSortie(reparation: any) {
     const id = reparation._id;
-    console.log("id :"+id)
-    const filePath = this.serviceBonSortie.getPdfPath(id).subscribe(response=>{
+    console.log("id :" + id)
+    const filePath = this.serviceBonSortie.getPdfPath(id).subscribe(response => {
       console.log(response);
     });
     const dialogRef = this.dialog.open(PdfDialogComponent, {
       data: {
         confirmText: "Valider Bon de Sortie",
         cancelText: "Fermer",
-        pdf : ""
+        pdf: ""
       },
       width: '50%',
-      height : '800px'
+      height: '800px'
     });
     this.withBlur();
     dialogRef.afterClosed().subscribe(res => {
@@ -131,6 +158,15 @@ export class DetailVoitureComponent implements OnInit {
       }
       this.noBlur();
     })
+  }
+
+
+  confirmBonSortie(reparation: Reparation) {
+    this.serviceBonSortie.update(reparation._id).subscribe(response => {
+
+    })
+    // envoi mail vers le client
+    // update bonsortie to valide
   }
 
 

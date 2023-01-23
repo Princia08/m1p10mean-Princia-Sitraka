@@ -17,4 +17,7 @@ export class BonSortieService {
   getPdfPath(id:string): Observable<any> {
     return this.http.get<any>(`${this.apiEndPint}/bsPdf/${id}`);
   }
+  update(id: string): Observable<any> {
+    return this.http.get<any>(`${this.apiEndPint}/u/${id}`);
+  }
 }

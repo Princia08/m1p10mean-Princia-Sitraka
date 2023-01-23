@@ -85,12 +85,12 @@ class BonSortieService {
 
       doc.moveDown();
 
-      doc.text('Marque et modèle : ' + bonSortie.reparation.voiture.marque + ' ' + bonSortie.reparation.voiture.model, {
-        align: 'left'
-      });
-      doc.text('Numéro d\'immatriculation : ' + bonSortie.reparation.voiture.matricule, {
-        align: 'left'
-      });
+      // doc.text('Marque et modèle : ' + bonSortie.reparation.voiture.marque + ' ' + bonSortie.reparation.voiture.model, {
+      //   align: 'left'
+      // });
+      // doc.text('Numéro d\'immatriculation : ' + bonSortie.reparation.voiture.matricule, {
+      //   align: 'left'
+      // });
 
       doc.moveDown();
       doc.moveDown();
