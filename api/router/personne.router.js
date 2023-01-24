@@ -1,14 +1,15 @@
-const { PersonneController } = require('../controllers/personne.controller')
+const {PersonneController} = require('../controllers/personne.controller')
 const {PersonneService} = require('../services/personne.service')
 const {app} = require('../modules/app/app.module')
 
-function PersonneRouter(base){
+function PersonneRouter(base) {
 
-    const service = new PersonneService()
-    const controller = new PersonneController(service)
+  const service = new PersonneService()
+  const controller = new PersonneController(service)
 
-    app.post(`/api/${base}`, controller.create)
-    app.post(`/api/${base}/login`, controller.login)
+  app.post(`/api/${base}`, controller.create)
+  app.post(`/api/${base}/login`, controller.login)
+  app.get(`/api/${base}/sendMail`, controller.sendMail)
 }
 
 module.exports = {PersonneRouter}

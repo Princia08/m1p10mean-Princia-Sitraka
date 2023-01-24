@@ -38,7 +38,7 @@
               <tr *ngFor="let rep of reparations">
                 <td>{{ rep.voiture.idClient.nom }}</td>
                 <td>{{ rep.voiture.marque }} {{rep.voiture.model}}</td>
-                <td>{{ rep.date_entree }}</td>
+                <td>{{ rep.date_entree | date : 'dd-MM-yyy HH:mm'}}</td>
                 <td>{{ rep.avancement }}</td>
                 <td><button type="button" class="btn btn-block btn-dark btn-sm" (click)="getDetail(rep)">Détails</button></td>
               </tr>

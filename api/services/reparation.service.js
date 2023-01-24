@@ -1,4 +1,5 @@
 const {Reparation} = require("../models/reparation.model");
+const {SousReparation} = require("../models/sousReparation.model");
 
 class ReparationService {
 
@@ -9,6 +10,22 @@ class ReparationService {
       return reparation;
     } catch (e) {
       console.log(e.message)
+      throw e
+    }
+  }
+  updateFinish = async (idReparation) => {
+    try {
+      const repUpdate = await Reparation.findOneAndUpdate({_id: idReparation}, {$set: {avancement: "fini"}}, {new: true})
+      return repUpdate;
+    } catch (e) {
+      throw e
+    }
+  }
+  updateNoFinish = async (idReparation) => {
+    try {
+      const repUpdate = await Reparation.findOneAndUpdate({_id: idReparation}, {$set: {avancement: "en cours"}}, {new: true})
+      return repUpdate;
+    } catch (e) {
       throw e
     }
   }

@@ -25,11 +25,12 @@
               <div class="col-md-10">
                 <div class="callout callout-info">
                   <h3><i class="fas fa-info-circle"></i> Note:</h3>
-                  Cette voiture est encore en {{reparation?.avancement}} de réparation
+                  Cette voiture est  {{reparation?.avancement}} de réparation
                 </div>
               </div>
               <div class="col-md-2">
-                <button (click)="viewBonSortie(reparation)" class="btn btn-primary float-right"
+                <button (click)="viewBonSortie(reparation)" [disabled]="reparation?.avancement!='fini'"
+                        class="btn btn-primary float-right"
                         style="margin-right: 5px;" type="button">
                   <i class="fas fa-download"></i> Voir Bon de Sortie
                 </button>
@@ -46,7 +47,7 @@
                   </h2>
                 </div>
                 <div class="col-2">
-                  <h2><small class="float-right">Date: {{dateNow}}</small></h2>
+                  <h2><small class="float-right">Date: {{ date | date :  'dd-MM-yyy' }}</small></h2>
                 </div>
                 <!-- /.col -->
               </div>
@@ -57,7 +58,7 @@
                   <address>
                     <strong>{{reparation?.voiture?.marque}} {{reparation?.voiture?.model}}</strong><br>
                     {{reparation?.voiture?.matricule}}<br>
-                    Date d'entrée : {{reparation?.date_entree}}<br>
+                    Date d'entrée : {{reparation?.date_entree | date : 'dd-MM-yyy HH:mm' }}<br>
                     Etat : {{reparation?.avancement}} de réparation
                   </address>
                 </div>
@@ -97,7 +98,7 @@
                         <input class="form-control" formControlName="motif" placeholder="Motif de réparation ..."
                                type="text">
                       </div>
-                     <div class="col-4">
+                      <div class="col-4">
                         <input class="form-control" formControlName="montant" placeholder="Montant" type="number">
                       </div>
                       <div class="col-4">
@@ -124,13 +125,16 @@
                     <tbody>
                     <tr *ngFor="let sousrep of sousreparations">
                       <td>{{sousrep.motif}}</td>
-                      <td>{{sousrep.montant}} Ar</td>
+                      <td>{{sousrep.montant | number }} Ar</td>
                       <td>{{sousrep.status}}</td>
                       <td>
-                        <button (click)="setStatus()" class="btn btn-warning"><i class="nav-icon fas fa-edit"></i>
-                        </button>
-                        <button (click)="deleteSousReparation(sousrep)" class="btn btn-danger"><i
-                          class="nav-icon fas fa-trash"></i></button>
+                        <div *ngIf="sousrep.status!='fini' ">
+                          <button (click)="setStatus(sousrep)" class="btn btn-success" title="Finir la réparation"><i
+                            class="nav-icon fas fa-check"></i>
+                          </button>
+                          <button (click)="deleteSousReparation(sousrep)" class="btn btn-danger"><i
+                            class="nav-icon fas fa-trash"></i></button>
+                        </div>
                       </td>
                     </tr>
 

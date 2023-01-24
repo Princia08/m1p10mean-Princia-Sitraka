@@ -1,4 +1,5 @@
 const {SousReparation} = require("../models/sousReparation.model");
+const {Depot} = require("../models/depot.model");
 
 class SousReparationService {
   create = async (body) => {
@@ -6,6 +7,14 @@ class SousReparationService {
       const sousrep = new SousReparation(body)
       await sousrep.save()
       return sousrep;
+    } catch (e) {
+      throw e
+    }
+  }
+  update = async (idSousRep) => {
+    try {
+      const spUpdate = await SousReparation.findOneAndUpdate({_id: idSousRep}, {$set: {status: "fini"}}, {new: true})
+      return spUpdate;
     } catch (e) {
       throw e
     }

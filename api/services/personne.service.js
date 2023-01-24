@@ -1,6 +1,7 @@
 const {Personne} = require("../models/personne.model")
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const nodemailer = require('nodemailer');
 
 class PersonneService {
   create = async (body) => {
@@ -33,24 +34,24 @@ class PersonneService {
     }
 
   }
-  sendMail = async (body) => {
+  sendMailToClient = async () => {
     try {
       let sender = nodemailer.createTransport({
-        service: 'outlook',
+        service: 'yahoo',
         secure: false,
         port: 587,
         auth: {
-          user: 'srovaniaina7@outlook.com',
+          user: 'sitrakaranaivosaona@yahoo.com',
           pass: 'syraxsyrax21'
         },
         tls: {
           rejectUnauthorized: false
         }
       });
-
+      console.log("here");
       let mailOptions = {
-        from: 'srovaniaina7@outlook.com',
-        to: 'rsitraka181@outlook.com',
+        from: 'sitrakaranaivosaona@yahoo.com',
+        to: 'rsitraka181@gmail.com',
         subject: 'Just a test of nodemailer',
         html: '<h1>It works !</h1>'
       }

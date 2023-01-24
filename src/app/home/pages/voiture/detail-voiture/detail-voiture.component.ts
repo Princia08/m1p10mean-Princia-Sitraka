@@ -67,7 +67,25 @@ export class DetailVoitureComponent implements OnInit {
       this.serviceReparation.getReparation(reparationId).subscribe(response => {
         this.reparation = response;
       })
+
+      this.updateReparation(reparationId);
     }
+  }
+
+  updateReparation(reparation: any) {
+    this.serviceSousReparation.getSousReparations(reparation).subscribe(sousreparations => {
+      const statusGeneral =sousreparations.every((sousrep: { status: string; }) => sousrep.status ==='fini');
+      console.log('statusGeneral : '+statusGeneral)
+      if(statusGeneral){
+        this.serviceReparation.updateTrue(reparation).subscribe(response =>{
+          console.log('reparer daoly eh');
+        });
+      }else{
+        this.serviceReparation.updateFalse(reparation).subscribe(response =>{
+          console.log('Nope');
+        });
+      }
+    });
   }
 
   addSousReparation(reparation: any) {
@@ -78,23 +96,26 @@ export class DetailVoitureComponent implements OnInit {
       this.serviceSousReparation.create(this.form.value).subscribe(response => {
         this.form.reset();
         this.getData();
+        this.updateReparation(reparation);
       })
     }
   }
 
-  setStatus() {
+  setStatus(sp: SousReparation) {
     const dialogRef = this.dialog.open(SousreparationEditDialogComponent, {
       data: {
-        title: "Modification sous reparation : ",
+        title: "Voulez-vous finir la réparation ? ",
         confirmText: "Confirmer",
         cancelText: "Annuler",
       },
-      width:'300px'
+      width: '280px'
     });
     this.withBlur();
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
-
+        this.serviceSousReparation.update(sp._id).subscribe(response => {
+          this.getData();
+        })
       } else {
       }
       this.noBlur();
@@ -118,7 +139,7 @@ export class DetailVoitureComponent implements OnInit {
           this.getData();
         });
       } else {
-        console.log("okzao ka")
+
       }
       this.noBlur();
     });
