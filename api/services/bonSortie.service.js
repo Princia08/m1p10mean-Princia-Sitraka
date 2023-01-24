@@ -23,18 +23,22 @@ class BonSortieService {
 
   getBonSortie = async (idReparation) => {
     try {
-      const bonSortie = await BonSortie.findOne({reparation: idReparation}).populate({
+      const bonSortie = await BonSortie.findOne({reparation: idReparation}).sort({createdAt: -1}).populate({
         path: 'reparation',
         populate: {path: 'voiture'},
       });
       return bonSortie;
     } catch (e) {
+      console.log(e.message);
       throw e;
     }
   };
 
   generatePdf = async (idReparation) => {
     try {
+      console.log("id here " + idReparation);
+
+
       const bonSortie = await this.getBonSortie(idReparation);
       const doc = new PDFDocument();
       console.log("bonsortie : " + bonSortie);
@@ -85,12 +89,12 @@ class BonSortieService {
 
       doc.moveDown();
 
-      // doc.text('Marque et modèle : ' + bonSortie.reparation.voiture.marque + ' ' + bonSortie.reparation.voiture.model, {
-      //   align: 'left'
-      // });
-      // doc.text('Numéro d\'immatriculation : ' + bonSortie.reparation.voiture.matricule, {
-      //   align: 'left'
-      // });
+      doc.text('Marque et modèle : ' + bonSortie.reparation.voiture.marque + ' ' + bonSortie.reparation.voiture.model, {
+        align: 'left'
+      });
+      doc.text('Numéro d\'immatriculation : ' + bonSortie.reparation.voiture.matricule, {
+        align: 'left'
+      });
 
       doc.moveDown();
       doc.moveDown();

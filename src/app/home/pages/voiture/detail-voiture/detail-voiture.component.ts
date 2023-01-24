@@ -12,6 +12,8 @@ import {ConfirmDialogComponent} from "../../../confirm-dialog/confirm-dialog.com
 import {BonSortieService} from "../../../../@core/services/bon-sortie.service";
 import {PdfDialogComponent} from "../../../pdf-dialog/pdf-dialog.component";
 import {SousreparationEditDialogComponent} from "../sousreparation-edit-dialog/sousreparation-edit-dialog.component";
+import {environment} from "../../../../../environments/environment";
+import {DomSanitizer} from "@angular/platform-browser";
 
 
 @Component({
@@ -37,6 +39,7 @@ export class DetailVoitureComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
     private serviceBonSortie: BonSortieService,
+    private sanitizer : DomSanitizer
   ) {
   }
 
@@ -74,14 +77,14 @@ export class DetailVoitureComponent implements OnInit {
 
   updateReparation(reparation: any) {
     this.serviceSousReparation.getSousReparations(reparation).subscribe(sousreparations => {
-      const statusGeneral =sousreparations.every((sousrep: { status: string; }) => sousrep.status ==='fini');
-      console.log('statusGeneral : '+statusGeneral)
-      if(statusGeneral){
-        this.serviceReparation.updateTrue(reparation).subscribe(response =>{
+      const statusGeneral = sousreparations.every((sousrep: { status: string; }) => sousrep.status === 'fini');
+      console.log('statusGeneral : ' + statusGeneral)
+      if (statusGeneral) {
+        this.serviceReparation.updateTrue(reparation).subscribe(response => {
           console.log('reparer daoly eh');
         });
-      }else{
-        this.serviceReparation.updateFalse(reparation).subscribe(response =>{
+      } else {
+        this.serviceReparation.updateFalse(reparation).subscribe(response => {
           console.log('Nope');
         });
       }
@@ -159,26 +162,28 @@ export class DetailVoitureComponent implements OnInit {
   viewBonSortie(reparation: any) {
     const id = reparation._id;
     console.log("id :" + id)
-    const filePath = this.serviceBonSortie.getPdfPath(id).subscribe(response => {
-      console.log(response);
-    });
-    const dialogRef = this.dialog.open(PdfDialogComponent, {
-      data: {
-        confirmText: "Valider Bon de Sortie",
-        cancelText: "Fermer",
-        pdf: ""
-      },
-      width: '50%',
-      height: '800px'
-    });
-    this.withBlur();
-    dialogRef.afterClosed().subscribe(res => {
-      if (res) {
+    const filePath = this.serviceBonSortie.getPdfPath(id).subscribe(file => {
+      console.log(file);
+      const source = environment.directory+'/'+file;
+      console.log(source);
+      const dialogRef = this.dialog.open(PdfDialogComponent, {
+        data: {
+          confirmText: "Valider Bon de Sortie",
+          cancelText: "Fermer",
+          source: this.sanitizer.bypassSecurityTrustUrl(source),
+        },
+        width: '50%',
+        height: '800px'
+      });
+      this.withBlur();
+      dialogRef.afterClosed().subscribe(res => {
+        if (res) {
 
-      } else {
-      }
-      this.noBlur();
-    })
+        } else {
+        }
+        this.noBlur();
+      })
+    });
   }
 
 

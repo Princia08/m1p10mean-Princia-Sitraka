@@ -23,7 +23,9 @@ class BonSortieController {
   getBonSortie = async (req, res) => {
     try {
       const id = req.params.id;
-      res.json(await this.bonSortieService.getBonSortie(id))
+
+
+      res.json(await this.bonSortieService.getBonSortie(id));
     } catch (e) {
       res.status(500).json({message: 'Internal Server Error'})
     }
@@ -31,8 +33,10 @@ class BonSortieController {
   getPdf = async (req, res) => {
     try {
       const id = req.params.id;
-      // const bonSortie = await this.bonSortieService.getBonSortie(id);
-      // console.log(bonSortie);
+      req.body.reparation = id;
+
+      console.log("id du bon : "+id);
+      await this.bonSortieService.create(req.body);
       res.json(await this.bonSortieService.generatePdf(id));
 
     } catch (e) {
