@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-inscription',
@@ -28,7 +29,10 @@ export class InscriptionComponent implements OnInit {
     if(this.form.valid){
       this.http.post(`${environment.BASE}/personne`, this.form.value)
       .subscribe({
-        next: (res: any) =>  this.router.navigateByUrl('/'),
+        next: (res: any) =>  {
+          this.router.navigateByUrl('/')
+          Swal.fire({ text:`${ this.form.value.nom }, votre inscription a été effectuée avec succès`, icon:'success'})
+        },
         error: (err: any) => this.errorMessage= err.error.message
       })
     }

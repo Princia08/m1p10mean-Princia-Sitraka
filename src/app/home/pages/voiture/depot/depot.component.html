@@ -1,1 +1,59 @@
-<p>depot works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h2 style="margin-top: 15px;">Nouveau Véhicule</h2>
+            <form class="form" [formGroup]="form" #formRef="ngForm">
+                <div class="form-control" style="padding: 20px;">
+                    <h3 style="margin-top: 10px;">Veuillez entrer les informations suivantes:</h3>
+                    <input class="form-control" type="text" placeholder="Matricule" formControlName="matricule"
+                     [ngStyle]="{'border-color': form.controls['matricule'].hasError('required') && formRef.submitted ? 'red' : 'rgb(230, 230, 230)' }">
+                    <input class="form-control" type="text" placeholder="Marque" formControlName="marque"
+                    [ngStyle]="{'border-color': form.controls['marque'].hasError('required') && formRef.submitted ? 'red' : 'rgb(230, 230, 230)' }">
+                    <input class="form-control" type="text" placeholder ="Model" formControlName="model"
+                    [ngStyle]="{'border-color': form.controls['model'].hasError('required') && formRef.submitted ? 'red' : 'rgb(230, 230, 230)' }">
+                    <input class="form-control" type="text" placeholder ="Description de votre réparation" formControlName="description"
+                    [ngStyle]="{'border-color': form.controls['description'].hasError('required') && formRef.submitted ? 'red' : 'rgb(230, 230, 230)' }">
+                    <p style="color:red;">{{errorFormMsg}}</p>
+                    <p><button type="button" (click)="createVehicule()" type="submit" class="btn btn-dark" style="background-color: rgb(103, 103, 103); border-color:rgb(103, 103, 103);">Valider</button></p>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <h2 style="margin-top: 15px;">Choisir parmi vos véhicules</h2>
+            <div class="form-control">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Matricule</th>
+                            <th>Marque</th>
+                            <th>Model</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let voiture of voitureList" style="cursor:pointer;" (click)="openPopup(voiture)">
+                           <td>{{voiture.matricule}}</td>
+                           <td>{{voiture.marque}}</td>
+                           <td>{{voiture.model}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- dialogue pour choix voiture  -->
+<div class="modal" *ngIf="voiture!=null" [ngStyle]="{'display':displayStyle}"
+  style="backdrop-filter: blur(3px);margin-top: 1%;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content"  style="background-color: rgb(224, 224, 224);">
+      <div class="modal-body" style="text-align:center;">
+        <h2 class="modal-title" style="padding:2% 5%; text-align: center">Veuillez décrire votre réparation:</h2>
+        <p><textarea style="width:70%; height: 70%; border-radius: 3px;" type="text"[(ngModel)]="description"></textarea></p>
+        <p style="color: rgb(255, 0, 0);">{{errorMessage}}</p>
+        <button style="color: rgb(96, 96, 96); margin-right: 4%" type="button" class="btn" (click)="closePopup()">Annuler</button>
+        <button type="button" class="btn btn-success" (click)="confirmerDepot(voiture)">Confirmer</button>
+      </div>
+    </div>
+  </div>
+</div>

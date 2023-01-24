@@ -9,7 +9,6 @@ import { InscriptionComponent } from './inscription/inscription.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from "@angular/material/dialog";
 import {ConfirmDialogComponent} from "./home/confirm-dialog/confirm-dialog.component";
-// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -25,8 +24,7 @@ import {ConfirmDialogComponent} from "./home/confirm-dialog/confirm-dialog.compo
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatDialogModule,
-    // NgbModule
+    MatDialogModule
   ],
   entryComponents :[],
   providers: [
