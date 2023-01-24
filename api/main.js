@@ -15,11 +15,11 @@ async function main() {
     // app.get('/api/test', (req, res) => res.json({message: 'Ok Bee'}))
 
     // UserRouter('user')
-    PersonneRouter('Personne')
-    VoitureRouter('Voiture')
-    DepotRouter('Depot')
-    ReparationRouter('Reparation')
-    SousReparationRouter('SousReparation')
+    PersonneRouter('personne')
+    VoitureRouter('voiture')
+    DepotRouter('depot')
+    ReparationRouter('reparation')
+    SousReparationRouter('sousReparation')
     BonSortieRouter('bonSortie')
     // app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'dist/bee-project/index.html')))
 

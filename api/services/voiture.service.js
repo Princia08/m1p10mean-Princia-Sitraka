@@ -1,5 +1,6 @@
 const {Voiture} = require("../models/voiture.model");
 const {Depot} = require("../models/depot.model");
+const e = require("express");
 
 class VoitureService {
   create = async (body) => {
@@ -21,6 +22,16 @@ class VoitureService {
       throw e
     }
   }
+
+  getVoitureByClient = async (idClient) => {
+    try {
+      const list = await Voiture.find({idClient: idClient});
+      return list;
+    } catch (e) {
+      throw e;
+    }
+  } 
+
   updateToGarage = async (idVoiture) =>{
     try {
       const depotUpdate = await Voiture.findOneAndUpdate({_id: idVoiture}, {$set: {dans_garage: "true"}}, {new: true})

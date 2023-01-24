@@ -9,7 +9,6 @@ import { InscriptionComponent } from './inscription/inscription.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from "@angular/material/dialog";
 import {ConfirmDialogComponent} from "./home/confirm-dialog/confirm-dialog.component";
-// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -26,11 +25,10 @@ import {ConfirmDialogComponent} from "./home/confirm-dialog/confirm-dialog.compo
     HttpClientModule,
     BrowserAnimationsModule,
     MatDialogModule
-    // NgbModule
   ],
   entryComponents :[],
   providers: [
-    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
+    // {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
   ],
   bootstrap: [AppComponent]
 })

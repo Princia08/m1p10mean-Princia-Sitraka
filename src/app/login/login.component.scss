@@ -1,4 +1,4 @@
-div.row{
+div.roww{
     display: flex;
     justify-content: space-between;
     background-color: #FCFDFF;
@@ -21,12 +21,12 @@ div.row{
         img.curve{
             height: 100vh;
         }
-        div.content{
+        div.contentt{
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             padding: 67px;
-            width: 400px;
+            width: 500px;
             background-color: #191468;
             div.header{
                 color: white;
@@ -40,7 +40,7 @@ div.row{
     }
 }
 
-form.form{
+form.formm{
     position: relative;
     bottom: 60px;
     width: fit-content;
