@@ -15,7 +15,7 @@ class ReparationService {
   }
   updateFinish = async (idReparation) => {
     try {
-      const repUpdate = await Reparation.findOneAndUpdate({_id: idReparation}, {$set: {avancement: "fini"}}, {new: true})
+      const repUpdate = await Reparation.findOneAndUpdate({_id: idReparation}, {$set: {avancement: "terminée"}}, {new: true})
       return repUpdate;
     } catch (e) {
       throw e

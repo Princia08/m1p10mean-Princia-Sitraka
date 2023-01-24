@@ -38,7 +38,7 @@ class BonSortieService {
     try {
       const bonSortie = await this.getBonSortie(idReparation);
       const doc = new PDFDocument();
-      console.log("bonsortie : " + bonSortie);
+      // console.log("bonsortie : " + bonSortie);
       const path = 'static/';
       const file = 'bon_de_sortie.pdf';
       const filePath = path + file;

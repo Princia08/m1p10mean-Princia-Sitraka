@@ -28,17 +28,17 @@
                 <div class="col-md-10">
                   <div class="callout callout-info">
                     <h3><i class="fas fa-info-circle"></i> Note:</h3>
-                    <div *ngIf="reparation?.avancement=='fini';else enCours ">
-                      La réparation de ce véhicule est terminée
+                    <div *ngIf="reparation?.avancement=='terminée';else enCours ">
+                      <i class="nav-icon fas fa-check-square" style="color:green"></i> La réparation de ce véhicule est terminée
                     </div>
                     <ng-template #enCours>
-                      Ce véhicule est en cours de réparation
+                      <i class="nav-icon fa fa-warning" style="color:darkgoldenrod"></i>Ce véhicule est en cours de réparation
                     </ng-template>
 
                   </div>
                 </div>
                 <div class="col-md-2">
-                  <button (click)="viewBonSortie(reparation)" [disabled]="reparation?.avancement!='fini'"
+                  <button (click)="viewBonSortie(reparation)" [disabled]="reparation?.avancement!='terminée'"
                           class="btn btn-primary float-right"
                           style="margin-right: 5px;" type="button">
                     <i class="fas fa-download"></i> Voir Bon de Sortie
@@ -66,7 +66,7 @@
                     <strong>{{reparation?.voiture?.marque}} {{reparation?.voiture?.model}}</strong><br>
                     {{reparation?.voiture?.matricule}}<br>
                     Date d'entrée : {{reparation?.date_entree | date : 'dd-MM-yyy HH:mm' }}<br>
-                    Etat : {{reparation?.avancement}} de réparation
+                    Etat : {{reparation?.avancement}}
                   </address>
                 </div>
                 <!-- /.col -->
@@ -91,31 +91,31 @@
               </div>
               <!-- /.row -->
               <hr>
-              <div class="card card-dark">
-                <div class="card-header">
-                  <h3 class="card-title">Ajouter de nouvelle réparation</h3>
-                </div>
+              <div *ngIf="bonSortie?.valide=='false'">
+                <div class="card card-dark">
+                  <div class="card-header">
+                    <h3 class="card-title">Ajouter de nouvelle réparation</h3>
+                  </div>
 
-                <div class="card-body">
-                  <form (ngSubmit)="addSousReparation(reparation)" [formGroup]="form">
-                    <div class="row">
-                      <div class="col-4">
-                        <input class="form-control" formControlName="reparation"
-                               type="hidden">
-                        <input class="form-control" formControlName="motif" placeholder="Motif de réparation ..."
-                               type="text">
+                  <div class="card-body">
+                    <form (ngSubmit)="addSousReparation(reparation)" [formGroup]="form">
+                      <div class="row">
+                        <div class="col-4">
+                          <input class="form-control" formControlName="reparation"
+                                 type="hidden">
+                          <input class="form-control" formControlName="motif" placeholder="Motif de réparation ..."
+                                 type="text">
+                        </div>
+                        <div class="col-4">
+                          <input class="form-control" formControlName="montant" placeholder="Montant" type="number">
+                        </div>
+                        <div class="col-4">
+                          <button [disabled]="!form.valid" class="form-control btn btn-success">Ajouter</button>
+                        </div>
                       </div>
-                      <div class="col-4">
-                        <input class="form-control" formControlName="montant" placeholder="Montant" type="number">
-                      </div>
-                      <div class="col-4">
-                        <button [disabled]="!form.valid" class="form-control btn btn-success">Ajouter</button>
-                      </div>
-                    </div>
-                  </form>
+                    </form>
+                  </div>
                 </div>
-
-                <!-- /.card-body -->
               </div>
               <!-- Table row -->
               <div class="row">
@@ -155,46 +155,6 @@
                 </div>
                 <!-- /.col -->
               </div>
-              <!-- /.row -->
-
-              <!--              <div class="row">-->
-              <!--                &lt;!&ndash; accepted payments column &ndash;&gt;-->
-              <!--                <div class="col-6">-->
-              <!--                  <p class="lead">Payment Methods:</p>-->
-              <!--                  <img alt="Visa" src="../../dist/img/credit/visa.png">-->
-              <!--                  <img alt="Mastercard" src="../../dist/img/credit/mastercard.png">-->
-              <!--                  <img alt="American Express" src="../../dist/img/credit/american-express.png">-->
-              <!--                  <img alt="Paypal" src="../../dist/img/credit/paypal2.png">-->
-
-              <!--                  <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">-->
-              <!--                    Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem-->
-              <!--                    plugg-->
-              <!--                    dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.-->
-              <!--                  </p>-->
-              <!--                </div>-->
-              <!--                &lt;!&ndash; /.col &ndash;&gt;-->
-              <!--                <div class="col-6">-->
-              <!--                  <p class="lead">Total du {{dateNow}}</p>-->
-
-              <!--                  <div class="table-responsive">-->
-              <!--                    <table class="table">-->
-              <!--                      <tr>-->
-              <!--                        <th style="width:50%">Subtotal:</th>-->
-              <!--                        <td>250.030 Ar</td>-->
-              <!--                      </tr>-->
-              <!--                      <tr>-->
-              <!--                        <th>Pourboire</th>-->
-              <!--                        <td>10.34 Ar</td>-->
-              <!--                      </tr>-->
-              <!--                      <tr>-->
-              <!--                        <th>Total:</th>-->
-              <!--                        <td>265.240 Ar</td>-->
-              <!--                      </tr>-->
-              <!--                    </table>-->
-              <!--                  </div>-->
-              <!--                </div>-->
-              <!-- /.col -->
-              <!--              </div>-->
               <!-- /.row -->
 
             </div>

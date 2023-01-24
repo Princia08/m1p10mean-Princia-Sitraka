@@ -14,6 +14,7 @@ import {PdfDialogComponent} from "../../../pdf-dialog/pdf-dialog.component";
 import {SousreparationEditDialogComponent} from "../sousreparation-edit-dialog/sousreparation-edit-dialog.component";
 import {environment} from "../../../../../environments/environment";
 import {DomSanitizer} from "@angular/platform-browser";
+import {BonSortie} from "../../../../@core/models/bonSortie.model";
 
 
 @Component({
@@ -29,7 +30,7 @@ export class DetailVoitureComponent implements OnInit {
   date: Date = new Date();
   dateNow = this.date.getDay() + "/" + this.date.getMonth() + 1 + "/" + this.date.getFullYear();
   dialogIsOpen = false;
-  pdfSrc: string = '';
+  bonSortie: BonSortie | undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -70,6 +71,9 @@ export class DetailVoitureComponent implements OnInit {
       });
       this.serviceReparation.getReparation(reparationId).subscribe(response => {
         this.reparation = response;
+      })
+      this.serviceBonSortie.getBonSortie(reparationId).subscribe(response => {
+        this.bonSortie = response;
       })
     }
   }
@@ -156,8 +160,8 @@ export class DetailVoitureComponent implements OnInit {
 
   viewBonSortie(reparation: any) {
     const id = reparation._id;
-    console.log("id :" + id)
-    const filePath = this.serviceBonSortie.getPdfPath(id).subscribe(file => {
+
+    this.serviceBonSortie.getPdfPath(id).subscribe(file => {
       console.log(file);
       const source = environment.directory + '/' + file;
       console.log(source);
@@ -166,6 +170,7 @@ export class DetailVoitureComponent implements OnInit {
           confirmText: "Valider Bon de Sortie",
           cancelText: "Fermer",
           source: this.sanitizer.bypassSecurityTrustUrl(source),
+          reparation: reparation
         },
         width: '50%',
         height: '800px'
@@ -173,7 +178,7 @@ export class DetailVoitureComponent implements OnInit {
       this.withBlur();
       dialogRef.afterClosed().subscribe(res => {
         if (res) {
-
+            this.getData();
         } else {
         }
         this.noBlur();

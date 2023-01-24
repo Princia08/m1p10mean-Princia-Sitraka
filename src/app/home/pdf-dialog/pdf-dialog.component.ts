@@ -2,6 +2,8 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {DomSanitizer} from "@angular/platform-browser";
 import {BonSortieService} from "../../@core/services/bon-sortie.service";
+import {BonSortie} from "../../@core/models/bonSortie.model";
+
 
 @Component({
   selector: 'app-pdf-dialog',
@@ -12,20 +14,29 @@ export class PdfDialogComponent implements OnInit {
 
   dialogIsOpen = false;
   sourcePdf: string = '';
+  bonSortie: BonSortie | undefined;
 
   constructor(
     private sanitizer: DomSanitizer,
     public dialogRef: MatDialogRef<PdfDialogComponent>,
-    private bonSortieService : BonSortieService,
+    private bonSortieService: BonSortieService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
   }
 
   ngOnInit(): void {
-    this.sourcePdf = ' '+this.sanitizer.bypassSecurityTrustResourceUrl(this.data.source).toString();
-    console.log('pdf : ' + this.sourcePdf);
+    this.sourcePdf = ' ' + this.sanitizer.bypassSecurityTrustResourceUrl(this.data.source).toString();
+    this.getData();
   }
-  pdfUrl(){}
+
+  getData() {
+    this.bonSortieService.getBonSortie(this.data.reparation._id).subscribe(response => {
+      this.bonSortie = response;
+    });
+  }
+
+  pdfUrl() {
+  }
 
   onclickNo(): void {
     this.dialogRef.close(false);
@@ -33,9 +44,14 @@ export class PdfDialogComponent implements OnInit {
 
   onclickYes(): void {
     this.dialogRef.close(true);
+    this.confirmBonSortie();
   }
 
-  confirmBonSortie(){
+  confirmBonSortie() {
+    this.bonSortieService.update(this.data.reparation._id).subscribe(response => {
+      this.bonSortie = response;
+    });
+    // console.log(bonSortieUpdated);
     //update bon de sortie
     //envoi mail vers le client
     //rendre le bouton valider indisponible

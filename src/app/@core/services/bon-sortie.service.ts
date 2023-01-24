@@ -13,7 +13,9 @@ export class BonSortieService {
 
   constructor(private http: HttpClient) {
   }
-
+  getBonSortie(id:string): Observable<any> {
+    return this.http.get<any>(`${this.apiEndPint}/bs/${id}`);
+  }
   getPdfPath(id:string): Observable<any> {
     return this.http.get<any>(`${this.apiEndPint}/bsPdf/${id}`);
   }
