@@ -148,16 +148,6 @@ export class DetailVoitureComponent implements OnInit {
     });
   }
 
-  updateAvacementReparation() {
-    // @ts-ignore
-    // for(let sousrep of this.sousreparations){
-    //   if(sousrep.status!="termine"){
-    //
-    //   }else{
-    //
-    //   }
-    // }
-  }
 
   viewBonSortie(reparation: any) {
     const id = reparation._id;
