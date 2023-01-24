@@ -25,7 +25,7 @@ class BonSortieService {
     try {
       const bonSortie = await BonSortie.findOne({reparation: idReparation}).sort({createdAt: -1}).populate({
         path: 'reparation',
-        populate: {path: 'voiture'},
+        populate: {path: 'voiture', populate: {path: 'idClient'}},
       });
       return bonSortie;
     } catch (e) {
@@ -36,9 +36,6 @@ class BonSortieService {
 
   generatePdf = async (idReparation) => {
     try {
-      console.log("id here " + idReparation);
-
-
       const bonSortie = await this.getBonSortie(idReparation);
       const doc = new PDFDocument();
       console.log("bonsortie : " + bonSortie);
@@ -49,13 +46,13 @@ class BonSortieService {
 // Pipe the document to a file
       doc.pipe(fs.createWriteStream(filePath));
 
-// Add a title
-      doc.fontSize(25).text('Bon de sortie de réparation de véhicule', {
+//  title
+      doc.fontSize(25).text('Bon de sortie : ' + bonSortie.reparation.voiture.marque + ' ' + bonSortie.reparation.voiture.model, {
         underline: true,
         align: 'center'
       });
 
-// Add some text
+//  text
       doc.fontSize(12).text('Date : ' + new Date().toLocaleString(), {
         align: 'right'
       });
@@ -77,13 +74,13 @@ class BonSortieService {
 
       doc.moveDown();
 
-      doc.text('Nom du client : ' + 'John Doe', {
+      doc.text('Nom du client : ' + bonSortie.reparation.voiture.idClient.nom, {
         align: 'left'
       });
-      doc.text('Téléphone : ' + '+1 555 555 5555', {
+      doc.text('Adresse : ' + bonSortie.reparation.voiture.idClient.adresse, {
         align: 'left'
       });
-      doc.text('Email : ' + 'johndoe@example.com', {
+      doc.text('Email : ' + bonSortie.reparation.voiture.idClient.mail, {
         align: 'left'
       });
 

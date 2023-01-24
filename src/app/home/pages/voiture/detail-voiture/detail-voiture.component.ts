@@ -39,7 +39,7 @@ export class DetailVoitureComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
     private serviceBonSortie: BonSortieService,
-    private sanitizer : DomSanitizer
+    private sanitizer: DomSanitizer
   ) {
   }
 
@@ -63,6 +63,7 @@ export class DetailVoitureComponent implements OnInit {
 
   getData() {
     const reparationId: string | null = this.route.snapshot.paramMap.get('id');
+    // this.updateReparation(reparationId);
     if (reparationId) {
       this.serviceSousReparation.getSousReparations(reparationId).subscribe(response => {
         this.sousreparations = response;
@@ -70,18 +71,16 @@ export class DetailVoitureComponent implements OnInit {
       this.serviceReparation.getReparation(reparationId).subscribe(response => {
         this.reparation = response;
       })
-
-      this.updateReparation(reparationId);
     }
   }
 
   updateReparation(reparation: any) {
     this.serviceSousReparation.getSousReparations(reparation).subscribe(sousreparations => {
-      const statusGeneral = sousreparations.every((sousrep: { status: string; }) => sousrep.status === 'fini');
+      const statusGeneral = sousreparations.every((sousrep: { status: string; }) => sousrep.status === 'terminée');
       console.log('statusGeneral : ' + statusGeneral)
       if (statusGeneral) {
         this.serviceReparation.updateTrue(reparation).subscribe(response => {
-          console.log('reparer daoly eh');
+          console.log('reparée daoly eh');
         });
       } else {
         this.serviceReparation.updateFalse(reparation).subscribe(response => {
@@ -98,16 +97,17 @@ export class DetailVoitureComponent implements OnInit {
     if (idRep) {
       this.serviceSousReparation.create(this.form.value).subscribe(response => {
         this.form.reset();
+        this.updateReparation(reparation._id);
         this.getData();
-        this.updateReparation(reparation);
       })
     }
   }
 
   setStatus(sp: SousReparation) {
+    const reparationId: string | null = this.route.snapshot.paramMap.get('id');
     const dialogRef = this.dialog.open(SousreparationEditDialogComponent, {
       data: {
-        title: "Voulez-vous finir la réparation ? ",
+        title: "Voulez-vous finir cette réparation ? ",
         confirmText: "Confirmer",
         cancelText: "Annuler",
       },
@@ -117,15 +117,19 @@ export class DetailVoitureComponent implements OnInit {
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
         this.serviceSousReparation.update(sp._id).subscribe(response => {
+          console.log("mandalo ato am update");
+          this.updateReparation(reparationId);
           this.getData();
         })
       } else {
       }
       this.noBlur();
-    })
+    });
+
   }
 
   deleteSousReparation(sp: SousReparation) {
+    const reparationId: string | null = this.route.snapshot.paramMap.get('id');
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
         title: "Voulez vous annuler cette réparation ? ",
@@ -139,6 +143,7 @@ export class DetailVoitureComponent implements OnInit {
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
         this.serviceSousReparation.delete(sp._id).subscribe(response => {
+          this.updateReparation(reparationId);
           this.getData();
         });
       } else {
@@ -154,7 +159,7 @@ export class DetailVoitureComponent implements OnInit {
     console.log("id :" + id)
     const filePath = this.serviceBonSortie.getPdfPath(id).subscribe(file => {
       console.log(file);
-      const source = environment.directory+'/'+file;
+      const source = environment.directory + '/' + file;
       console.log(source);
       const dialogRef = this.dialog.open(PdfDialogComponent, {
         data: {
@@ -179,7 +184,6 @@ export class DetailVoitureComponent implements OnInit {
 
   confirmBonSortie(reparation: Reparation) {
     this.serviceBonSortie.update(reparation._id).subscribe(response => {
-
     })
     // envoi mail vers le client
     // update bonsortie to valide

@@ -13,7 +13,7 @@ class SousReparationService {
   }
   update = async (idSousRep) => {
     try {
-      const spUpdate = await SousReparation.findOneAndUpdate({_id: idSousRep}, {$set: {status: "fini"}}, {new: true})
+      const spUpdate = await SousReparation.findOneAndUpdate({_id: idSousRep}, {$set: {status: "terminée"}}, {new: true})
       return spUpdate;
     } catch (e) {
       throw e

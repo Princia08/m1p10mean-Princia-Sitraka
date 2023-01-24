@@ -22,30 +22,30 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            <div class="row">
-              <div class="col-md-10">
-                <div class="callout callout-info">
-                  <h3><i class="fas fa-info-circle"></i> Note:</h3>
-                  <div *ngIf="reparation?.avancement=='fini';else enCours ">
-                    La réparation de ce véhicule est terminée
-                  </div>
-                  <ng-template #enCours>
-                    Cette voiture est en cours de réparation
-                  </ng-template>
-
-                </div>
-              </div>
-              <div class="col-md-2">
-                <button (click)="viewBonSortie(reparation)" [disabled]="reparation?.avancement!='fini'"
-                        class="btn btn-primary float-right"
-                        style="margin-right: 5px;" type="button">
-                  <i class="fas fa-download"></i> Voir Bon de Sortie
-                </button>
-              </div>
-
-            </div>
             <!-- Main content -->
             <div class="invoice p-3 mb-3">
+              <div class="row">
+                <div class="col-md-10">
+                  <div class="callout callout-info">
+                    <h3><i class="fas fa-info-circle"></i> Note:</h3>
+                    <div *ngIf="reparation?.avancement=='fini';else enCours ">
+                      La réparation de ce véhicule est terminée
+                    </div>
+                    <ng-template #enCours>
+                      Ce véhicule est en cours de réparation
+                    </ng-template>
+
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <button (click)="viewBonSortie(reparation)" [disabled]="reparation?.avancement!='fini'"
+                          class="btn btn-primary float-right"
+                          style="margin-right: 5px;" type="button">
+                    <i class="fas fa-download"></i> Voir Bon de Sortie
+                  </button>
+                </div>
+              </div>
+              <hr>
               <!-- title row -->
               <div class="row">
                 <div class="col-10">
@@ -71,7 +71,7 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-sm-4 invoice-col">
-                  Client :
+                  Client
                   <address>
                     <strong>Nom : {{reparation?.voiture?.idClient?.nom}} </strong><br>
                     {{reparation?.voiture?.idClient?.adresse}}<br>
@@ -81,11 +81,11 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-sm-4 invoice-col">
-                  <b>Invoice #007612 test</b><br>
+                  <b>Fiche de reparation </b><br>
                   <br>
-                  <b>Order ID:</b> 4F3S8J<br>
-                  <b>Payment Due:</b> 2/22/2014<br>
-                  <b>Account:</b> 968-34567
+                  <b>Order ID :</b> {{reparation?._id}}<br>
+                  <b>Ajd :</b> {{ date | date :  'dd-MM-yyy' }}<br>
+                  <b>Compte :</b> 968-34567
                 </div>
                 <!-- /.col -->
               </div>
@@ -135,13 +135,18 @@
                       <td>{{sousrep.montant | number }} Ar</td>
                       <td>{{sousrep.status}}</td>
                       <td>
-                        <div *ngIf="sousrep.status!='fini' ">
-                          <button (click)="setStatus(sousrep)" class="btn btn-success" title="Finir la réparation"><i
-                            class="nav-icon fas fa-check"></i>
+                        <div *ngIf="sousrep.status!='terminée';else terminate ">
+                          <button (click)="setStatus(sousrep)" class="btn btn-success" title="Finir la réparation">
+                            <i class="nav-icon fas fa-check"></i>
                           </button>
-                          <button (click)="deleteSousReparation(sousrep)" class="btn btn-danger"><i
-                            class="nav-icon fas fa-trash"></i></button>
+                          <button (click)="deleteSousReparation(sousrep)" class="btn btn-danger"
+                                  title="Annuler cette réparation">
+                            <i class="nav-icon fas fa-trash"></i>
+                          </button>
                         </div>
+                        <ng-template #terminate>
+                          <i class="nav-icon fas fa-check-circle" style="color:green"></i>
+                        </ng-template>
                       </td>
                     </tr>
 

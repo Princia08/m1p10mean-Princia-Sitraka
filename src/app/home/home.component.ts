@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   setItems() {
     if (this.tokenService.getUserByToken().role == 'repsonsable_atelier') {
       this.menuItems = [
-        {path: '/home/vehicule', title: 'Véhicule', icon: 'fas fa-warehouse'},
+        {path: '/home/vehicule', title: 'Véhicules', icon: 'fas fa-car'},
         {path: '/home/validation', title: 'Validation', icon: 'fas fa-hourglass-half'}
       ]
     } else if (this.tokenService.getUserByToken().role == 'client') {
