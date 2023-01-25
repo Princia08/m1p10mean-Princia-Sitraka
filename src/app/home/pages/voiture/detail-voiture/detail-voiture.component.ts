@@ -69,26 +69,30 @@ export class DetailVoitureComponent implements OnInit {
       this.serviceSousReparation.getSousReparations(reparationId).subscribe(response => {
         this.sousreparations = response;
       });
-      this.serviceReparation.getReparation(reparationId).subscribe(response => {
-        this.reparation = response;
-      })
       this.serviceBonSortie.getBonSortie(reparationId).subscribe(response => {
         this.bonSortie = response;
-      })
+      });
+      this.serviceReparation.getReparation(reparationId).subscribe(response => {
+        this.reparation = response;
+      });
+      this.serviceBonSortie.getPdfPath(reparationId).subscribe(response=>{});
+
     }
   }
 
   updateReparation(reparation: any) {
     this.serviceSousReparation.getSousReparations(reparation).subscribe(sousreparations => {
       const statusGeneral = sousreparations.every((sousrep: { status: string; }) => sousrep.status === 'terminée');
-      console.log('statusGeneral : ' + statusGeneral)
+      console.log('statusGeneral : ' + statusGeneral);
       if (statusGeneral) {
         this.serviceReparation.updateTrue(reparation).subscribe(response => {
+          this.getData();
           console.log('reparée daoly eh');
         });
       } else {
         this.serviceReparation.updateFalse(reparation).subscribe(response => {
-          console.log('Nope');
+          this.getData();
+          console.log('tsy vita daoly ndray ');
         });
       }
     });
@@ -185,14 +189,6 @@ export class DetailVoitureComponent implements OnInit {
       })
     });
   }
-
-
-  confirmBonSortie(reparation: Reparation) {
-    this.serviceBonSortie.update(reparation._id).subscribe(response => {
-    })
-    // envoi mail vers le client
-    // update bonsortie to valide
-  }
-
+  
 
 }
