@@ -32,6 +32,20 @@ class SousReparationService {
     }
   }
 
+  getMontant = async (idReparation) =>{
+    try {
+      const list = await SousReparation.aggregate([{
+        $group:{
+          _id : "$reparation",
+          total : {$sum : "montant"}
+        }
+      }]);
+      return list;
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
+
   deleteSousRep = async (idSp) => {
     try {
       await SousReparation.deleteOne({_id: idSp});
