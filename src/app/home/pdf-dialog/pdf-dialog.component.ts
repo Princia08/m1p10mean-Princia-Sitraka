@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {DomSanitizer} from "@angular/platform-browser";
+import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {BonSortieService} from "../../@core/services/bon-sortie.service";
 import {BonSortie} from "../../@core/models/bonSortie.model";
 
@@ -13,7 +13,7 @@ import {BonSortie} from "../../@core/models/bonSortie.model";
 export class PdfDialogComponent implements OnInit {
 
   dialogIsOpen = false;
-  sourcePdf: string = '';
+  sourcePdf!: SafeResourceUrl;
   bonSortie: BonSortie | undefined;
 
   constructor(
@@ -25,7 +25,7 @@ export class PdfDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.sourcePdf = ' ' + this.sanitizer.bypassSecurityTrustResourceUrl(this.data.source).toString();
+    this.sourcePdf = this.sanitizer.bypassSecurityTrustResourceUrl(this.data.source);
     this.getData();
   }
 

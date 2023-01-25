@@ -166,14 +166,12 @@ export class DetailVoitureComponent implements OnInit {
     const id = reparation._id;
 
     this.serviceBonSortie.getPdfPath(id).subscribe(file => {
-      console.log(file);
-      const source = environment.directory + '/' + file;
-      console.log(source);
+      const sourcefile = environment.directory + '/' + file;
       const dialogRef = this.dialog.open(PdfDialogComponent, {
         data: {
           confirmText: "Valider Bon de Sortie",
           cancelText: "Fermer",
-          source: this.sanitizer.bypassSecurityTrustUrl(source),
+          source: sourcefile,
           reparation: reparation
         },
         width: '50%',
@@ -189,6 +187,6 @@ export class DetailVoitureComponent implements OnInit {
       })
     });
   }
-  
+
 
 }
