@@ -15,6 +15,7 @@ import {PdfViewerModule} from "ng2-pdf-viewer";
 import { PdfDialogComponent } from './pdf-dialog/pdf-dialog.component';
 import { SousreparationEditDialogComponent } from './pages/voiture/sousreparation-edit-dialog/sousreparation-edit-dialog.component';
 import { StatistiqueComponent } from './pages/statistique/statistique.component';
+import {NgxChartsModule} from "@swimlane/ngx-charts";
 
 
 @NgModule({
@@ -30,13 +31,14 @@ import { StatistiqueComponent } from './pages/statistique/statistique.component'
     SousreparationEditDialogComponent,
     StatistiqueComponent
   ],
-    imports: [
-        CommonModule,
-        HomeRoutingModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatButtonModule,
-        PdfViewerModule
-    ]
+  imports: [
+    CommonModule,
+    HomeRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    PdfViewerModule,
+    NgxChartsModule,
+  ]
 })
 export class HomeModule { }

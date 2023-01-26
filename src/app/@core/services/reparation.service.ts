@@ -31,4 +31,7 @@ export class ReparationService {
   updateFalse(id: string): Observable<any> {
     return this.http.get<any>(`${this.apiEndPint}/uf/${id}`);
   }
+  getMontantMoyenne(): Observable<any> {
+    return this.http.get<any>(`${this.apiEndPint}/timeMean`);
+  }
 }
