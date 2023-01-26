@@ -43,7 +43,7 @@ class ReparationService {
   }
   getReparation = async (idRep) => {
     try {
-      const reparation = Reparation.findOne({_id:idRep}).populate({
+      const reparation = Reparation.findOne({_id: idRep}).populate({
         path: 'voiture',
         populate: {path: 'idClient'}
       });
@@ -53,7 +53,32 @@ class ReparationService {
       throw e
     }
   }
+  getSommeMontant = async (voitureId) => {
+    try {
+      const reparation = Reparation.aggregate([
+        {$match: {voiture: voitureId}},
+        {
+          $lookup: {
+            from: 'sousreparations',
+            localField: '_id',
+            foreignField: 'reparation',
+            as: 'sousReparations'
+          }
+        },
+        {$unwind: '$sousReparations'},
+        {
+          $group: {
+            _id: '$_id',
+            totalAmount: {$sum: '$sousReparations.montant'}
+          }
+        }]);
 
+      return reparation;
+    } catch (e) {
+      console.log(e.message)
+      throw e
+    }
+  }
 }
 
 module.exports = {ReparationService}

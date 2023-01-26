@@ -1,5 +1,6 @@
 const {SousReparation} = require("../models/sousReparation.model");
 const {Depot} = require("../models/depot.model");
+const mongoose = require("mongoose");
 
 class SousReparationService {
   create = async (body) => {
@@ -32,14 +33,18 @@ class SousReparationService {
     }
   }
 
-  getMontant = async (idReparation) =>{
+  getMontant = async (idReparation) => {
     try {
-      const list = await SousReparation.aggregate([{
-        $group:{
-          _id : "$reparation",
-          total : {$sum : "montant"}
-        }
-      }]);
+      console.log(idReparation);
+      const list = await SousReparation.aggregate([
+        {$match: {reparation: mongoose.Types.ObjectId(idReparation)}},
+        {
+          $group: {
+            _id: "$reparation",
+            totalMontant: {$sum: "$montant"}
+          }
+        }]);
+      console.log(list);
       return list;
     } catch (e) {
       console.log(e.message);
