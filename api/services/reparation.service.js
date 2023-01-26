@@ -1,5 +1,6 @@
 const {Reparation} = require("../models/reparation.model");
 const {SousReparation} = require("../models/sousReparation.model");
+const mongoose = require("mongoose");
 
 class ReparationService {
 
@@ -55,6 +56,33 @@ class ReparationService {
         path: 'voiture',
         populate: {path: 'idClient'}
       });
+      return reparation;
+    } catch (e) {
+      console.log(e.message)
+      throw e
+    }
+  }
+  getAllSousReparation = async (idReparation) => {
+    try {
+      const reparation = await Reparation.aggregate([
+        {
+          $match: {_id: mongoose.Types.ObjectId(idReparation)}
+        },
+        {
+          $lookup: {
+            from: "sousReparations",
+            localField: "_id",
+            foreignField: "reparation",
+            as: "sousReparations"
+          }
+        },
+        {
+          $project: {
+            "sousReparations.motif": 1,
+            "sousReparations.montant": 1
+          }
+        }
+      ]);
       return reparation;
     } catch (e) {
       console.log(e.message)
