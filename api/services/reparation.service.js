@@ -29,6 +29,14 @@ class ReparationService {
       throw e
     }
   }
+  updateDateSortie = async (idReparation) => {
+    try {
+      const repUpdate = await Reparation.findOneAndUpdate({_id: idReparation}, {$set: {date_sortie: new Date().toISOString()}}, {new: true})
+      return repUpdate;
+    } catch (e) {
+      throw e
+    }
+  }
   getReparations = async () => {
     try {
       const reparation = Reparation.find().populate({
@@ -53,30 +61,32 @@ class ReparationService {
       throw e
     }
   }
-  getSommeMontant = async (voitureId) => {
+  getTempsdeReparationMoyenne = async () => {
     try {
-      const reparation = Reparation.aggregate([
-        {$match: {voiture: voitureId}},
+      const tempsMoyenne = await Reparation.aggregate([
         {
-          $lookup: {
-            from: 'sousreparations',
-            localField: '_id',
-            foreignField: 'reparation',
-            as: 'sousReparations'
+          $match: {
+            date_sortie: {$ne: null}
           }
         },
-        {$unwind: '$sousReparations'},
         {
           $group: {
-            _id: '$_id',
-            totalAmount: {$sum: '$sousReparations.montant'}
+            _id: null,
+            tempsMoyenne: {
+              $avg: {
+                $subtract: [
+                  "$date_sortie",
+                  "$date_entree"
+                ]
+              }
+            }
           }
-        }]);
-
-      return reparation;
+        }
+      ]);
+      let tempsMoyenneHeure = Math.round(tempsMoyenne[0].tempsMoyenne / (1000 * 60 * 60));
+      return tempsMoyenneHeure;
     } catch (e) {
-      console.log(e.message)
-      throw e
+      console.log(e);
     }
   }
 }

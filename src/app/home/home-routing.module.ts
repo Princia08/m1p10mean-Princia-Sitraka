@@ -6,6 +6,7 @@ import { HomeComponent } from "./home.component";
 import { ValidationComponent } from "./pages/voiture/validation/validation.component";
 import { DepotComponent } from './pages/voiture/depot/depot.component';
 import { AccueilComponent } from './pages/accueil/accueil.component';
+import {StatistiqueComponent} from "./pages/statistique/statistique.component";
 
 const routes: Routes = [
   {
@@ -15,7 +16,9 @@ const routes: Routes = [
       {path: 'vehicule', component: ListVoitureComponent},
       {path: 'depot', component: DepotComponent},
       {path: 'vehicule/:id', component: DetailVoitureComponent},
-      {path: 'validation', component: ValidationComponent}
+      {path: 'validation', component: ValidationComponent},
+      {path: 'stat', component: StatistiqueComponent},
+      {path: 'depense', component: ValidationComponent}
     ]
   },
 ];

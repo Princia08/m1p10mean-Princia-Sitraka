@@ -42,7 +42,15 @@
             "scripts": [
               "src/assets/plugins/jquery/jquery.min.js",
               "src/assets/plugins/bootstrap/js/bootstrap.bundle.min.js",
-              "src/assets/dist/js/adminlte.min.js"
+              "src/assets/dist/js/adminlte.min.js",
+              "src/assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js",
+              "src/assets/plugins/jquery-mousewheel/jquery.mousewheel.js",
+              "src/assets/plugins/raphael/raphael.min.js",
+              "src/assets/plugins/jquery-mapael/jquery.mapael.min.js",
+              "src/assets/plugins/jquery-mapael/maps/usa_states.min.js",
+              "src/assets/plugins/chart.js/Chart.min.js",
+              "src/assets/dist/js/demo.js",
+              "src/assets/dist/js/pages/dashboard2.js"
             ]
           },
           "configurations": {

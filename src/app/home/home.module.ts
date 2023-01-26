@@ -14,6 +14,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {PdfViewerModule} from "ng2-pdf-viewer";
 import { PdfDialogComponent } from './pdf-dialog/pdf-dialog.component';
 import { SousreparationEditDialogComponent } from './pages/voiture/sousreparation-edit-dialog/sousreparation-edit-dialog.component';
+import { StatistiqueComponent } from './pages/statistique/statistique.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { SousreparationEditDialogComponent } from './pages/voiture/sousreparatio
     ValidationComponent,
     ConfirmDialogComponent,
     PdfDialogComponent,
-    SousreparationEditDialogComponent
+    SousreparationEditDialogComponent,
+    StatistiqueComponent
   ],
     imports: [
         CommonModule,
