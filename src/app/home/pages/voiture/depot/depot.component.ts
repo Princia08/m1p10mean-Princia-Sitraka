@@ -44,7 +44,6 @@ export class DepotComponent implements OnInit {
   public createVehicule() {
     if (this.form.valid) {
       let data = this.form.value;
-      let idClient = this.tokenService.getUserByToken()._id;
       this.http.post(`${environment.BASE}/voiture`, {
         idClient: this.tokenService.getUserByToken()._id,
         matricule: data.matricule,

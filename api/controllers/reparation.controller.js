@@ -29,6 +29,12 @@ class ReparationController {
       res.status(500).json({message: 'Internal Server Error'})
     }
   }
+
+  getReparationByClient = async (req, res) => {
+    try{ res.json(await this.reparationService.getReparationByClient(req.params.idClient)) }
+    catch(e) { throw e; }
+  }
+
   delete = async (req, res) => {
     try {
       const id = req.params.id;

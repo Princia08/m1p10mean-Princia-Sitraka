@@ -1,3 +1,4 @@
+const { async } = require("rxjs");
 const {Reparation} = require("../models/reparation.model");
 
 class ReparationService {
@@ -27,7 +28,17 @@ class ReparationService {
       return reparation;
     } catch (e) {
       console.log(e.message)
-      throw e
+      throw e;
+    }
+  }
+
+  getReparationByClient = async(idClient) => {
+    try {
+      const reparation = await Reparation.find().populate({path:'voiture', match:{idClient:idClient}});
+      return reparation;
+    }
+    catch(e) {
+      throw e;
     }
   }
 

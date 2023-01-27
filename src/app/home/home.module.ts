@@ -11,6 +11,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { DepotComponent } from './pages/voiture/depot/depot.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import {MatButtonModule} from "@angular/material/button";
+import { ReparationComponent } from './pages/reparation/reparation.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import {MatButtonModule} from "@angular/material/button";
     DetailVoitureComponent,
     DepotComponent,
     ValidationComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    ReparationComponent
   ],
     imports: [
         CommonModule,

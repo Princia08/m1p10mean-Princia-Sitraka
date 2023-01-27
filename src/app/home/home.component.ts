@@ -26,7 +26,8 @@ export class HomeComponent implements OnInit {
       ]
     } else if (this.tokenService.getUserByToken().role == 'client') {
       this.menuItems = [
-        {path: '/home/depot', title: 'Dépôt', icon: 'fas fa-warehouse'}
+        {path: '/home/depot', title: 'Dépôt', icon: 'fas fa-warehouse'},
+        {path: '/home/reparation', title: 'Réparation', icon: 'fa fa-wrench'}
       ]
     }
   }
