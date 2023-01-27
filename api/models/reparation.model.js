@@ -20,6 +20,11 @@ const ReparationSchema = new mongoose.Schema({
         ref: 'voiture',
         type: mongoose.Schema.Types.ObjectId,
         default: null
+    },
+    idClient : {
+        ref: 'personne',
+        type: mongoose.Schema.Types.ObjectId,
+        default: null
     }
 })
 

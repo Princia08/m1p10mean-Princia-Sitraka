@@ -66,7 +66,7 @@ class ReparationService {
 
   getReparationByClient = async(idClient) => {
     try {
-      const reparation = await Reparation.find().populate({path:'voiture', match:{idClient:idClient}});
+      const reparation = await Reparation.find({idClient:idClient}).populate({path:'voiture'});
       return reparation;
     }
     catch(e) {
