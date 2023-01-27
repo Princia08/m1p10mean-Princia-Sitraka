@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {BonSortieService} from "../../@core/services/bon-sortie.service";
 import {BonSortie} from "../../@core/models/bonSortie.model";
+import {PersonneService} from "../../@core/services/personne.service";
 
 
 @Component({
@@ -20,6 +21,7 @@ export class PdfDialogComponent implements OnInit {
     private sanitizer: DomSanitizer,
     public dialogRef: MatDialogRef<PdfDialogComponent>,
     private bonSortieService: BonSortieService,
+    private servicePersonne: PersonneService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
   }
@@ -50,6 +52,10 @@ export class PdfDialogComponent implements OnInit {
   confirmBonSortie() {
     this.bonSortieService.update(this.data.reparation._id).subscribe(response => {
       this.bonSortie = response;
+    });
+    this.servicePersonne.sendMail().subscribe(response=>{
+      console.log("envoyé le mail");
+      console.log(response);
     });
     // console.log(bonSortieUpdated);
     //update bon de sortie

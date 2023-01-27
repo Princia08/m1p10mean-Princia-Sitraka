@@ -46,8 +46,6 @@ class DepenseService {
           }
         }
       ]);
-
-      console.log(list);
       return list
     } catch (e) {
       console.log(e.message)

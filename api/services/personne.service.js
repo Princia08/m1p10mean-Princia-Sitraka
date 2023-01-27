@@ -37,25 +37,26 @@ class PersonneService {
   sendMailToClient = async () => {
     try {
       let sender = nodemailer.createTransport({
-        service: 'yahoo',
+        service: 'outlook',
         secure: false,
         port: 587,
         auth: {
-          user: 'sitrakaranaivosaona@yahoo.com',
+          user: 'srovaniaina7@outlook.com',
           pass: 'syraxsyrax21'
         },
         tls: {
           rejectUnauthorized: false
         }
       });
-      console.log("here");
       let mailOptions = {
-        from: 'sitrakaranaivosaona@yahoo.com',
+        from: 'srovaniaina7@outlook.com',
         to: 'rsitraka181@gmail.com',
-        subject: 'Just a test of nodemailer',
-        html: '<h1>It works !</h1>'
+        subject: 'Garglass : véhicule à récuperer',
+        html: '<h1>GarGlass!</h1> ' +
+          '<h3>Votre véhicule est réparé </h3>' +
+          '<h3>Vous pouvez le récuperer</h3>'
       }
-      sender.sendMail(mailOptions, (error, info) => {
+      await sender.sendMail(mailOptions, (error, info) => {
         if (error) {
           return console.log(error);
         }

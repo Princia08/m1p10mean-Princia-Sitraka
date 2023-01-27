@@ -7,6 +7,7 @@ import {FormControl, FormGroup} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogService} from "../../../../@core/services/dialog/dialog.service";
 import {ConfirmDialogComponent} from "../../../confirm-dialog/confirm-dialog.component";
+import {PersonneService} from "../../../../@core/services/personne.service";
 
 @Component({
   selector: 'app-validation',
@@ -27,7 +28,8 @@ export class ValidationComponent implements OnInit {
     private serviceDepot: DepotService,
     private serviceReparation: ReparationService,
     private dialogService: DialogService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private servicePersonne : PersonneService
   ) {
   }
 
@@ -79,7 +81,8 @@ export class ValidationComponent implements OnInit {
             console.log("insert here");
           });
         });
-        console.log("confirmer le izy")
+
+        console.log("confirmer le izy");
       } else {
         console.log("okzao ka")
       }
