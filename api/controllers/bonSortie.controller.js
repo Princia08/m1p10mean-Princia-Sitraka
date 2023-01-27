@@ -11,10 +11,10 @@ class BonSortieController {
       res.status(500).json({message: 'Internal Server Error'})
     }
   }
-  updateDepot = async (req, res) => {
+  update = async (req, res) => {
     try {
       const id = req.params.id;
-      await this.bonSortieService.update(id);
+      res.json(await this.bonSortieService.update(id));
     } catch (e) {
       console.log(e.message)
       res.status(500).json({message: 'Internal Server Error'})
@@ -23,7 +23,7 @@ class BonSortieController {
   getBonSortie = async (req, res) => {
     try {
       const id = req.params.id;
-      res.json(await this.bonSortieService.getBonSortie(id))
+      res.json(await this.bonSortieService.getBonSortie(id));
     } catch (e) {
       res.status(500).json({message: 'Internal Server Error'})
     }
@@ -31,10 +31,12 @@ class BonSortieController {
   getPdf = async (req, res) => {
     try {
       const id = req.params.id;
-      // const bonSortie = await this.bonSortieService.getBonSortie(id);
-      // console.log(bonSortie);
-      await this.bonSortieService.getBonDeSortiePDF(id);
-
+      req.body.reparation = id;
+      const bonSortieParReparation = await this.bonSortieService.getBonSortie(id);
+      if (bonSortieParReparation == null) {
+        await this.bonSortieService.create(req.body);
+      }
+      res.json(await this.bonSortieService.generatePdf(id));
     } catch (e) {
       console.log(e.message);
       res.status(500).json({message: 'Internal Server Error'})

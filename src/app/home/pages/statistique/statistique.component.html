@@ -1,0 +1,39 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-10">
+        <h1>Statistiques</h1>
+      </div>
+      <div class="col-sm-2">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Accueil</a></li>
+          <li class="breadcrumb-item active">Statistiques</li>
+        </ol>
+      </div>
+
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <ngx-charts-number-card
+          [results]="reparationMoyenne"
+          [cardColor]="cardColor"
+          [view]="view"
+          (select)="onSelect($event)">
+        </ngx-charts-number-card>
+      </div>
+      <div class="col-md-6">Another Statistique here</div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="">Graphique chiffre d'affaires ici</div>
+      <div class="">
+
+      </div>
+    </div>
+  </div>
+</section>

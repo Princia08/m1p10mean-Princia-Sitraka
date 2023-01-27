@@ -12,6 +12,12 @@ import { DepotComponent } from './pages/voiture/depot/depot.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import {MatButtonModule} from "@angular/material/button";
 import { ReparationComponent } from './pages/reparation/reparation.component';
+import {PdfViewerModule} from "ng2-pdf-viewer";
+import { PdfDialogComponent } from './pdf-dialog/pdf-dialog.component';
+import { SousreparationEditDialogComponent } from './pages/voiture/sousreparation-edit-dialog/sousreparation-edit-dialog.component';
+import { StatistiqueComponent } from './pages/statistique/statistique.component';
+import {NgxChartsModule} from "@swimlane/ngx-charts";
+import { DepenseComponent } from './pages/depense/depense.component';
 
 
 @NgModule({
@@ -24,13 +30,19 @@ import { ReparationComponent } from './pages/reparation/reparation.component';
     ValidationComponent,
     ConfirmDialogComponent,
     ReparationComponent
+    PdfDialogComponent,
+    SousreparationEditDialogComponent,
+    StatistiqueComponent,
+    DepenseComponent
   ],
-    imports: [
-        CommonModule,
-        HomeRoutingModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatButtonModule
-    ]
+  imports: [
+    CommonModule,
+    HomeRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    PdfViewerModule,
+    NgxChartsModule,
+  ]
 })
 export class HomeModule { }

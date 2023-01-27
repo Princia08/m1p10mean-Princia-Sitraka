@@ -12,6 +12,33 @@ class ReparationController {
       res.status(500).json({message: 'Internal Server Error'})
     }
   }
+  updateFinish = async (req, res) => {
+    try {
+      const id = req.params.id;
+      res.json(await this.reparationService.updateFinish(id));
+    } catch (e) {
+      console.log(e.message)
+      res.status(500).json({message: 'Internal Server Error'})
+    }
+  }
+  updateWaiting = async (req, res) => {
+    try {
+      const id = req.params.id;
+      res.json(await this.reparationService.updateNoFinish(id));
+    } catch (e) {
+      console.log(e.message)
+      res.status(500).json({message: 'Internal Server Error'})
+    }
+  }
+  updateDateSortie = async (req, res) => {
+    try {
+      const id = req.params.id;
+      res.json(await this.reparationService.updateDateSortie(id));
+    } catch (e) {
+      console.log(e.message)
+      res.status(500).json({message: 'Internal Server Error'})
+    }
+  }
   getReparations = async (req, res) => {
     try {
       res.json(await this.reparationService.getReparations())
@@ -38,7 +65,24 @@ class ReparationController {
   delete = async (req, res) => {
     try {
       const id = req.params.id;
-      await this.reparationService.delete(id);
+      res.json(await this.reparationService.delete(id));
+    } catch (e) {
+      console.log(e.message)
+      res.status(500).json({message: 'Internal Server Error'})
+    }
+  }
+  getMontant = async (req, res) => {
+    try {
+      const id = req.params.id;
+      res.json(await this.reparationService.getSommeMontant(id))
+    } catch (e) {
+      console.log(e.message)
+      res.status(500).json({message: 'Internal Server Error'})
+    }
+  }
+  getTempsMoyenne = async (req, res) => {
+    try {
+      res.json(await this.reparationService.getTempsdeReparationMoyenne())
     } catch (e) {
       console.log(e.message)
       res.status(500).json({message: 'Internal Server Error'})

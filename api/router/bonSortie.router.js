@@ -12,6 +12,7 @@ function BonSortieRouter(base) {
   app.post(`/api/${base}/create`, controller.create)
   app.get(`/api/${base}/bs/:id`, controller.getBonSortie);
   app.get(`/api/${base}/bsPdf/:id`, controller.getPdf);
+  app.get(`/api/${base}/u/:id`, controller.update);
 }
 
 module.exports = {BonSortieRouter}

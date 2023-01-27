@@ -11,6 +11,14 @@ class VoitureController {
     catch(e){ res.status(e.status || 500).json({message: e.message || 'Internal Server Error'}) }
   }
 
+  create = async (req, res) => {
+    try {
+      res.json(await this.voitureService.create(req.body))
+    } catch (e) {
+      console.log(e.message)
+      res.status(e.status || 500).json({message: e.message || 'Internal Server Error'})
+    }
+  }
   getVoitures = async (req, res) => {
     try {
       res.json(await this.voitureService.getVoitures())

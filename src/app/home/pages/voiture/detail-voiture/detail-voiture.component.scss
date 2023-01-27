@@ -2,4 +2,5 @@
 //@import "../../../../../assets/plugins/fontawesome-free/css/all.min.css";
 .blur-background{
   filter: blur(5px);
+  pointer-events: none;
 }

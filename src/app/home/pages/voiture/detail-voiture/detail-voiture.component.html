@@ -4,15 +4,16 @@
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-6">
+          <div class="col-sm-10">
             <h1>Détails</h1>
           </div>
-          <div class="col-sm-6">
+          <div class="col-sm-2">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Accueil</a></li>
               <li class="breadcrumb-item active">Détails</li>
             </ol>
           </div>
+
         </div>
       </div><!-- /.container-fluid -->
     </section>
@@ -21,21 +22,39 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            <div class="callout callout-info">
-              <h5><i class="fas fa-info"></i> Note:</h5>
-              Cette voiture est encore en {{reparation?.avancement}} de réparation
-            </div>
-
-
             <!-- Main content -->
             <div class="invoice p-3 mb-3">
+              <div class="row">
+                <div class="col-md-10">
+                  <div class="callout callout-info">
+                    <h3><i class="fas fa-info-circle"></i> Note:</h3>
+                    <div *ngIf="reparation?.avancement=='terminée';else enCours ">
+                      <i class="nav-icon fas fa-check-square" style="color:green"></i> La réparation de ce véhicule est terminée
+                    </div>
+                    <ng-template #enCours>
+                      <i class="nav-icon fa fa-warning" style="color:darkgoldenrod"></i>Ce véhicule est en cours de réparation
+                    </ng-template>
+
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <button (click)="viewBonSortie(reparation)" [disabled]="reparation?.avancement!='terminée'"
+                          class="btn btn-primary float-right"
+                          style="margin-right: 5px;" type="button">
+                    <i class="fas fa-download"></i> Voir Bon de Sortie
+                  </button>
+                </div>
+              </div>
+              <hr>
               <!-- title row -->
               <div class="row">
-                <div class="col-12">
-                  <h4>
+                <div class="col-10">
+                  <h2>
                     <i class="fas fa-globe"></i> Garage, Inc.
-                    <small class="float-right">Date: {{dateNow}}</small>
-                  </h4>
+                  </h2>
+                </div>
+                <div class="col-2">
+                  <h2><small class="float-right">Date: {{ date | date :  'dd-MM-yyy' }}</small></h2>
                 </div>
                 <!-- /.col -->
               </div>
@@ -46,57 +65,55 @@
                   <address>
                     <strong>{{reparation?.voiture?.marque}} {{reparation?.voiture?.model}}</strong><br>
                     {{reparation?.voiture?.matricule}}<br>
-                    Date d'entrée : {{reparation?.date_entree}}<br>
-                    Etat : {{reparation?.avancement}} de réparation
+                    Date d'entrée : {{reparation?.date_entree | date : 'dd-MM-yyy HH:mm' }}<br>
+                    Etat : {{reparation?.avancement}}
                   </address>
                 </div>
                 <!-- /.col -->
                 <div class="col-sm-4 invoice-col">
-                  Client :
+                  Client
                   <address>
-                    <strong>John Doe</strong><br>
-                    795 Folsom Ave, Suite 600<br>
-                    San Francisco, CA 94107<br>
-                    Email: john.doe@example.com
+                    <strong>Nom : {{reparation?.voiture?.idClient?.nom}} </strong><br>
+                    {{reparation?.voiture?.idClient?.adresse}}<br>
+                    032 45 256 45<br>
+                    Email: {{reparation?.voiture?.idClient?.mail}}
                   </address>
                 </div>
                 <!-- /.col -->
                 <div class="col-sm-4 invoice-col">
-                  <b>Invoice #007612 test</b><br>
+                  <b>Fiche de reparation </b><br>
                   <br>
-                  <b>Order ID:</b> 4F3S8J<br>
-                  <b>Payment Due:</b> 2/22/2014<br>
-                  <b>Account:</b> 968-34567
+                  <b>Order ID :</b> {{reparation?._id}}<br>
+                  <b>Ajd :</b> {{ date | date :  'dd-MM-yyy' }}<br>
+                  <b>Compte :</b> 968-34567
                 </div>
                 <!-- /.col -->
               </div>
               <!-- /.row -->
               <hr>
-              <div class="card card-dark">
-                <div class="card-header">
-                  <h3 class="card-title">Ajouter de nouvelle réparation</h3>
-                </div>
+              <div *ngIf="bonSortie?.valide=='false'">
+                <div class="card card-dark">
+                  <div class="card-header">
+                    <h3 class="card-title">Ajouter de nouvelle réparation</h3>
+                  </div>
 
-                <div class="card-body">
-                  <form (ngSubmit)="addSousReparation(reparation)" [formGroup]="form">
-                    <div class="row">
-                      <div class="col-4">
-                        <input class="form-control" formControlName="reparation"
-                               type="hidden">
-                        <input class="form-control" formControlName="motif" placeholder="Motif de réparation ..."
-                               type="text">
+                  <div class="card-body">
+                    <form (ngSubmit)="addSousReparation(reparation)" [formGroup]="form">
+                      <div class="row">
+                        <div class="col-4">
+                          <input class="form-control" formControlName="reparation" type="hidden">
+                          <input class="form-control" formControlName="motif" placeholder="Motif de réparation ..."  type="text">
+                        </div>
+                        <div class="col-4">
+                          <input class="form-control" formControlName="montant" placeholder="Montant" type="number">
+                        </div>
+                        <div class="col-4">
+                          <button [disabled]="!form.valid" class="form-control btn btn-success">Ajouter</button>
+                        </div>
                       </div>
-                      <div class="col-4">
-                        <input class="form-control" formControlName="montant" placeholder="Montant" type="number">
-                      </div>
-                      <div class="col-4">
-                        <button [disabled]="!form.valid" class="form-control btn btn-success">Ajouter</button>
-                      </div>
-                    </div>
-                  </form>
+                    </form>
+                  </div>
                 </div>
-
-                <!-- /.card-body -->
               </div>
               <!-- Table row -->
               <div class="row">
@@ -113,13 +130,21 @@
                     <tbody>
                     <tr *ngFor="let sousrep of sousreparations">
                       <td>{{sousrep.motif}}</td>
-                      <td>{{sousrep.montant}} Ar</td>
+                      <td>{{sousrep.montant | number }} Ar</td>
                       <td>{{sousrep.status}}</td>
                       <td>
-                        <button (click)="setStatus()" class="btn btn-warning"><i class="nav-icon fas fa-edit"></i>
-                        </button>
-                        <button (click)="deleteSousReparation(sousrep)" class="btn btn-danger"><i
-                          class="nav-icon fas fa-trash"></i></button>
+                        <div *ngIf="sousrep.status!='terminée';else terminate ">
+                          <button (click)="setStatus(sousrep)" class="btn btn-success" title="Finir la réparation">
+                            <i class="nav-icon fas fa-check"></i>
+                          </button>
+                          <button (click)="deleteSousReparation(sousrep)" class="btn btn-danger"
+                                  title="Annuler cette réparation">
+                            <i class="nav-icon fas fa-trash"></i>
+                          </button>
+                        </div>
+                        <ng-template #terminate>
+                          <i class="nav-icon fas fa-check-circle" style="color:green"></i>
+                        </ng-template>
                       </td>
                     </tr>
 
@@ -130,58 +155,6 @@
               </div>
               <!-- /.row -->
 
-              <div class="row">
-                <!-- accepted payments column -->
-                <div class="col-6">
-                  <p class="lead">Payment Methods:</p>
-                  <img alt="Visa" src="../../dist/img/credit/visa.png">
-                  <img alt="Mastercard" src="../../dist/img/credit/mastercard.png">
-                  <img alt="American Express" src="../../dist/img/credit/american-express.png">
-                  <img alt="Paypal" src="../../dist/img/credit/paypal2.png">
-
-                  <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
-                    Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem
-                    plugg
-                    dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
-                  </p>
-                </div>
-                <!-- /.col -->
-                <div class="col-6">
-                  <p class="lead">Total du {{dateNow}}</p>
-
-                  <div class="table-responsive">
-                    <table class="table">
-                      <tr>
-                        <th style="width:50%">Subtotal:</th>
-                        <td>250.030 Ar</td>
-                      </tr>
-                      <tr>
-                        <th>Pourboire</th>
-                        <td>10.34 Ar</td>
-                      </tr>
-                      <tr>
-                        <th>Total:</th>
-                        <td>265.240 Ar</td>
-                      </tr>
-                    </table>
-                  </div>
-                </div>
-                <!-- /.col -->
-              </div>
-              <!-- /.row -->
-
-              <!-- this row will not appear when printing -->
-              <div class="row no-print">
-                <div class="col-12">
-
-                  <button class="btn btn-success float-right" type="button"><i class="fas fa-check-circle"></i>
-                    Valider Bon de Sortie
-                  </button>
-                  <button class="btn btn-primary float-right" style="margin-right: 5px;" type="button"><i
-                    class="fas fa-download"></i> Voir Bon de Sortie
-                  </button>
-                </div>
-              </div>
             </div>
             <!-- /.invoice -->
           </div><!-- /.col -->

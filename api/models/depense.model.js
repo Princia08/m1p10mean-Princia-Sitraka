@@ -5,10 +5,11 @@ const DepenseSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.String
     },
     montant: {
-        type: mongoose.Schema.Types.Double
+        type: mongoose.Schema.Types.Number
     },
     date: {
-        type: mongoose.Schema.Types.Date
+        type: mongoose.Schema.Types.Date,
+        default: Date.now
     }
 })
 

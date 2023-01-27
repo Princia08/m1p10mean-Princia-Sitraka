@@ -9,6 +9,13 @@ import {ReparationService} from "../../../../@core/services/reparation.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmDialogComponent} from "../../../confirm-dialog/confirm-dialog.component";
+import {BonSortieService} from "../../../../@core/services/bon-sortie.service";
+import {PdfDialogComponent} from "../../../pdf-dialog/pdf-dialog.component";
+import {SousreparationEditDialogComponent} from "../sousreparation-edit-dialog/sousreparation-edit-dialog.component";
+import {environment} from "../../../../../environments/environment";
+import {DomSanitizer} from "@angular/platform-browser";
+import {BonSortie} from "../../../../@core/models/bonSortie.model";
+
 
 @Component({
   selector: 'app-detail-voiture',
@@ -23,17 +30,17 @@ export class DetailVoitureComponent implements OnInit {
   date: Date = new Date();
   dateNow = this.date.getDay() + "/" + this.date.getMonth() + 1 + "/" + this.date.getFullYear();
   dialogIsOpen = false;
-  // modelForm = this.formBuilder.group({
-  //   motif: ['', Validators.compose([Validators.required])],
-  //   montant: ['', Validators.compose([Validators.required, Validators.minLength(1)])],
-  // });
+  bonSortie: BonSortie | undefined;
+
   constructor(
     private route: ActivatedRoute,
     private service: VoitureService,
     private serviceSousReparation: SousreparationService,
     private serviceReparation: ReparationService,
     private formBuilder: FormBuilder,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private serviceBonSortie: BonSortieService,
+    private sanitizer: DomSanitizer
   ) {
   }
 
@@ -57,14 +64,38 @@ export class DetailVoitureComponent implements OnInit {
 
   getData() {
     const reparationId: string | null = this.route.snapshot.paramMap.get('id');
+    // this.updateReparation(reparationId);
     if (reparationId) {
       this.serviceSousReparation.getSousReparations(reparationId).subscribe(response => {
         this.sousreparations = response;
       });
+      this.serviceBonSortie.getBonSortie(reparationId).subscribe(response => {
+        this.bonSortie = response;
+      });
       this.serviceReparation.getReparation(reparationId).subscribe(response => {
         this.reparation = response;
-      })
+      });
+      this.serviceBonSortie.getPdfPath(reparationId).subscribe(response=>{});
+
     }
+  }
+
+  updateReparation(reparation: any) {
+    this.serviceSousReparation.getSousReparations(reparation).subscribe(sousreparations => {
+      const statusGeneral = sousreparations.every((sousrep: { status: string; }) => sousrep.status === 'terminée');
+      console.log('statusGeneral : ' + statusGeneral);
+      if (statusGeneral) {
+        this.serviceReparation.updateTrue(reparation).subscribe(response => {
+          this.getData();
+          console.log('reparée daoly eh');
+        });
+      } else {
+        this.serviceReparation.updateFalse(reparation).subscribe(response => {
+          this.getData();
+          console.log('tsy vita daoly ndray ');
+        });
+      }
+    });
   }
 
   addSousReparation(reparation: any) {
@@ -74,15 +105,39 @@ export class DetailVoitureComponent implements OnInit {
     if (idRep) {
       this.serviceSousReparation.create(this.form.value).subscribe(response => {
         this.form.reset();
+        this.updateReparation(reparation._id);
         this.getData();
       })
     }
   }
 
-  setStatus() {
+  setStatus(sp: SousReparation) {
+    const reparationId: string | null = this.route.snapshot.paramMap.get('id');
+    const dialogRef = this.dialog.open(SousreparationEditDialogComponent, {
+      data: {
+        title: "Voulez-vous finir cette réparation ? ",
+        confirmText: "Confirmer",
+        cancelText: "Annuler",
+      },
+      width: '280px'
+    });
+    this.withBlur();
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+        this.serviceSousReparation.update(sp._id).subscribe(response => {
+          console.log("mandalo ato am update");
+          this.updateReparation(reparationId);
+          this.getData();
+        })
+      } else {
+      }
+      this.noBlur();
+    });
+
   }
 
   deleteSousReparation(sp: SousReparation) {
+    const reparationId: string | null = this.route.snapshot.paramMap.get('id');
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
         title: "Voulez vous annuler cette réparation ? ",
@@ -96,14 +151,41 @@ export class DetailVoitureComponent implements OnInit {
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
         this.serviceSousReparation.delete(sp._id).subscribe(response => {
+          this.updateReparation(reparationId);
           this.getData();
         });
       } else {
-        console.log("okzao ka")
+
       }
       this.noBlur();
-    })
+    });
+  }
 
+
+  viewBonSortie(reparation: any) {
+    const id = reparation._id;
+
+    this.serviceBonSortie.getPdfPath(id).subscribe(file => {
+      const sourcefile = environment.directory + '/' + file;
+      const dialogRef = this.dialog.open(PdfDialogComponent, {
+        data: {
+          confirmText: "Valider Bon de Sortie",
+          cancelText: "Fermer",
+          source: sourcefile,
+          reparation: reparation
+        },
+        width: '50%',
+        height: '800px'
+      });
+      this.withBlur();
+      dialogRef.afterClosed().subscribe(res => {
+        if (res) {
+            this.getData();
+        } else {
+        }
+        this.noBlur();
+      })
+    });
   }
 
 

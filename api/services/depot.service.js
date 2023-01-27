@@ -1,4 +1,5 @@
 const {Depot} = require("../models/depot.model");
+const {SousReparation} = require("../models/sousReparation.model");
 
 class DepotService {
 
@@ -23,7 +24,14 @@ class DepotService {
   getDepots = async () => {
     try {
       // var query = {"voiture._id": "63c6f662ee0ffe8a2568f86c"};
-      const list = await Depot.find({valide: "false"}).populate('voiture');
+      const list = await Depot.find({valide: "false"}).populate({
+        path: 'voiture',
+        populate: {path: 'idClient'}
+      });
+      // const sousReparation = SousReparation.find({reparation: idReparation}).populate({
+      //   path: 'reparation',
+      //   populate: {path: 'voiture'}
+      // });
       console.log(list);
       return list
     } catch (e) {

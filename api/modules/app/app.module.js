@@ -9,5 +9,6 @@ app.use((req, res, next) => {
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(express.static('dist/m1p10mean-Princia-Sitraka'))
+app.use('/static', express.static('static'))
 
 module.exports = {app}
