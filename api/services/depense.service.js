@@ -15,10 +15,7 @@ class DepenseService {
 
   getDepenses = async () => {
     try {
-      const list = await Depenses.find({valide: "false"}).populate({
-        path: 'voiture',
-        populate: {path: 'idClient'}
-      });
+      const list = await Depense.find();
       console.log(list);
       return list
     } catch (e) {
