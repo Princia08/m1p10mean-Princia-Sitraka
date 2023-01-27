@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ReparationService} from "../../../@core/services/reparation.service";
+import {DepenseService} from "../../../@core/services/depense.service";
 
 @Component({
   selector: 'app-statistique',
@@ -8,7 +9,7 @@ import {ReparationService} from "../../../@core/services/reparation.service";
 })
 export class StatistiqueComponent implements OnInit {
   reparationMoyenne: any;
-  view: [number, number] = [400, 200];
+  view: [number, number] = [900, 200];
   colorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
@@ -18,17 +19,35 @@ export class StatistiqueComponent implements OnInit {
     this.getDataMean();
   }
 
-  constructor(private serviceReparation: ReparationService) {
+  constructor(
+    private serviceReparation: ReparationService,
+    private serviceDepense: DepenseService
+  ) {
   }
 
   getDataMean() {
-    this.serviceReparation.getMontantMoyenne().subscribe(response => {
-      this.reparationMoyenne = [
-        {
-          name: "Temps de réparation Moyenne effectué ",
-          value: response + ' heure(s)'
-        }
-      ];
+    this.serviceReparation.getMontantMoyenne().subscribe(montantMoyenne => {
+      this.serviceDepense.getTotalMois().subscribe(totalDepenseMois => {
+        this.reparationMoyenne = [
+          {
+            name: "Temps de réparation Moyenne effectué ",
+            value: montantMoyenne + ' heure(s)'
+          },
+          {
+            name: "Total des dépenses par mois",
+            value: totalDepenseMois[0].total +' Ar'
+          },
+          {
+            name: "Chiffre d'affaire ajd",
+            value: '420.000 Ar'
+          },
+          {
+            name: "Bénéfice par mois",
+            value: '420.000 Ar'
+          },
+        ];
+      })
+
     })
   }
 

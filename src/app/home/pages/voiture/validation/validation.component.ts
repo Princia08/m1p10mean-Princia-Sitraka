@@ -19,7 +19,8 @@ export class ValidationComponent implements OnInit {
   dialogIsOpen = false;
 
   form = new FormGroup({
-    voiture: new FormControl('')
+    voiture: new FormControl(''),
+    idClient: new FormControl('')
   })
 
   constructor(
@@ -71,6 +72,7 @@ export class ValidationComponent implements OnInit {
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
         this.form.get('voiture')?.setValue(depot.voiture._id);
+        this.form.get('idClient')?.setValue(depot.voiture.idClient._id);
         this.serviceReparation.create(this.form.value).subscribe(response => {
           this.serviceDepot.updateDepot(depot._id).subscribe(response => {
             this.getData();
