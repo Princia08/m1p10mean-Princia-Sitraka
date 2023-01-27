@@ -8,6 +8,7 @@ const {DepotRouter} = require("./router/depot.router");
 const {ReparationRouter} = require("./router/reparation.router");
 const {SousReparationRouter} = require("./router/sousreparation.router");
 const {BonSortieRouter} = require("./router/bonSortie.router");
+const {DepenseRouter} = require("./router/depense.router");
 
 async function main() {
   try {
@@ -21,6 +22,7 @@ async function main() {
     ReparationRouter('reparation')
     SousReparationRouter('sousReparation')
     BonSortieRouter('bonSortie')
+    DepenseRouter('depense')
     // app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'dist/bee-project/index.html')))
 
     app.listen(process.env.PORT, () => console.log(`Start on ${process.env.PORT}`))
