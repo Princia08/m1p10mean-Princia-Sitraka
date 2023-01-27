@@ -30,8 +30,8 @@ export class HomeComponent implements OnInit {
       ]
     } else if (this.tokenService.getUserByToken().role == 'responsable-financier') {
       this.menuItems = [
-        {path: '/home/stat', title: 'Statistiques', icon: 'fas fa-car'},
-        {path: '/home/depenses', title: 'Dépenses', icon: 'fas fa-hourglass-half'}
+        {path: '/home/stat', title: 'Statistiques', icon: 'fa fa-tachometer'},
+        {path: '/home/depenses', title: 'Dépenses', icon: 'fa fa-credit-card'}
       ]
     }
   }

@@ -55,6 +55,7 @@
                   <th style="width: 10px">#</th>
                   <th>Motif</th>
                   <th>Montant</th>
+                  <th style="width: 40px">Date</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -62,6 +63,7 @@
                   <td>#.</td>
                   <td>{{depense.description}}</td>
                   <td><span class="badge bg-secondary">{{depense.montant | number}} Ar</span></td>
+                  <td> <span class="badge bg-dark">{{depense.date | date :  'dd/MM/yyyy'}}</span></td>
                 </tr>
                 </tbody>
               </table>
