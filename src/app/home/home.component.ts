@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {TokenService} from '../token/token.service';
+import { LogoutService } from '../security/logout/logout.service';
+import { TokenService } from '../token/token.service';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,7 @@ export class HomeComponent implements OnInit {
   menuItems !: any[];
   nom !: string;
 
-  constructor(private tokenService: TokenService) {
+  constructor(private tokenService: TokenService, private logoutService: LogoutService) {
   }
 
   ngOnInit(): void {
@@ -36,4 +37,7 @@ export class HomeComponent implements OnInit {
       ]
     }
   }
+
+  logout() { this.logoutService.logout(); }
+
 }
