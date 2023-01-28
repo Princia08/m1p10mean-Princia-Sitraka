@@ -18,21 +18,32 @@
 <section class="content">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-12">
         <ngx-charts-number-card
           [results]="reparationMoyenne"
           [cardColor]="cardColor"
-          [view]="view"
+          [view]="viewTableau"
           (select)="onSelect($event)">
         </ngx-charts-number-card>
       </div>
-      <div class="col-md-6">Another Statistique here</div>
+<!--      <div class="col-md-6">Another Statistique here</div>-->
     </div>
     <hr>
     <div class="row">
       <div class="">Graphique chiffre d'affaires ici</div>
       <div class="">
-
+        <ngx-charts-line-chart
+          [view]="viewGraphe"
+          [legend]="legend"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxis]="xAxis"
+          [yAxis]="yAxis"
+          [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel"
+          [timeline]="timeline"
+          [results]="multi">
+        </ngx-charts-line-chart>
       </div>
     </div>
   </div>

@@ -41,11 +41,20 @@ class SousReparationController {
       res.status(500).json({message: 'Internal Server Error'})
     }
   }
+  getAllSousRep = async (req, res) => {
+    try {
+      const id = req.params.id;
+      res.json(await this.sousReparationService.getAllSousReparation(id));
+    } catch (e) {
+      console.log(e.message)
+      res.status(500).json({message: 'Internal Server Error'})
+    }
+  }
 
   getMontant = async (req, res) => {
     try {
       const id = req.params.id;
-      res.json(await this.sousReparationService.getMontant(id));
+      res.json(await this.sousReparationService.getMontantTotal(id));
     } catch (e) {
       console.log(e.message)
       res.status(500).json({message: 'Internal Server Error'})

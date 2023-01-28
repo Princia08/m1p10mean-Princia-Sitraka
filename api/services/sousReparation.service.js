@@ -33,7 +33,7 @@ class SousReparationService {
     }
   }
 
-  getMontant = async (idReparation) => {
+  getMontantTotal = async (idReparation) => {
     try {
       console.log(idReparation);
       const list = await SousReparation.aggregate([

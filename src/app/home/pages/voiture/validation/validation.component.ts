@@ -7,6 +7,7 @@ import {FormControl, FormGroup} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogService} from "../../../../@core/services/dialog/dialog.service";
 import {ConfirmDialogComponent} from "../../../confirm-dialog/confirm-dialog.component";
+import {PersonneService} from "../../../../@core/services/personne.service";
 
 @Component({
   selector: 'app-validation',
@@ -19,14 +20,16 @@ export class ValidationComponent implements OnInit {
   dialogIsOpen = false;
 
   form = new FormGroup({
-    voiture: new FormControl('')
+    voiture: new FormControl(''),
+    idClient: new FormControl('')
   })
 
   constructor(
     private serviceDepot: DepotService,
     private serviceReparation: ReparationService,
     private dialogService: DialogService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private servicePersonne : PersonneService
   ) {
   }
 
@@ -71,13 +74,15 @@ export class ValidationComponent implements OnInit {
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
         this.form.get('voiture')?.setValue(depot.voiture._id);
+        this.form.get('idClient')?.setValue(depot.voiture.idClient._id);
         this.serviceReparation.create(this.form.value).subscribe(response => {
           this.serviceDepot.updateDepot(depot._id).subscribe(response => {
             this.getData();
             console.log("insert here");
           });
         });
-        console.log("confirmer le izy")
+
+        console.log("confirmer le izy");
       } else {
         console.log("okzao ka")
       }
