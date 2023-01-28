@@ -175,7 +175,7 @@ export class DetailVoitureComponent implements OnInit {
           reparation: reparation
         },
         width: '50%',
-        height: '800px'
+        height: '90%'
       });
       this.withBlur();
       dialogRef.afterClosed().subscribe(res => {
