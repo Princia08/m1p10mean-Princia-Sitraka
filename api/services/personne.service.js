@@ -34,7 +34,7 @@ class PersonneService {
     }
 
   }
-  sendMailToClient = async () => {
+  sendMailToClient = async (mailClient) => {
     try {
       let sender = nodemailer.createTransport({
         service: 'outlook',

@@ -9,7 +9,7 @@ function PersonneRouter(base) {
 
   app.post(`/api/${base}`, controller.create)
   app.post(`/api/${base}/login`, controller.login)
-  app.get(`/api/${base}/sendMail`, controller.sendMail)
+  app.get(`/api/${base}/sendMail/:mail`, controller.sendMail)
 }
 
 module.exports = {PersonneRouter}

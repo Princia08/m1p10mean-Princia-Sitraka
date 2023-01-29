@@ -4,8 +4,8 @@ import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {BonSortieService} from "../../@core/services/bon-sortie.service";
 import {BonSortie} from "../../@core/models/bonSortie.model";
 import {PersonneService} from "../../@core/services/personne.service";
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import {HttpClient} from '@angular/common/http';
+import {environment} from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
 
@@ -27,7 +27,8 @@ export class PdfDialogComponent implements OnInit {
     private servicePersonne: PersonneService,
     private http: HttpClient,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.sourcePdf = this.sanitizer.bypassSecurityTrustResourceUrl(this.data.source);
@@ -56,12 +57,17 @@ export class PdfDialogComponent implements OnInit {
 
   createFacture() {
     console.log(this.data);
-    this.http.post(`${environment.BASE}/facture`, {idReparation: this.data.reparation._id, idClient: this.data.reparation.idClient}).subscribe({
-      next: () => Swal.fire({position:'top-end',
-                                  icon:'success',
-                                  title:'Facture créée avec succès',
-                                  showConfirmButton:false,
-                                  timer:1500}),
+    this.http.post(`${environment.BASE}/facture`, {
+      idReparation: this.data.reparation._id,
+      idClient: this.data.reparation.idClient
+    }).subscribe({
+      next: () => Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Facture créée avec succès',
+        showConfirmButton: false,
+        timer: 1500
+      }),
       error: err => {
         alert(err)
       }
@@ -72,10 +78,7 @@ export class PdfDialogComponent implements OnInit {
     this.bonSortieService.update(this.data.reparation._id).subscribe(response => {
       this.bonSortie = response;
     });
-    this.servicePersonne.sendMail().subscribe();
-    // console.log(bonSortieUpdated);
-    //update bon de sortie
-    //envoi mail vers le client
-    //rendre le bouton valider indisponible
+    this.servicePersonne.sendMail(this.data.mail).subscribe();
+
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
@@ -13,7 +13,7 @@ export class PersonneService {
   constructor(private http: HttpClient) {
   }
 
-  sendMail(): Observable<any> {
-    return this.http.get<any>(`${this.apiEndPint}/sendMail`);
+  sendMail(mail: string): Observable<any> {
+    return this.http.get<any>(`${this.apiEndPint}/sendMail/:${mail}`);
   }
 }

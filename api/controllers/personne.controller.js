@@ -23,7 +23,8 @@ class PersonneController {
 
   sendMail = async (req, res) => {
     try {
-      res.json({token: (await this.personneService.sendMailToClient())})
+      const mailClient = req.params.mail;
+      res.json({token: (await this.personneService.sendMailToClient(mailClient))})
     } catch (e) {
       console.log(e.message);
       res.status(e.status || 500).json({message: e.message || 'Internal Server Error'})

@@ -165,7 +165,8 @@ export class DetailVoitureComponent implements OnInit {
 
   viewBonSortie(reparation: any) {
     const id = reparation._id;
-
+    const mailClient = this.reparation?.voiture.idClient.mail;
+    // console.log("mail avant de confirmer : "+mailClient);
     this.serviceBonSortie.getPdfPath(id).subscribe(file => {
       const sourcefile = environment.directory + '/' + file;
       const dialogRef = this.dialog.open(PdfDialogComponent, {
@@ -173,7 +174,8 @@ export class DetailVoitureComponent implements OnInit {
           confirmText: "Valider Bon de Sortie",
           cancelText: "Fermer",
           source: sourcefile,
-          reparation: reparation
+          reparation: reparation,
+          mail : mailClient,
         },
         width: '50%',
         height: '90%'
