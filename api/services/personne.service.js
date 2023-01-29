@@ -50,7 +50,7 @@ class PersonneService {
       });
       let mailOptions = {
         from: 'srovaniaina7@outlook.com',
-        to: 'rsitraka181@gmail.com',
+        to: mailClient,
         subject: 'Garglass : véhicule à récuperer',
         html: '<h1>GarGlass!</h1> ' +
           '<h3>Votre véhicule est réparé </h3>' +

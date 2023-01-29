@@ -78,6 +78,7 @@ export class PdfDialogComponent implements OnInit {
     this.bonSortieService.update(this.data.reparation._id).subscribe(response => {
       this.bonSortie = response;
     });
+    console.log("mail :"+this.data.mail);
     this.servicePersonne.sendMail(this.data.mail).subscribe();
 
   }
