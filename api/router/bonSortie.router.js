@@ -13,6 +13,7 @@ function BonSortieRouter(base) {
   app.get(`/api/${base}/bs/:id`, controller.getBonSortie);
   app.get(`/api/${base}/bsPdf/:id`, controller.getPdf);
   app.get(`/api/${base}/u/:id`, controller.update);
+  app.get(`/api/${base}/listeSousRep/:id`, controller.getListeSousRep);
 }
 
 module.exports = {BonSortieRouter}

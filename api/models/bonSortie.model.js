@@ -9,6 +9,10 @@ const BonSortieSchema = new mongoose.Schema({
     ref: 'reparation',
     type: mongoose.Schema.Types.ObjectId,
     default: null
+  },
+  date:{
+    type: mongoose.Schema.Types.Date,
+    default: Date.now
   }
 })
 

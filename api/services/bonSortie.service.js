@@ -1,9 +1,15 @@
 const {BonSortie} = require("../models/bonSortie.model");
+const {SousReparationService} = require("./sousReparation.service");
 const PDFDocument = require('pdfkit');
 const fs = require('fs');
 const serviceSousrep = require('./sousReparation.service');
+const mongoose = require("mongoose");
+
 
 class BonSortieService {
+  constructor() {
+    this.serviceSousReparation =  new SousReparationService();
+  }
   create = async (body) => {
     try {
       const bonSortie = new BonSortie(body)
@@ -34,12 +40,55 @@ class BonSortieService {
       throw e;
     }
   };
+  getListeSousReparation = async (idReparation) => {
+    try {
+      const sousreparations = await BonSortie.aggregate([
+        {
+          $match: {reparation: mongoose.Types.ObjectId(idReparation)},
+        },
+        {
+          $lookup: {
+            from: "reparations",
+            localField: "reparation",
+            foreignField: "_id",
+            as: "reparation"
+          }
+        },
+        {
+          $lookup: {
+            from: "sousreparations",
+            localField: "reparation._id",
+            foreignField: "reparation",
+            as: "sousreparation"
+          }
+        },
+        {
+          $unwind: "$sousreparation"
+        },
+        {
+          $project: {
+            _id: 1,
+            motif: "$sousreparation.motif",
+            montant: "$sousreparation.montant"
+          }
+        },
+      ]);
+      return sousreparations;
+    } catch (e) {
+      console.log(e.message);
+      throw e;
+    }
+  };
+
 
   generatePdf = async (idReparation) => {
     try {
       const bonSortie = await this.getBonSortie(idReparation);
+      let sousReparation = await this.getListeSousReparation(idReparation);
+      const montantTotal = (await  this.serviceSousReparation.getMontantTotal(idReparation))[0].totalMontant;
+      // console.log(montantTotal);
+
       const doc = new PDFDocument();
-      // console.log("bonsortie : " + bonSortie);
       const path = 'static/';
       const file = 'bon_de_sortie.pdf';
       const filePath = path + file;
@@ -56,7 +105,7 @@ class BonSortieService {
       });
 
 //  text
-      doc.fontSize(12).text('Date : ' + new Date().toLocaleString(), {
+      doc.fontSize(12).text('Date : ' + bonSortie.date.toLocaleString(), {
         align: 'right'
       });
 
@@ -103,18 +152,15 @@ class BonSortieService {
         align: 'left'
       });
 
-      doc.text('- Remplacement des plaquettes de frein', {
-        align: 'left'
+      sousReparation.forEach(sousRep => {
+        doc.text('- ' + sousRep.motif + ' : ' + sousRep.montant + ' Ar', {
+          align: 'left'
+        });
       });
-      doc.text('- Vidange d\'huile', {
-        align: 'left'
-      });
-      doc.text('- Réparation de la fuite d\'huile', {
-        align: 'left'
-      });
+
       doc.moveDown();
 
-      doc.text('Prix total : ' + '$ 500', {
+      doc.text('Prix total : ' + montantTotal +' Ar', {
         align: 'right'
       });
       doc.moveDown();

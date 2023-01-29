@@ -22,4 +22,5 @@ export class BonSortieService {
   update(id: string): Observable<any> {
     return this.http.get<any>(`${this.apiEndPint}/u/${id}`);
   }
+
 }

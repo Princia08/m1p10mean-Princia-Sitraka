@@ -56,7 +56,7 @@ class FactureService {
               total: {$sum: '$sousReparations.montant'}
             }
           },
-    ])
+        ])
       ;
       return montant;
     } catch (e) {
@@ -86,8 +86,13 @@ class FactureService {
             }
           },
           {
-            $project: {
-              total: {$sum: '$sousReparations.montant'}
+            $group: {
+              _id: {
+                day: {$dayOfMonth: "$date"},
+                month: {$month: "$date"},
+                year: {$year: "$date"}
+              },
+              total: {$sum: "$sousReparations.montant"}
             }
           },
         ])
