@@ -17,6 +17,7 @@ import { SousreparationEditDialogComponent } from './pages/voiture/sousreparatio
 import { StatistiqueComponent } from './pages/statistique/statistique.component';
 import {NgxChartsModule} from "@swimlane/ngx-charts";
 import { DepenseComponent } from './pages/depense/depense.component';
+import {NgxEchartsModule} from "ngx-echarts";
 
 
 @NgModule({
@@ -33,14 +34,15 @@ import { DepenseComponent } from './pages/depense/depense.component';
     StatistiqueComponent,
     DepenseComponent
   ],
-  imports: [
-    CommonModule,
-    HomeRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    PdfViewerModule,
-    NgxChartsModule,
-  ]
+    imports: [
+        CommonModule,
+        HomeRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        PdfViewerModule,
+        NgxChartsModule,
+        NgxEchartsModule,
+    ]
 })
 export class HomeModule { }

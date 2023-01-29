@@ -18,6 +18,7 @@ export class StatistiqueComponent implements OnInit {
 
   multi!: any[];
 
+  options !: any;
 
   // options
   legend: boolean = true;
@@ -32,6 +33,25 @@ export class StatistiqueComponent implements OnInit {
   timeline: boolean = true;
   ngOnInit() {
     this.getDataMean();
+    this.generateEchart();
+  }
+  generateEchart(){
+    this.options = {
+      xAxis: {
+        type: 'category',
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          data: [150, 230, 224, 218, 135, 147, 260],
+          type: 'line'
+        }
+      ]
+    };
+
   }
 
   constructor(
