@@ -78,13 +78,8 @@ export class ValidationComponent implements OnInit {
         this.serviceReparation.create(this.form.value).subscribe(response => {
           this.serviceDepot.updateDepot(depot._id).subscribe(response => {
             this.getData();
-            console.log("insert here");
           });
         });
-
-        console.log("confirmer le izy");
-      } else {
-        console.log("okzao ka")
       }
       this.noBlur();
     })

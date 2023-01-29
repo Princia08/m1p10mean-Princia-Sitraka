@@ -31,7 +31,9 @@ export class InscriptionComponent implements OnInit {
       .subscribe({
         next: (res: any) =>  {
           this.router.navigateByUrl('/')
-          Swal.fire({ text:`${ this.form.value.nom }, votre inscription a été effectuée avec succès`, icon:'success'})
+          Swal.fire({ text:`${ this.form.value.nom }, votre inscription a été effectuée avec succès`, icon:'success',         
+          showConfirmButton: false,
+          timer: 1500 })
         },
         error: (err: any) => this.errorMessage= err.error.message
       })

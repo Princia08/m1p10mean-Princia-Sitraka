@@ -123,11 +123,52 @@ class FactureService {
     }
   }
 
+
   getFactureById = async (idFacture) => {
     try {
       const facture = await Facture.findOne({_id: idFacture}).populate({
         path: 'idReparation',
         populate: {path: 'voiture', populate: {path: 'idClient'}}
+      });
+      return facture;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  getFactureUnpaid = async () => {
+    try {
+      const factureList = await Facture.find({ etat_paiement: "unpaid" }).populate({
+        path: 'idReparation',
+        populate: { path: 'voiture', populate: { path: 'idClient' } }
+      });
+
+      let montantList = [];
+      for(let facture of factureList) {
+        montantList.push((await this.sousReparationService.getMontantTotal(facture.idReparation))[0].totalMontant);
+      }
+      let result = [];
+      result = [factureList,montantList];
+      return result;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  updateEtatPaiement = async (idFacture) => {
+    try {
+      const factureUpdated = await Facture.findOneAndUpdate({ _id: idFacture }, { $set: { etat_paiement: "paid" } }, { new: true })
+      return factureUpdated;
+    } catch (e) {
+      throw e
+    }
+  }
+
+  getFactureById = async (idFacture) => {
+    try {
+      const facture = await Facture.findOne({ _id: idFacture }).populate({
+        path: 'idReparation',
+        populate: { path: 'voiture', populate: { path: 'idClient' } }
       });
       return facture;
     } catch (e) {
@@ -158,19 +199,19 @@ class FactureService {
       doc.moveDown();
 
       //  text
-      doc.fontSize(12).text('Date de création : ' + facture.date.toISOString(), {align: 'right'});
+      doc.fontSize(12).text('Date de création : ' + facture.date.toISOString(), { align: 'right' });
       doc.moveDown();
 
-      doc.text('Nom du garage : ' + 'GarGlass', {align: 'right'});
-      doc.text('Adresse : ' + 'Ivandry', {align: 'right'});
-      doc.text('Téléphone : ' + '+261 34 34 343 34', {align: 'right'});
-      doc.text('Email : ' + 'ps@garglass.com', {align: 'right'});
+      doc.text('Nom du garage : ' + 'GarGlass', { align: 'right' });
+      doc.text('Adresse : ' + 'Ivandry', { align: 'right' });
+      doc.text('Téléphone : ' + '+261 34 34 343 34', { align: 'right' });
+      doc.text('Email : ' + 'ps@garglass.com', { align: 'right' });
 
       doc.moveDown();
 
       doc.text('Nom du client : ' + facture.idReparation.voiture.idClient.nom, 50, 147);
-      doc.text('Adresse : ' + facture.idReparation.voiture.idClient.adresse, {align: 'left'});
-      doc.text('Email : ' + facture.idReparation.voiture.idClient.mail, {align: 'left'});
+      doc.text('Adresse : ' + facture.idReparation.voiture.idClient.adresse, { align: 'left' });
+      doc.text('Email : ' + facture.idReparation.voiture.idClient.mail, { align: 'left' });
 
       doc.moveDown();
 
@@ -178,7 +219,7 @@ class FactureService {
       doc.text('Numéro d\'immatriculation : ' + facture.idReparation.voiture.matricule, 335, 217);
 
       //draw a line
-      doc.moveTo(0, 235).lineTo(800, 235).stroke({width: 1})
+      doc.moveTo(0, 235).lineTo(800, 235).stroke({ width: 1 })
 
       doc.moveDown();
       var data = [
@@ -187,39 +228,8 @@ class FactureService {
       for (let sousReparation of sousReparationList) {
         data.push([sousReparation.motif, sousReparation.montant])
       }
-
-      data.push(['Total', montantTotal + ' Ar']);
-      data.push(['', '']);
-      let etat = (facture.etat_paiement == "unpaid") ? "Non payée" : "Payée"
-      data.push(['Etat de paiement', etat]);
-
-      // Table widths
-      var widths = [400, 350];
-
-      // Draw the table headers
-      doc.font('Helvetica-Bold');
-      for (var i = 0; i < data[0].length; i++) {
-        doc.text(data[0][i], (i * widths[i]) + 50, 270);
-      }
-
-      // Draw the table rows
-      doc.font('Helvetica');
-      for (var i = 1; i < data.length; i++) {
-        for (var j = 0; j < data[i].length; j++) {
-          doc.text(data[i][j], (j * widths[j]) + 50, (i * 20) + 285);
-        }
-      }
-
-      // End the document
-      doc.end();
-
-      return filePath;
-
-    } catch (e) {
-      throw e;
-    }
+    }catch(e){}
   }
 }
-
 
 module.exports = {FactureService}

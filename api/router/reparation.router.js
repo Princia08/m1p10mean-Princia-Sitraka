@@ -16,7 +16,6 @@ function ReparationRouter(base) {
   app.get(`/api/${base}/ut/:id`, controller.updateFinish);
   app.get(`/api/${base}/uf/:id`, controller.updateWaiting);
   app.get(`/api/${base}/uds/:id`, controller.updateDateSortie);
-  // app.get(`/api/${base}/montant/:id`, controller.getMontant);
   app.get(`/api/${base}/timeMean`, controller.getTempsMoyenne);
   app.get(`/api/${base}/allSousreparatioin/:id`, controller.getSousReparationParReparation);
   app.get(`/api/${base}/montantTotal/:id`, controller.getMontantTotalReparation);
