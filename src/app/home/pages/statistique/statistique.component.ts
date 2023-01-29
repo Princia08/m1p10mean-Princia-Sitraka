@@ -3,6 +3,7 @@ import {ReparationService} from "../../../@core/services/reparation.service";
 import {DepenseService} from "../../../@core/services/depense.service";
 import {FactureService} from "../../../@core/services/facture.service";
 
+
 @Component({
   selector: 'app-statistique',
   templateUrl: './statistique.component.html',
@@ -29,15 +30,15 @@ export class StatistiqueComponent implements OnInit {
   yAxis: boolean = true;
   showYAxisLabel: boolean = true;
   showXAxisLabel: boolean = true;
-  xAxisLabel: string = 'Year';
-  yAxisLabel: string = 'Population';
+  xAxisLabel: string = 'Jour';
+  yAxisLabel: string = 'Chiffre d\'affaire';
   timeline: boolean = true;
 
   dataCA !: any[];
 
   ngOnInit() {
     this.getDataMean();
-    this.getDataCA();
+    // this.getDataCA();
   }
 
 

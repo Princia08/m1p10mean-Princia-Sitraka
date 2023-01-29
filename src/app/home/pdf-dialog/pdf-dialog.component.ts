@@ -3,10 +3,10 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {BonSortieService} from "../../@core/services/bon-sortie.service";
 import {BonSortie} from "../../@core/models/bonSortie.model";
-import {PersonneService} from "../../@core/services/personne.service";
 import {HttpClient} from '@angular/common/http';
 import {environment} from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import {PersonneService} from "../../@core/services/personne.service";
 
 
 @Component({
