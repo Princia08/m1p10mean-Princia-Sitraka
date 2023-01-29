@@ -6,9 +6,10 @@ class FactureController {
   }
 
   create = async (req, res) => {
-    try{ res.json(await this.factureService.create(req.body)) }
-    catch(e){
-      res.status(e.status || 500).json({message: e.message || 'Internal Server Error'}) }
+    try { res.json(await this.factureService.create(req.body)) }
+    catch (e) {
+      res.status(e.status || 500).json({ message: e.message || 'Internal Server Error' })
+    }
   }
 
   getFactureByIdClient = async (req, res) => {
@@ -26,13 +27,13 @@ class FactureController {
       res.json(await this.factureService.getCA())
     } catch (e) { throw e }
 
-  generatePdfFacture = async (req, res) => {
-    try {
-      res.json(await this.factureService.generatePdf(req.params.id))
-    } catch (e) {
-      res.status(e.status || 500).json({message: e.message || 'Internal Server Error'}) 
+    generatePdfFacture = async (req, res) => {
+      try {
+        res.json(await this.factureService.generatePdf(req.params.id))
+      } catch (e) {
+        res.status(e.status || 500).json({ message: e.message || 'Internal Server Error' })
+      }
     }
   }
 }
-
-module.exports = {FactureController}
+module.exports = { FactureController }
