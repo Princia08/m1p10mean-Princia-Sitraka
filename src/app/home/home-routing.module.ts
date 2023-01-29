@@ -10,6 +10,7 @@ import { ReparationComponent } from './pages/reparation/reparation.component';
 import {StatistiqueComponent} from "./pages/statistique/statistique.component";
 import {DepenseComponent} from "./pages/depense/depense.component";
 import { FactureComponent } from './pages/facture/facture.component';
+import { PaiementComponent } from './pages/paiement/paiement.component';
 
 const routes: Routes = [
   {
@@ -23,7 +24,8 @@ const routes: Routes = [
       {path: 'validation', component: ValidationComponent},
       {path: 'stat', component: StatistiqueComponent},
       {path: 'depenses', component: DepenseComponent},
-      {path: 'facture', component: FactureComponent}
+      {path: 'facture', component: FactureComponent},
+      {path: 'paiement', component: PaiementComponent}
     ]
   },
 ];

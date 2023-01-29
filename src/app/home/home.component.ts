@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   setItems() {
     if (this.tokenService.getUserByToken().role == 'responsable_atelier') {
       this.menuItems = [
-        {path: '/home/vehicule', title: 'Véhicules', icon: 'fas fa-car'},
+        {path: '/home/vehicule', title: 'Véhicule', icon: 'fas fa-car'},
         {path: '/home/validation', title: 'Validation', icon: 'fas fa-hourglass-half'}
       ]
     } else if (this.tokenService.getUserByToken().role == 'client') {
@@ -34,7 +34,8 @@ export class HomeComponent implements OnInit {
     } else if (this.tokenService.getUserByToken().role == 'responsable_financier') {
       this.menuItems = [
         {path: '/home/stat', title: 'Statistiques', icon: 'fa fa-tachometer'},
-        {path: '/home/depenses', title: 'Dépenses', icon: 'fa fa-credit-card'}
+        {path: '/home/depenses', title: 'Dépenses', icon: 'fa fa-credit-card'},
+        {path: '/home/paiement', title: 'Paiement', icon: 'fa fa-solid fa-cash-register'}
       ]
     }
   }

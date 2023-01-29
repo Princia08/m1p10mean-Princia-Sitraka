@@ -18,6 +18,7 @@ import { StatistiqueComponent } from './pages/statistique/statistique.component'
 import { NgxChartsModule } from "@swimlane/ngx-charts";
 import { DepenseComponent } from './pages/depense/depense.component';
 import { FactureComponent } from './pages/facture/facture.component';
+import { PaiementComponent } from './pages/paiement/paiement.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { FactureComponent } from './pages/facture/facture.component';
     SousreparationEditDialogComponent,
     StatistiqueComponent,
     DepenseComponent,
-    FactureComponent
+    FactureComponent,
+    PaiementComponent
   ],
   imports: [
     CommonModule,
