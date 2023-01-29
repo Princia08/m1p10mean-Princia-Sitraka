@@ -1,5 +1,5 @@
-<div class="container" style="padding: 2%;">
-    <div class="row" style="justify-content: space-between;">
+<div class="container-fluid" style="padding: 2%;">
+    <div class="row" style="justify-content: space-between;" *ngIf="!pdfPath">
         <h2>Liste de vos factures</h2>
         <table class="table table-striped">
             <thead>
@@ -7,6 +7,7 @@
                     <th>N facture</th>
                     <th>Date</th>
                     <th>Voiture</th>
+                    <th>Numéro matricule</th>
                     <th>Etat de paiement</th>
                 </tr>
             </thead>
@@ -14,10 +15,26 @@
                 <tr *ngFor="let facture of factureList" style="cursor: pointer;">
                     <td>{{facture._id}}</td>
                     <td>{{facture.date | date: 'dd-MM-yyyy HH:mm'}}</td>
+                    <td>{{facture.idReparation.voiture.marque}} {{facture.idReparation.voiture.model}}</td>
                     <td>{{facture.idReparation.voiture.matricule}}</td>
-                    <td>{{facture.etat_paiement}}</td>
+                    <td *ngIf="facture.etat_paiement === 'unpaid'">Non payé</td>
+                    <td *ngIf="facture.etat_paiement === 'paid'">Payé</td>
+                    <td><button type="button" class="btn btn-block btn-dark btn-sm"
+                            (click)="openPopup(facture._id)">Détails</button></td>
                 </tr>
             </tbody>
         </table>
+    </div>
+    <div class="modal" *ngIf="pdfPath" tabindex="-1" [ngStyle]="{'display':displayStyle}"
+        style="background: rgba(65, 65, 65, 0.1); backdrop-filter: blur(3px);">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="background-color: #424242;">
+                <div class="modal-body" style="text-align:center;">
+                    <iframe *ngIf="pdfPath" [src]="pdfPath" width="100%" style="height:90vh" frameborder="0"></iframe>
+                    <button style="color: white; margin-right: 4%" type="button" class="btn"
+                        (click)="closePopup()">Fermer</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

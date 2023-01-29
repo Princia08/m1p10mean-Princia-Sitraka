@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { TokenService } from 'src/app/token/token.service';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-reparation',
@@ -21,9 +22,8 @@ export class ReparationComponent implements OnInit {
 
   public loadAllReparationClient() {
     this.http.get(`${environment.BASE}/reparation/idClient/${this.tokenService.getUserByToken()._id}`).subscribe({
-      next: (res:any) => {
-        this.reparationList = res,
-        console.log(this.reparationList)
+      next: (res: any) => {
+        this.reparationList = res
       },
       error: err => alert(err)
     })
@@ -32,8 +32,9 @@ export class ReparationComponent implements OnInit {
   public loadSousReparation(reparation: any) {
     this.reparation = reparation;
     this.http.get(`${environment.BASE}/sousReparation/sp/${reparation._id}`).subscribe({
-      next: (res:any) => {
+      next: (res: any) => {
         this.sousReparationList = res
+        if (res.length == 0) Swal.fire({ icon: 'error', title: 'Désolé...', text: 'Vous n\'avez pas encore de réparation' })
       },
       error: err => alert(err)
     })
