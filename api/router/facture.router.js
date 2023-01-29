@@ -11,6 +11,8 @@ function FactureRouter(base) {
   app.get(`/api/${base}/montantFacture/:idFacture`, controller.getMontantTotalFacture);
   app.get(`/api/${base}/chiffreAffaire/`, controller.getChiffreAffaire);
   app.get(`/api/${base}/pdf/:id`, controller.generatePdfFacture);
+  app.get(`/api/${base}/unpaid`, controller.getFactureUnpaid);
+  app.get(`/api/${base}/update/:idFacture`, controller.updateEtatPaiement);
 }
 
 module.exports = {FactureRouter}
