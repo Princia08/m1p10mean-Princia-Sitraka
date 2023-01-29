@@ -17,6 +17,7 @@ import { SousreparationEditDialogComponent } from './pages/voiture/sousreparatio
 import { StatistiqueComponent } from './pages/statistique/statistique.component';
 import { NgxChartsModule } from "@swimlane/ngx-charts";
 import { DepenseComponent } from './pages/depense/depense.component';
+import { FactureComponent } from './pages/facture/facture.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { DepenseComponent } from './pages/depense/depense.component';
     PdfDialogComponent,
     SousreparationEditDialogComponent,
     StatistiqueComponent,
-    DepenseComponent
+    DepenseComponent,
+    FactureComponent
   ],
   imports: [
     CommonModule,

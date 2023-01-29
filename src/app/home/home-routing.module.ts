@@ -9,6 +9,7 @@ import { AccueilComponent } from './pages/accueil/accueil.component';
 import { ReparationComponent } from './pages/reparation/reparation.component';
 import {StatistiqueComponent} from "./pages/statistique/statistique.component";
 import {DepenseComponent} from "./pages/depense/depense.component";
+import { FactureComponent } from './pages/facture/facture.component';
 
 const routes: Routes = [
   {
@@ -21,7 +22,8 @@ const routes: Routes = [
       {path: 'vehicule/:id', component: DetailVoitureComponent},
       {path: 'validation', component: ValidationComponent},
       {path: 'stat', component: StatistiqueComponent},
-      {path: 'depenses', component: DepenseComponent}
+      {path: 'depenses', component: DepenseComponent},
+      {path: 'facture', component: FactureComponent}
     ]
   },
 ];
