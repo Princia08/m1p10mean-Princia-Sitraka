@@ -109,19 +109,26 @@ class FactureService {
 
   getFactureUnpaid = async () => {
     try {
-      const facture = await Facture.find({ etat_paiement: "unpaid" }).populate({
+      const factureList = await Facture.find({ etat_paiement: "unpaid" }).populate({
         path: 'idReparation',
         populate: { path: 'voiture', populate: { path: 'idClient' } }
       });
-      return facture;
+
+      let montantList = [];
+      for(let facture of factureList) {
+        montantList.push((await this.sousReparationService.getMontantTotal(facture.idReparation))[0].totalMontant);
+      }
+      let result = [];
+      result = [factureList,montantList];
+      return result;
     } catch (e) {
-      throw e;
+      console.log(e);
     }
   }
 
   updateEtatPaiement = async (idFacture) => {
     try {
-      const factureUpdated = await Reparation.findOneAndUpdate({ _id: idFacture }, { $set: { etat_paiement: "paid" } }, { new: true })
+      const factureUpdated = await Facture.findOneAndUpdate({ _id: idFacture }, { $set: { etat_paiement: "paid" } }, { new: true })
       return factureUpdated;
     } catch (e) {
       throw e
