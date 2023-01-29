@@ -66,8 +66,10 @@ export class DetailVoitureComponent implements OnInit {
     const reparationId: string | null = this.route.snapshot.paramMap.get('id');
     // this.updateReparation(reparationId);
     if (reparationId) {
-      this.serviceSousReparation.getSousReparations(reparationId).subscribe(response => {
-        this.sousreparations = response;
+      this.serviceBonSortie.getPdfPath(reparationId).subscribe(response => {
+        this.serviceSousReparation.getSousReparations(reparationId).subscribe(response => {
+          this.sousreparations = response;
+        });
       });
       this.serviceBonSortie.getBonSortie(reparationId).subscribe(response => {
         this.bonSortie = response;
@@ -75,9 +77,8 @@ export class DetailVoitureComponent implements OnInit {
       this.serviceReparation.getReparation(reparationId).subscribe(response => {
         this.reparation = response;
       });
-      this.serviceBonSortie.getPdfPath(reparationId).subscribe(response=>{});
-      this.serviceReparation.getAllSousRep(reparationId).subscribe(response=>{
-        console.log("all sous reparation : "+response.sousReparations);
+      this.serviceReparation.getAllSousRep(reparationId).subscribe(response => {
+        console.log("all sous reparation : " + response.sousReparations);
       })
     }
   }
@@ -182,7 +183,7 @@ export class DetailVoitureComponent implements OnInit {
       this.withBlur();
       dialogRef.afterClosed().subscribe(res => {
         if (res) {
-            this.getData();
+          this.getData();
         } else {
         }
         this.noBlur();

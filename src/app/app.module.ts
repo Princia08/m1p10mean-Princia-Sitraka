@@ -10,7 +10,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from "@angular/material/dialog";
 import {ConfirmDialogComponent} from "./home/confirm-dialog/confirm-dialog.component";
 import {NgxChartsModule} from "@swimlane/ngx-charts";
-import {NgxEchartsModule} from "ngx-echarts";
 
 @NgModule({
   declarations: [
@@ -28,7 +27,6 @@ import {NgxEchartsModule} from "ngx-echarts";
     BrowserAnimationsModule,
     MatDialogModule,
     NgxChartsModule,
-    NgxEchartsModule
   ],
   entryComponents :[],
   providers: [
