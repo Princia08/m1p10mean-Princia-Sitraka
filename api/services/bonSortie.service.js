@@ -62,7 +62,7 @@ class BonSortieService {
       doc.text('Nom du garage : ' + 'GarGlass', {
         align: 'left'
       });
-      doc.text('Adresse : ' + 'Andavamamba', {
+      doc.text('Adresse : ' + 'Ivandry', {
         align: 'left'
       });
       doc.text('Téléphone : ' + '+261 34 34 343 34', {

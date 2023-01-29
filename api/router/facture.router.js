@@ -9,6 +9,7 @@ function FactureRouter(base) {
 
   app.post(`/api/${base}`, controller.create);
   app.get(`/api/${base}/idClient/:idClient`, controller.getFactureByIdClient);
+  app.get(`/api/${base}/pdf`, controller.generatePdfFacture);
 }
 
 module.exports = {FactureRouter}

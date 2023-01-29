@@ -38,7 +38,6 @@ class BonSortieController {
       }
       res.json(await this.bonSortieService.generatePdf(id));
     } catch (e) {
-      console.log(e.message);
       res.status(500).json({message: 'Internal Server Error'})
     }
   }

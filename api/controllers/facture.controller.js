@@ -14,6 +14,14 @@ class FactureController {
       res.json(await this.factureService.getFactureByIdClient(req.params.idClient))
     } catch (e) { throw e }
   }
+
+  generatePdfFacture = async (req, res) => {
+    try {
+      res.json(await this.factureService.generatePdf("45"))
+    } catch (e) {
+      throw e;
+    }
+  }
 }
 
 module.exports = {FactureController}

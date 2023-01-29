@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { TokenService } from 'src/app/token/token.service';
 import { environment } from 'src/environments/environment';
 
@@ -10,9 +12,17 @@ import { environment } from 'src/environments/environment';
 })
 export class FactureComponent implements OnInit {
   factureList!: any[];
-  constructor(private http:HttpClient, private tokenService: TokenService) { }
+  pdfPath!: SafeResourceUrl;
+  displayStyle!: string;
 
-  ngOnInit(): void {
+  constructor(
+    private http:HttpClient, 
+    private tokenService: TokenService, 
+    private sanitizer: DomSanitizer
+  ) 
+  {}
+
+  ngOnInit(): void {    
     this.loadFactureByClient(); 
   }
 
@@ -22,4 +32,20 @@ export class FactureComponent implements OnInit {
       error: err => alert(err)
     })
   }  
+
+  public loadPdf() {
+    this.http.get(`${environment.BASE}/facture/pdf`).subscribe(file => {
+      this.pdfPath = this.sanitizer.bypassSecurityTrustResourceUrl(environment.directory + '/' + file);
+    })
+  }
+
+  public openPopup() {
+    this.displayStyle="block";
+    this.loadPdf();
+  }
+  public closePopup() {
+    this.displayStyle="none";
+    this.loadFactureByClient(); 
+    this.pdfPath = ""
+  }
 }
