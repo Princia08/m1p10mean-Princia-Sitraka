@@ -85,8 +85,8 @@ class BonSortieService {
     try {
       const bonSortie = await this.getBonSortie(idReparation);
       let sousReparation = await this.getListeSousReparation(idReparation);
-      const montantTotal = (await  this.serviceSousReparation.getMontantTotal(idReparation))[0].totalMontant;
-      // console.log(montantTotal);
+      const montantTotal = ((await  this.serviceSousReparation.getMontantTotal(idReparation))[0] == undefined) ? 0 : (await  this.serviceSousReparation.getMontantTotal(idReparation))[0] .totalMontant;
+      console.log(montantTotal);
 
       const doc = new PDFDocument();
       const path = 'static/';
