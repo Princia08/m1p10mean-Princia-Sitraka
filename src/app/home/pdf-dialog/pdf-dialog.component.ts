@@ -4,6 +4,9 @@ import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {BonSortieService} from "../../@core/services/bon-sortie.service";
 import {BonSortie} from "../../@core/models/bonSortie.model";
 import {PersonneService} from "../../@core/services/personne.service";
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -22,9 +25,9 @@ export class PdfDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<PdfDialogComponent>,
     private bonSortieService: BonSortieService,
     private servicePersonne: PersonneService,
+    private http: HttpClient,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {
-  }
+  ) { }
 
   ngOnInit(): void {
     this.sourcePdf = this.sanitizer.bypassSecurityTrustResourceUrl(this.data.source);
@@ -47,20 +50,27 @@ export class PdfDialogComponent implements OnInit {
   onclickYes(): void {
     this.dialogRef.close(true);
     this.confirmBonSortie();
+    this.createFacture();
+  }
+  
+  createFacture() {
+    console.log(this.data);
+    this.http.post(`${environment.BASE}/facture`, {idReparation: this.data.reparation._id, idClient: this.data.reparation.idClient}).subscribe({
+      next: () => Swal.fire("Facture créée avec succès"),
+      error: err => {
+        alert(err)
+      }
+    })
   }
 
   confirmBonSortie() {
     this.bonSortieService.update(this.data.reparation._id).subscribe(response => {
       this.bonSortie = response;
     });
-    this.servicePersonne.sendMail().subscribe(response=>{
-      console.log("envoyé le mail");
-      console.log(response);
-    });
+    this.servicePersonne.sendMail().subscribe();
     // console.log(bonSortieUpdated);
     //update bon de sortie
     //envoi mail vers le client
     //rendre le bouton valider indisponible
-
   }
 }

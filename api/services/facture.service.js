@@ -1,3 +1,5 @@
+const {Facture} = require("../models/facture.model");
+
 class FactureService {
 
   create = async (body) => {

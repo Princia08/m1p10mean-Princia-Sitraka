@@ -75,8 +75,6 @@ export class DetailVoitureComponent implements OnInit {
       this.serviceReparation.getReparation(reparationId).subscribe(response => {
         this.reparation = response;
       });
-      this.serviceBonSortie.getPdfPath(reparationId).subscribe(response=>{});
-
     }
   }
 
@@ -87,12 +85,10 @@ export class DetailVoitureComponent implements OnInit {
       if (statusGeneral) {
         this.serviceReparation.updateTrue(reparation).subscribe(response => {
           this.getData();
-          console.log('reparée daoly eh');
         });
       } else {
         this.serviceReparation.updateFalse(reparation).subscribe(response => {
           this.getData();
-          console.log('tsy vita daoly ndray ');
         });
       }
     });
