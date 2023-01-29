@@ -34,4 +34,8 @@ export class ReparationService {
   getTempsReparationMoyenne(): Observable<any> {
     return this.http.get<any>(`${this.apiEndPint}/timeMean`);
   }
+
+  getAllSousRep(idReparation: string): Observable<any> {
+    return this.http.get<any>(`${this.apiEndPint}/allSousreparatioin/${idReparation}`);
+  }
 }

@@ -76,14 +76,14 @@ class ReparationService {
             as: "sousReparations"
           }
         },
-        {
-          $project: {
-            "sousReparations.motif": 1,
-            "sousReparations.montant": 1
-          }
-        }
+        // {
+        //   $project: {
+        //     "sousReparations.motif": 1,
+        //     "sousReparations.montant": 1
+        //   }
+        // }
       ]);
-      return reparation;
+      return reparation[0];
     } catch (e) {
       console.log(e.message)
       throw e

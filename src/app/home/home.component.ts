@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
       this.menuItems = [
         {path: '/home/depot', title: 'Dépôt', icon: 'fas fa-warehouse'}
       ]
-    } else if (this.tokenService.getUserByToken().role == 'responsable-financier') {
+    } else if (this.tokenService.getUserByToken().role == 'responsable_financier') {
       this.menuItems = [
         {path: '/home/stat', title: 'Statistiques', icon: 'fa fa-tachometer'},
         {path: '/home/depenses', title: 'Dépenses', icon: 'fa fa-credit-card'}

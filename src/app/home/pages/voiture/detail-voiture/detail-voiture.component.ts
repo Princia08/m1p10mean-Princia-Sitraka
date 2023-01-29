@@ -76,7 +76,9 @@ export class DetailVoitureComponent implements OnInit {
         this.reparation = response;
       });
       this.serviceBonSortie.getPdfPath(reparationId).subscribe(response=>{});
-
+      this.serviceReparation.getAllSousRep(reparationId).subscribe(response=>{
+        console.log("all sous reparation : "+response.sousReparations);
+      })
     }
   }
 
