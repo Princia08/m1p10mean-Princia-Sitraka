@@ -1,6 +1,7 @@
 const {BonSortie} = require("../models/bonSortie.model");
 const PDFDocument = require('pdfkit');
 const fs = require('fs');
+const serviceSousrep = require('./sousReparation.service');
 
 class BonSortieService {
   create = async (body) => {
@@ -42,6 +43,8 @@ class BonSortieService {
       const path = 'static/';
       const file = 'bon_de_sortie.pdf';
       const filePath = path + file;
+
+      console.log(serviceSousrep);
 
 // Pipe the document to a file
       doc.pipe(fs.createWriteStream(filePath));

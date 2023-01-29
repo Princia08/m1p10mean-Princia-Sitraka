@@ -19,6 +19,7 @@ function ReparationRouter(base) {
   // app.get(`/api/${base}/montant/:id`, controller.getMontant);
   app.get(`/api/${base}/timeMean`, controller.getTempsMoyenne);
   app.get(`/api/${base}/allSousreparatioin/:id`, controller.getSousReparationParReparation);
+  app.get(`/api/${base}/montantTotal/:id`, controller.getMontantTotalReparation);
 
 }
 

@@ -32,6 +32,7 @@ export class PdfDialogComponent implements OnInit {
   ngOnInit(): void {
     this.sourcePdf = this.sanitizer.bypassSecurityTrustResourceUrl(this.data.source);
     this.getData();
+
   }
 
   getData() {
@@ -52,11 +53,15 @@ export class PdfDialogComponent implements OnInit {
     this.confirmBonSortie();
     this.createFacture();
   }
-  
+
   createFacture() {
     console.log(this.data);
     this.http.post(`${environment.BASE}/facture`, {idReparation: this.data.reparation._id, idClient: this.data.reparation.idClient}).subscribe({
-      next: () => Swal.fire("Facture créée avec succès"),
+      next: () => Swal.fire({position:'top-end',
+                                  icon:'success',
+                                  title:'Facture créée avec succès',
+                                  showConfirmButton:false,
+                                  timer:1500}),
       error: err => {
         alert(err)
       }

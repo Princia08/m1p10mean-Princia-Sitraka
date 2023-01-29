@@ -1,4 +1,4 @@
-const { async } = require("rxjs");
+const {async} = require("rxjs");
 const {Reparation} = require("../models/reparation.model");
 const {SousReparation} = require("../models/sousReparation.model");
 const mongoose = require("mongoose");
@@ -64,12 +64,11 @@ class ReparationService {
     }
   }
 
-  getReparationByClient = async(idClient) => {
+  getReparationByClient = async (idClient) => {
     try {
-      const reparation = await Reparation.find({idClient:idClient}).populate({path:'voiture'});
+      const reparation = await Reparation.find({idClient: idClient}).populate({path: 'voiture'});
       return reparation;
-    }
-    catch(e) {
+    } catch (e) {
       throw e;
     }
   }
@@ -128,6 +127,35 @@ class ReparationService {
       console.log(e);
     }
   }
+
+  getMontantTotal = async (idReparation) => {
+    try {
+      console.log(idReparation);
+      const list = await Reparation.aggregate([
+        {
+          $match: {_id: mongoose.Types.ObjectId("63cd9f9f7159a7cb0207e725")}
+        },
+        {
+          $lookup: {
+            from: "sousreparations",
+            localField: "_id",
+            foreignField: "reparation",
+            as: "sousReparations"
+          }
+        },
+        {
+          $project: {
+            total: {$sum: '$sousReparations.montant'}
+          }
+        }
+      ]);
+      console.log(list);
+      return list;
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
+
 }
 
 module.exports = {ReparationService}

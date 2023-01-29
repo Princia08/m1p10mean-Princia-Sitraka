@@ -2,7 +2,7 @@ class FactureController {
   constructor(factureService) {
     this.factureService = factureService;
   }
-  
+
   create = async (req, res) => {
     try{ res.json(await this.factureService.create(req.body)) }
     catch(e){
@@ -12,6 +12,16 @@ class FactureController {
   getFactureByIdClient = async (req, res) => {
     try {
       res.json(await this.factureService.getFactureByIdClient(req.params.idClient))
+    } catch (e) { throw e }
+  }
+  getMontantTotalFacture = async (req, res) => {
+    try {
+      res.json(await this.factureService.getMontantTotalParFacture(req.params.idFacture))
+    } catch (e) { throw e }
+  }
+  getChiffreAffaire = async (req, res) => {
+    try {
+      res.json(await this.factureService.getCA())
     } catch (e) { throw e }
   }
 }
