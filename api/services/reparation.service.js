@@ -1,3 +1,4 @@
+const { async } = require("rxjs");
 const {Reparation} = require("../models/reparation.model");
 const {SousReparation} = require("../models/sousReparation.model");
 const mongoose = require("mongoose");
@@ -59,7 +60,17 @@ class ReparationService {
       return reparation;
     } catch (e) {
       console.log(e.message)
-      throw e
+      throw e;
+    }
+  }
+
+  getReparationByClient = async(idClient) => {
+    try {
+      const reparation = await Reparation.find({idClient:idClient}).populate({path:'voiture'});
+      return reparation;
+    }
+    catch(e) {
+      throw e;
     }
   }
   getAllSousReparation = async (idReparation) => {

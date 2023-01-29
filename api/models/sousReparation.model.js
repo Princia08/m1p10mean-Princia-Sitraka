@@ -21,3 +21,4 @@ const SousReparationSchema = new mongoose.Schema({
 const SousReparation = mongoose.model('sousReparation', SousReparationSchema)
 
 module.exports = {SousReparationSchema, SousReparation}
+

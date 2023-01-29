@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {TokenService} from '../token/token.service';
+import { LogoutService } from '../security/logout/logout.service';
+import { TokenService } from '../token/token.service';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,7 @@ export class HomeComponent implements OnInit {
   menuItems !: any[];
   nom !: string;
 
-  constructor(private tokenService: TokenService) {
+  constructor(private tokenService: TokenService, private logoutService: LogoutService) {
   }
 
   ngOnInit(): void {
@@ -26,7 +27,9 @@ export class HomeComponent implements OnInit {
       ]
     } else if (this.tokenService.getUserByToken().role == 'client') {
       this.menuItems = [
-        {path: '/home/depot', title: 'Dépôt', icon: 'fas fa-warehouse'}
+        {path: '/home/depot', title: 'Dépôt', icon: 'fas fa-warehouse'},
+        {path: '/home/reparation', title: 'Réparation', icon: 'fa fa-wrench'},
+        {path: '/home/facture', title: 'Facture', icon: 'fa fa-file-invoice'}
       ]
     } else if (this.tokenService.getUserByToken().role == 'responsable_financier') {
       this.menuItems = [
@@ -35,4 +38,7 @@ export class HomeComponent implements OnInit {
       ]
     }
   }
+
+  logout() { this.logoutService.logout(); }
+
 }

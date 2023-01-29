@@ -1,0 +1,23 @@
+<div class="container" style="padding: 2%;">
+    <div class="row" style="justify-content: space-between;">
+        <h2>Liste de vos factures</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>N facture</th>
+                    <th>Date</th>
+                    <th>Voiture</th>
+                    <th>Etat de paiement</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let facture of factureList" style="cursor: pointer;">
+                    <td>{{facture._id}}</td>
+                    <td>{{facture.date | date: 'dd-MM-yyyy HH:mm'}}</td>
+                    <td>{{facture.idReparation.voiture.matricule}}</td>
+                    <td>{{facture.etat_paiement}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

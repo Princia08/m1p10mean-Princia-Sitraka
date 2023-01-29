@@ -1,7 +1,6 @@
 const {app} = require("./modules/app/app.module")
 const path = require('path')
 const {load} = require("./modules/database/database.module")
-const {UserRouter} = require("./router/user/user.router")
 const {PersonneRouter} = require("./router/personne.router")
 const {VoitureRouter} = require("./router/voiture.router");
 const {DepotRouter} = require("./router/depot.router");
@@ -9,6 +8,7 @@ const {ReparationRouter} = require("./router/reparation.router");
 const {SousReparationRouter} = require("./router/sousreparation.router");
 const {BonSortieRouter} = require("./router/bonSortie.router");
 const {DepenseRouter} = require("./router/depense.router");
+const { FactureRouter } = require("./router/facture.router");
 
 async function main() {
   try {
@@ -23,6 +23,8 @@ async function main() {
     SousReparationRouter('sousReparation')
     BonSortieRouter('bonSortie')
     DepenseRouter('depense')
+    FactureRouter('facture')
+
     // app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'dist/bee-project/index.html')))
 
     app.listen(process.env.PORT, () => console.log(`Start on ${process.env.PORT}`))

@@ -1,0 +1,49 @@
+<div class="container" style="padding: 2%;">
+    <div class="row" style="justify-content: space-between;">
+        <div [ngClass]="sousReparationList.length==0 ? 'col-md-12' : 'col-md-6'">
+            <h2>Trouver ici la liste de vos réparations</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Date d'entrée</th>
+                        <th>Date de sortie</th>
+                        <th>Avancement</th>
+                        <th>Voiture</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let reparation of reparationList" style="cursor: pointer;"
+                        (click)="loadSousReparation(reparation)">
+                        <td>{{reparation.date_entree | date: 'dd-MM-yyyy HH:mm'}}</td>
+                        <td>{{reparation.date_sortie | date: 'dd-MM-yyyy HH:mm'}}</td>
+                        <td>{{reparation.avancement}}</td>
+                        <td>{{reparation.voiture.matricule}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- fiche sous reparation -->
+        <div class="col-md-5" *ngIf="sousReparationList.length!=0">
+            <div class="form-control">
+                <h2>Sous-réparations correspondantes</h2>
+                <p>Avancement: {{reparation.avancement}}</p>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Montant</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let sousReparation of sousReparationList">
+                            <td>{{sousReparation.motif}}</td>
+                            <td>{{sousReparation.montant}}</td>
+                            <td>{{sousReparation.status}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -16,14 +16,4 @@ export class AppComponent {
   })
 
   constructor(private http: HttpClient){}
-
-  public login(){
-    if(this.form.valid){
-      this.http.post(`${environment.BASE}/personne/login`, this.form.value)
-      .subscribe({
-        next: (res: any) => alert(res.token),
-        error: (e: any) => alert(e.message)
-      })
-    }
-  }
 }
