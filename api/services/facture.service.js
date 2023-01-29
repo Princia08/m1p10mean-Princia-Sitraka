@@ -11,6 +11,16 @@ class FactureService {
       throw e
     }
   }
+  
+  getFactureByIdClient = async (idClient) => {
+    try {
+      const facture = await Facture.find({idClient:idClient}).populate({path:'idReparation', populate: {path:'voiture'}});
+      return facture;
+    }
+    catch(e) {
+      throw e;
+    }
+  }
 }
 
 module.exports = {FactureService}

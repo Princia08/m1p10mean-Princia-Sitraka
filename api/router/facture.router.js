@@ -8,6 +8,7 @@ function FactureRouter(base) {
   const controller = new FactureController(service)
 
   app.post(`/api/${base}`, controller.create);
+  app.get(`/api/${base}/idClient/:idClient`, controller.getFactureByIdClient);
 }
 
 module.exports = {FactureRouter}
