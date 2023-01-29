@@ -1,3 +1,5 @@
+const { async } = require("rxjs");
+
 class FactureController {
   constructor(factureService) {
     this.factureService = factureService;
@@ -17,9 +19,9 @@ class FactureController {
 
   generatePdfFacture = async (req, res) => {
     try {
-      res.json(await this.factureService.generatePdf("45"))
+      res.json(await this.factureService.generatePdf(req.params.id))
     } catch (e) {
-      throw e;
+      res.status(e.status || 500).json({message: e.message || 'Internal Server Error'}) 
     }
   }
 }

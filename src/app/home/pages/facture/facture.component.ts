@@ -33,15 +33,15 @@ export class FactureComponent implements OnInit {
     })
   }  
 
-  public loadPdf() {
-    this.http.get(`${environment.BASE}/facture/pdf`).subscribe(file => {
+  public loadPdf(idFacture: any) {
+    this.http.get(`${environment.BASE}/facture/pdf/${idFacture}`).subscribe(file => {
       this.pdfPath = this.sanitizer.bypassSecurityTrustResourceUrl(environment.directory + '/' + file);
     })
   }
 
-  public openPopup() {
+  public openPopup(idFacture: any) {
     this.displayStyle="block";
-    this.loadPdf();
+    this.loadPdf(idFacture);
   }
   public closePopup() {
     this.displayStyle="none";
