@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ReparationService} from "../../../@core/services/reparation.service";
 import {DepenseService} from "../../../@core/services/depense.service";
+import {FactureService} from "../../../@core/services/facture.service";
 
 @Component({
   selector: 'app-statistique',
@@ -31,34 +32,21 @@ export class StatistiqueComponent implements OnInit {
   xAxisLabel: string = 'Year';
   yAxisLabel: string = 'Population';
   timeline: boolean = true;
+
+  dataCA !: any[];
+
   ngOnInit() {
     this.getDataMean();
-    this.generateEchart();
+    this.getDataCA();
   }
-  generateEchart(){
-    this.options = {
-      xAxis: {
-        type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-      },
-      yAxis: {
-        type: 'value'
-      },
-      series: [
-        {
-          data: [150, 230, 224, 218, 135, 147, 260],
-          type: 'line'
-        }
-      ]
-    };
 
-  }
 
   constructor(
     private serviceReparation: ReparationService,
     private serviceDepense: DepenseService,
+    private serviceFacture: FactureService
   ) {
-    Object.assign(this, { multi })
+
   }
 
   getDataMean() {
@@ -71,7 +59,7 @@ export class StatistiqueComponent implements OnInit {
           },
           {
             name: "Total des dépenses par mois",
-            value: totalDepenseMois[0].total +' Ar'
+            value: totalDepenseMois[0].total + ' Ar'
           },
           {
             name: "Chiffre d'affaire ajd",
@@ -86,13 +74,19 @@ export class StatistiqueComponent implements OnInit {
     })
   }
 
+  getDataCA() {
+    this.serviceFacture.getCA().subscribe(response => {
+      this.dataCA = response;
+      console.log(response);
+    })
+  }
+
 
   onSelect(event: any) {
     console.log(event);
   }
-
-
 }
+
 export var multi = [
   {
     "name": "Germany",
