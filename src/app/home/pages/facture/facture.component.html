@@ -17,8 +17,8 @@
                     <td>{{facture.date | date: 'dd-MM-yyyy HH:mm'}}</td>
                     <td>{{facture.idReparation.voiture.marque}} {{facture.idReparation.voiture.model}}</td>
                     <td>{{facture.idReparation.voiture.matricule}}</td>
-                    <td *ngIf="facture.etat_paiement === 'unpaid'">Non payé</td>
-                    <td *ngIf="facture.etat_paiement === 'paid'">Payé</td>
+                    <td *ngIf="facture.etat_paiement === 'unpaid'">Non payée</td>
+                    <td *ngIf="facture.etat_paiement === 'paid'">Payée</td>
                     <td><button type="button" class="btn btn-block btn-dark btn-sm"
                             (click)="openPopup(facture._id)">Détails</button></td>
                 </tr>
