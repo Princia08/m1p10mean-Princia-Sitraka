@@ -58,9 +58,7 @@ export class StatistiqueComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.spinner.show().then(r => {
-      console.log('mande');
-    });
+    this.spinner.show();
     this.getDataDashboard();
     this.getDataCA();
   }
