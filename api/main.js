@@ -15,7 +15,6 @@ async function main() {
     await load()
     // app.get('/api/test', (req, res) => res.json({message: 'Ok Bee'}))
 
-    // UserRouter('user')
     PersonneRouter('personne')
     VoitureRouter('voiture')
     DepotRouter('depot')
