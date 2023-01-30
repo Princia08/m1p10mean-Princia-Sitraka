@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { LoginService } from '../security/login/login.service';
 
@@ -11,7 +12,7 @@ import { LoginService } from '../security/login/login.service';
 })
 export class LoginComponent implements OnInit {
   errorMessage!: string;
-
+  inscriptionPath = `${environment.BASE}/inscription`;
   ngOnInit(): void {
   }
 
@@ -20,9 +21,9 @@ export class LoginComponent implements OnInit {
     mot_de_passe: new FormControl('', [Validators.required]),
   })
 
-  constructor(private http: HttpClient, private loginService: LoginService){}
+  constructor(private http: HttpClient, private loginService: LoginService, private router: Router){}
 
-  public login(){
+  public login() {
     if(this.form.valid){
       this.http.post(`${environment.BASE}/personne/login`, this.form.value)
       .subscribe({
@@ -30,5 +31,10 @@ export class LoginComponent implements OnInit {
         error: (err: any) => this.errorMessage= err.error.message
       })
     }
+  }
+
+  public signIn() {
+    this.router.navigateByUrl('/inscription')
+
   }
 }

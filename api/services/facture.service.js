@@ -267,7 +267,7 @@ class FactureService {
       doc.moveDown();
 
       //  text
-      doc.fontSize(12).text('Date de création : ' + facture.date.toISOString(), { align: 'right' });
+      doc.fontSize(12).text('Date de création : ' + facture.date.toLocaleDateString(), { align: 'right' });
       doc.moveDown();
 
       doc.text('Nom du garage : ' + 'GarGlass', { align: 'right' });
