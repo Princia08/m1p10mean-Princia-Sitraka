@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { TokenService } from 'src/app/token/token.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-reparation',
@@ -14,19 +15,24 @@ export class ReparationComponent implements OnInit {
   sousReparationList: any[] = [];
   reparation: any;
 
-  constructor(private http: HttpClient, private tokenService: TokenService) { }
+  constructor(private http: HttpClient, private tokenService: TokenService,private spinner:NgxSpinnerService) { }
 
   ngOnInit(): void {
+    this.spinner.hide();
     this.loadAllReparationClient();
   }
 
   public loadAllReparationClient() {
     this.http.get(`${environment.BASE}/reparation/idClient/${this.tokenService.getUserByToken()._id}`).subscribe({
       next: (res: any) => {
-        this.reparationList = res
+        this.reparationList = res;
       },
       error: err => alert(err)
-    })
+    });
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 500);
+
   }
 
   public loadSousReparation(reparation: any) {
@@ -43,7 +49,7 @@ export class ReparationComponent implements OnInit {
   // public setAvancement() {
   //   for(let sousReparation of this.sousReparationList) {
   //       if(sousReparation.status == "en cours") {
-  //          this.avancement = "en cours"; 
+  //          this.avancement = "en cours";
   //       }
   //   }
   // }

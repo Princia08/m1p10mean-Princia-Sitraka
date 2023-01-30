@@ -8,6 +8,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {DialogService} from "../../../../@core/services/dialog/dialog.service";
 import {ConfirmDialogComponent} from "../../../confirm-dialog/confirm-dialog.component";
 import {PersonneService} from "../../../../@core/services/personne.service";
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-validation',
@@ -29,11 +30,13 @@ export class ValidationComponent implements OnInit {
     private serviceReparation: ReparationService,
     private dialogService: DialogService,
     private dialog: MatDialog,
-    private servicePersonne : PersonneService
+    private servicePersonne : PersonneService,
+    private spinner : NgxSpinnerService
   ) {
   }
 
   ngOnInit(): void {
+    this.spinner.show()
     this.getData()
   }
   withBlur() {
@@ -45,7 +48,9 @@ export class ValidationComponent implements OnInit {
   getData() {
     this.serviceDepot.getDepots().subscribe(response => {
       this.depots = response;
-      console.log(this.depots?.length)
+      setTimeout(() => {
+        this.spinner.hide();
+      }, 500)
     })
   }
 
