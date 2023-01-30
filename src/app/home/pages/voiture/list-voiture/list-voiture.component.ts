@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {VoitureService} from "../../../../@core/services/voiture.service";
 import {ReparationService} from "../../../../@core/services/reparation.service";
 import {Reparation} from "../../../../@core/models/reparation.model";
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-list-voiture',
@@ -18,17 +19,22 @@ export class ListVoitureComponent implements OnInit {
   constructor(
     private router: Router,
     private serviceVoiture: VoitureService,
-    private serviceReparation: ReparationService
+    private serviceReparation: ReparationService,
+    private spinner : NgxSpinnerService
   ) {
   }
 
   ngOnInit(): void {
+    this.spinner.show();
     this.getData();
   }
 
    getData() {
      this.serviceReparation.getReparations().subscribe(response => {
       this.reparations = response;
+       setTimeout(() => {
+         this.spinner.hide();
+       }, 500)
     })
   }
   getDetail(rep: Reparation) {
