@@ -4,6 +4,7 @@ import {DepenseService} from "../../../@core/services/depense.service";
 import {FactureService} from "../../../@core/services/facture.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {NgxSpinnerService} from "ngx-spinner";
+import {Color} from "@swimlane/ngx-charts";
 
 
 @Component({
@@ -12,12 +13,13 @@ import {NgxSpinnerService} from "ngx-spinner";
   styleUrls: ['./statistique.component.scss']
 })
 export class StatistiqueComponent implements OnInit {
-  reparationMoyenne: any;
+  dashBoard: any;
   viewTableau: [number, number] = [1200, 200];
-  colorScheme = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+
+   colorScheme = {
+    domain: ['#5AA454', '#3bbeb7', '#C7B42C', '#AAAAAA']
   };
-  cardColor: string = '#3d4662';
+  cardColor: string = '#f1f1f1';
 
   chiffreAffaire: any;
   chiffreAffaireMois: any;
@@ -83,7 +85,7 @@ export class StatistiqueComponent implements OnInit {
               this.depenseDashboard = 0;
             }
 
-            this.reparationMoyenne = [
+            this.dashBoard = [
               {
                 name: "Temps de rép Moyenne ",
                 value: reparationMoyenne + ' heure(s)'
