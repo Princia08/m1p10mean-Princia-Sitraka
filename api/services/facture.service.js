@@ -114,9 +114,10 @@ class FactureService {
   }
   getCAMois = async (month) => {
     try {
+
       const moisNext = month+1;
-      const startDate = new Date(`2023-${month}-01`);
-      const endDate = new Date(`2023-${moisNext}-01`);
+      const startDate = new Date(`2023-${moisNext}-01`);
+      const endDate = new Date(`2023-${moisNext}-31`);
 
       const montant = await Facture.aggregate([
         {
@@ -168,7 +169,7 @@ class FactureService {
   }
   getBenefice = async (mois) => {
     try {
-      const ca = await this.getCAMois(mois+1);
+      const ca = await this.getCAMois(mois);
       const depense = await this.depenseService.getTotalMois(mois);
       const benefice = ca[0].total - depense[0].total;
       console.log("ca :" + ca[0].total);

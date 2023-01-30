@@ -45,8 +45,9 @@ export class StatistiqueComponent implements OnInit {
     {value: 11, viewValue: 'Novembre'},
     {value: 12, viewValue: 'Décembre'}
   ];
-  caDashboard : any;
-  depenseDashboard : any;
+  caDashboard: any;
+  depenseDashboard: any;
+
   constructor(
     private serviceReparation: ReparationService,
     private serviceDepense: DepenseService,
@@ -57,29 +58,31 @@ export class StatistiqueComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.spinner.show();
+    this.spinner.show().then(r => {
+      console.log('mande');
+    });
     this.getDataDashboard();
     this.getDataCA();
   }
 
   getDataDashboard() {
     let currentMonth = new Date().getMonth();
-    let moisPlusOne = currentMonth + 1 + '';
+    // let moisPlusOne = currentMonth + 1 + '';
     console.log("mois : " + currentMonth)
     this.serviceReparation.getTempsReparationMoyenne().subscribe(reparationMoyenne => {
       this.serviceDepense.getTotalMois(currentMonth + '').subscribe(totalDepenseMois => {
-        this.serviceFacture.getCAMois(moisPlusOne).subscribe(chiffreCurrent => {
+        this.serviceFacture.getCAMois(currentMonth + '').subscribe(chiffreCurrent => {
           this.serviceFacture.getBenefice(currentMonth + '').subscribe(benefice => {
 
-            if(chiffreCurrent.length!=0){
-              this.caDashboard=chiffreCurrent[0].total
-            }else{
-              this.caDashboard=0;
+            if (chiffreCurrent.length != 0) {
+              this.caDashboard = chiffreCurrent[0].total
+            } else {
+              this.caDashboard = 0;
             }
-            if(totalDepenseMois.length!=0){
-              this.depenseDashboard=totalDepenseMois[0].total
-            }else{
-              this.depenseDashboard=0;
+            if (totalDepenseMois.length != 0) {
+              this.depenseDashboard = totalDepenseMois[0].total
+            } else {
+              this.depenseDashboard = 0;
             }
 
             this.reparationMoyenne = [
@@ -100,10 +103,13 @@ export class StatistiqueComponent implements OnInit {
                 value: benefice + ' Ar'
               },
             ];
+            setTimeout(() => {
+              this.spinner.hide();
+            }, 1000)
+
           });
         });
       });
-      this.spinner.hide();
     });
 
   }
@@ -128,7 +134,9 @@ export class StatistiqueComponent implements OnInit {
   }
 
   loadCAMois() {
-    this.serviceFacture.getCAMois(this.formMois.get('mois')?.value).subscribe(response => {
+    console.log(this.formMois.get('mois')?.value);
+    const mois = this.formMois.get('mois')?.value-1;
+    this.serviceFacture.getCAMois(mois+'').subscribe(response => {
       if (response.length != 0) {
         this.chiffreAffaireMois = response[0].total;
       } else {

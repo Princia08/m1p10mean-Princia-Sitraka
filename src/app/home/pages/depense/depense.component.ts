@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {DepenseService} from "../../../@core/services/depense.service";
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-depense',
@@ -16,17 +17,20 @@ export class DepenseComponent implements OnInit {
   depenses!: any[];
 
   constructor(
-    private serviceDepense: DepenseService
+    private serviceDepense: DepenseService,
+    private spinner : NgxSpinnerService,
   ) {
   }
 
   ngOnInit(): void {
     this.getData();
+    this.spinner.show();
   }
 
   getData() {
     this.serviceDepense.getDepenses().subscribe(response => {
       this.depenses = response;
+      this.spinner.hide();
     })
   }
 
