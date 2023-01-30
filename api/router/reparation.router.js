@@ -1,6 +1,4 @@
 const {app} = require('../modules/app/app.module')
-const {VoitureService} = require("../services/voiture.service");
-const {VoitureController} = require("../controllers/voiture.controller");
 const {ReparationService} = require("../services/reparation.service");
 const {ReparationController} = require("../controllers/reparation.controller");
 

@@ -1,10 +1,13 @@
 const {async} = require("rxjs");
 const {Reparation} = require("../models/reparation.model");
 const {SousReparation} = require("../models/sousReparation.model");
+const {SousReparationService} = require('../services/sousReparation.service')
 const mongoose = require("mongoose");
 
 class ReparationService {
-
+  constructor() {
+    this.sousReparationService = new SousReparationService();
+  }
   create = async (body) => {
     try {
       const reparation = new Reparation(body);
@@ -75,13 +78,19 @@ class ReparationService {
 
   getReparationByVoiture = async (idVoiture) => {
     try {
-      const reparation = await Reparation.find({idVoiture: idVoiture, avancement: "terminée"}).populate({path: 'voiture'});
-      return reparation;
+      const reparationList = await Reparation.find({idVoiture: idVoiture, avancement: "terminée"}).populate({path: 'voiture'});
+      
+      let montantList = [];
+      for (let reparation of reparationList) {
+        montantList.push((await this.sousReparationService.getMontantTotal(reparation._id))[0].totalMontant);
+      }
+      let result = [];
+      result = [reparationList, montantList];
+      return result;
     } catch (e) {
       throw e;
     }
   }
-  
   
   getAllSousReparation = async (idReparation) => {
     try {
