@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { TokenService } from 'src/app/token/token.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-historique',
@@ -16,10 +17,15 @@ export class HistoriqueComponent implements OnInit {
   montantList: any[] = [];
   voiture: any;
   displayStyle = "none";
-  
-  constructor(private http: HttpClient, private tokenService: TokenService) { }
+
+  constructor(
+    private http: HttpClient,
+    private tokenService: TokenService,
+    private spinner : NgxSpinnerService
+  ) { }
 
   ngOnInit(): void {
+    this.spinner.show();
     this.loadAllVoitureClient();
   }
 
@@ -27,7 +33,10 @@ export class HistoriqueComponent implements OnInit {
     this.http.get(`${environment.BASE}/voiture/${this.tokenService.getUserByToken()._id}`).subscribe({
       next: (res:any) => this.voitureList = res,
       error: err => alert(err)
-    })
+    });
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 500);
   }
 
   public loadReparationByVoiture(voiture: any) {
@@ -35,9 +44,12 @@ export class HistoriqueComponent implements OnInit {
     this.http.get(`${environment.BASE}/reparation/idVoiture/${voiture._id}`).subscribe({
       next: (res:any) => {this.reparationList = res[0], this.montantList = res[1]},
       error: err => alert(err)
-    })
+    });
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 500);
   }
-  
+
   public loadSousReparation(reparation: any) {
     this.displayStyle = "block";
     this.http.get(`${environment.BASE}/sousReparation/sp/${reparation._id}`).subscribe({
@@ -47,6 +59,9 @@ export class HistoriqueComponent implements OnInit {
       },
       error: err => alert(err)
     })
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 500);
   }
 
   public closePopup() {

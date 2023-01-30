@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { TokenService } from 'src/app/token/token.service';
 import { environment } from 'src/environments/environment';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-facture',
@@ -16,22 +17,35 @@ export class FactureComponent implements OnInit {
   displayStyle!: string;
 
   constructor(
-    private http:HttpClient, 
-    private tokenService: TokenService, 
-    private sanitizer: DomSanitizer
-  ) 
+    private http:HttpClient,
+    private tokenService: TokenService,
+    private sanitizer: DomSanitizer,
+    private spinner:NgxSpinnerService
+  )
   {}
 
-  ngOnInit(): void {    
-    this.loadFactureByClient(); 
+  ngOnInit(): void {
+    this.spinner.show();
+    this.loadFactureByClient();
   }
 
   public loadFactureByClient() {
     this.http.get(`${environment.BASE}/facture/idClient/${this.tokenService.getUserByToken()._id}`).subscribe({
-      next: (res:any) => { this.factureList = res },
-      error: err => alert(err)
-    })
-  }  
+      next: (res:any) => {
+        this.factureList = res ;
+        setTimeout(() => {
+          this.spinner.hide();
+        }, 500);
+      },
+      error: err => {
+        setTimeout(() => {
+          this.spinner.hide();
+        }, 500);
+        alert(err)
+      }
+    });
+
+  }
 
   public loadPdf(idFacture: any) {
     this.http.get(`${environment.BASE}/facture/pdf/${idFacture}`).subscribe(file => {
@@ -45,7 +59,7 @@ export class FactureComponent implements OnInit {
   }
   public closePopup() {
     this.displayStyle="none";
-    this.loadFactureByClient(); 
+    this.loadFactureByClient();
     this.pdfPath = ""
   }
 }
