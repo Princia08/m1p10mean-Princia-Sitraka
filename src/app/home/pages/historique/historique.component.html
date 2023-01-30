@@ -8,6 +8,7 @@
                         <th>Marque</th>
                         <th>Model</th>
                         <th>Matricule</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -16,7 +17,7 @@
                         <td>{{voiture.marque}}</td>
                         <td>{{voiture.model}}</td>
                         <td>{{voiture.matricule}}</td>
-                     
+                        <td><button type="button" class="btn btn-block btn-dark btn-sm" (click)="loadReparationByVoiture(voiture)">Voir réparation</button></td>
                     </tr>
                 </tbody>
             </table>
@@ -35,8 +36,8 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let reparation of reparationList, let i=index">
-                            <td>{{reparation.date_entree}}</td>
-                            <td>{{reparation.date_sortie}}</td>
+                            <td>{{reparation.date_entree | date: 'dd-MM-YYYY à HH:mm'}}</td>
+                            <td>{{reparation.date_sortie | date: 'dd-MM-YYYY à HH:mm'}}</td>
                             <td>{{montantList[i] }} Ar</td>
                         </tr>
                     </tbody>
