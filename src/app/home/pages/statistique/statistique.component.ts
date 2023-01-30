@@ -45,8 +45,8 @@ export class StatistiqueComponent implements OnInit {
     {value: 11, viewValue: 'Novembre'},
     {value: 12, viewValue: 'Décembre'}
   ];
-
-
+  caDashboard : any;
+  depenseDashboard : any;
   constructor(
     private serviceReparation: ReparationService,
     private serviceDepense: DepenseService,
@@ -58,11 +58,11 @@ export class StatistiqueComponent implements OnInit {
 
   ngOnInit() {
     this.spinner.show();
-    this.getDataMean();
+    this.getDataDashboard();
     this.getDataCA();
   }
 
-  getDataMean() {
+  getDataDashboard() {
     let currentMonth = new Date().getMonth();
     let moisPlusOne = currentMonth + 1 + '';
     console.log("mois : " + currentMonth)
@@ -70,6 +70,18 @@ export class StatistiqueComponent implements OnInit {
       this.serviceDepense.getTotalMois(currentMonth + '').subscribe(totalDepenseMois => {
         this.serviceFacture.getCAMois(moisPlusOne).subscribe(chiffreCurrent => {
           this.serviceFacture.getBenefice(currentMonth + '').subscribe(benefice => {
+
+            if(chiffreCurrent.length!=0){
+              this.caDashboard=chiffreCurrent[0].total
+            }else{
+              this.caDashboard=0;
+            }
+            if(totalDepenseMois.length!=0){
+              this.depenseDashboard=totalDepenseMois[0].total
+            }else{
+              this.depenseDashboard=0;
+            }
+
             this.reparationMoyenne = [
               {
                 name: "Temps de rép Moyenne ",
@@ -77,11 +89,11 @@ export class StatistiqueComponent implements OnInit {
               },
               {
                 name: "Total des dépenses ce mois",
-                value: totalDepenseMois[0].total + ' Ar'
+                value: this.depenseDashboard + ' Ar'
               },
               {
                 name: "Chiffre d'affaire ce mois ",
-                value: chiffreCurrent[0].total + ' Ar'
+                value: this.caDashboard + ' Ar'
               },
               {
                 name: "Bénéfice ce mois ",

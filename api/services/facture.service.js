@@ -114,14 +114,15 @@ class FactureService {
   }
   getCAMois = async (month) => {
     try {
+      const moisNext = month+1;
       const startDate = new Date(`2023-${month}-01`);
-      const endDate = new Date(`2023-${month}-31`);
+      const endDate = new Date(`2023-${moisNext}-01`);
 
       const montant = await Facture.aggregate([
         {
           $match: {
             $and: [
-              {etat_paiement: "unpaid"},
+              {etat_paiement: "paid"},
               {date: {$gte: startDate, $lte: endDate}},
             ]
           }
