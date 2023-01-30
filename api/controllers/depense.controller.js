@@ -21,7 +21,8 @@ class DepenseController {
   }
   getTotalDepensesMois = async (req, res) => {
     try {
-      res.json(await this.depenseService.getTotalMois())
+      const mois =  req.params.mois;
+      res.json(await this.depenseService.getTotalMois(mois))
     } catch (e) {
       console.log(e.message)
       res.status(500).json({message: 'Internal Server Error'})

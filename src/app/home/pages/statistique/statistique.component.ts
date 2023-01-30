@@ -3,6 +3,7 @@ import {ReparationService} from "../../../@core/services/reparation.service";
 import {DepenseService} from "../../../@core/services/depense.service";
 import {FactureService} from "../../../@core/services/facture.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {NgxSpinnerService} from "ngx-spinner";
 
 
 @Component({
@@ -12,8 +13,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class StatistiqueComponent implements OnInit {
   reparationMoyenne: any;
-  viewTableau: [number, number] = [900, 200];
-  viewGraphe: [number, number] = [900, 500];
+  viewTableau: [number, number] = [1200, 200];
   colorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
@@ -46,45 +46,60 @@ export class StatistiqueComponent implements OnInit {
     {value: 12, viewValue: 'Décembre'}
   ];
 
-  ngOnInit() {
-    this.getDataMean();
-    this.getDataCA();
-  }
 
   constructor(
     private serviceReparation: ReparationService,
     private serviceDepense: DepenseService,
-    private serviceFacture: FactureService
+    private serviceFacture: FactureService,
+    private spinner: NgxSpinnerService
   ) {
 
   }
 
+  ngOnInit() {
+    this.spinner.show();
+    this.getDataMean();
+    this.getDataCA();
+  }
 
   getDataMean() {
+    let currentMonth = new Date().getMonth();
+    let moisPlusOne = currentMonth + 1 + '';
+    console.log("mois : " + currentMonth)
     this.serviceReparation.getTempsReparationMoyenne().subscribe(reparationMoyenne => {
-      this.serviceDepense.getTotalMois().subscribe(totalDepenseMois => {
-        this.reparationMoyenne = [
-          {
-            name: "Temps de rép Moyenne ",
-            value: reparationMoyenne + ' heure(s)'
-          },
-          {
-            name: "Total des dépenses par mois",
-            value: totalDepenseMois[0].total + ' Ar'
-          },
-          {
-            name: "Chiffre d'affaire ajd",
-            value: '420.000 Ar'
-          },
+      this.serviceDepense.getTotalMois(currentMonth + '').subscribe(totalDepenseMois => {
+        this.serviceFacture.getCAMois(moisPlusOne).subscribe(chiffreCurrent => {
+          this.serviceFacture.getBenefice(currentMonth + '').subscribe(benefice => {
+            this.reparationMoyenne = [
+              {
+                name: "Temps de rép Moyenne ",
+                value: reparationMoyenne + ' heure(s)'
+              },
+              {
+                name: "Total des dépenses ce mois",
+                value: totalDepenseMois[0].total + ' Ar'
+              },
+              {
+                name: "Chiffre d'affaire ce mois ",
+                value: chiffreCurrent[0].total + ' Ar'
+              },
+              {
+                name: "Bénéfice ce mois ",
+                value: benefice + ' Ar'
+              },
+            ];
+          });
+        });
+      });
+      this.spinner.hide();
+    });
 
-        ];
-      })
-    })
   }
 
   getDataCA() {
     this.chiffreAffaire = 0;
     this.chiffreAffaireMois = 0;
+    // this.spinner.hide();
   }
 
   loadCAJour() {

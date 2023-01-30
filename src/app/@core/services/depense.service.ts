@@ -20,8 +20,8 @@ export class DepenseService {
   getDepenses(): Observable<any> {
     return this.http.get<any>(`${this.apiEndPint}/depenses`);
   }
-  getTotalMois(): Observable<any> {
-    return this.http.get<any>(`${this.apiEndPint}/totalDep`);
+  getTotalMois(mois:string): Observable<any> {
+    return this.http.get<any>(`${this.apiEndPint}/totalDep/${mois}`);
   }
 
 }

@@ -11,7 +11,7 @@ function DepenseRouter(base) {
 
   app.post(`/api/${base}/create`, controller.create)
   app.get(`/api/${base}/depenses`, controller.getDepenses);
-  app.get(`/api/${base}/totalDep`, controller.getTotalDepensesMois);
+  app.get(`/api/${base}/totalDep/:mois`, controller.getTotalDepensesMois);
 }
 
 module.exports = {DepenseRouter}

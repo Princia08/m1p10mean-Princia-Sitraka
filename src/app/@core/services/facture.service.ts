@@ -19,5 +19,8 @@ export class FactureService {
   getCAMois(mois:string): Observable<any> {
     return this.http.get<any>(`${this.apiEndPint}/chiffreAffaireMois/${mois}`);
   }
+  getBenefice(mois:string): Observable<any> {
+    return this.http.get<any>(`${this.apiEndPint}/beneficeMois/${mois}`);
+  }
 
 }

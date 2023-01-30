@@ -21,6 +21,7 @@ import { FactureComponent } from './pages/facture/facture.component';
 import { PaiementComponent } from './pages/paiement/paiement.component';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
+import {NgxSpinnerModule} from "ngx-spinner";
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import {MatSelectModule} from "@angular/material/select";
     MatButtonModule,
     NgxChartsModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    NgxSpinnerModule
   ]
 })
 export class HomeModule { }

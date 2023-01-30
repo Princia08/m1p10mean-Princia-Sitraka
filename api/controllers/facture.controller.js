@@ -68,6 +68,15 @@ class FactureController {
     }
 
   }
+  getBeneficeMois = async (req, res) => {
+    try {
+      const mois = req.params.mois;
+      res.json(await this.factureService.getBenefice(mois))
+    } catch (e) {
+      res.status(e.status || 500).json({message: e.message || 'Internal Server Error'})
+    }
+
+  }
 }
 
 module.exports = { FactureController }

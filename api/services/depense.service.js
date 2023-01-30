@@ -23,9 +23,19 @@ class DepenseService {
       throw e
     }
   }
-  getTotalMois = async () => {
+  getTotalMois = async (specifiedMonth) => {
     try {
+      // const specifiedMonth = 2;
+      //latsaka ray ny mois an ty
       const list = await Depense.aggregate([
+        {
+          $match: {
+            date: {
+              $gte: new Date(2023, specifiedMonth, 1),
+              $lt: new Date(2023, specifiedMonth + 1, 1)
+            }
+          }
+        },
         {
           $group: {
             _id: { $month: "$date" },

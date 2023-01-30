@@ -1,3 +1,4 @@
+<ngx-spinner type="ball-scale-multiple"><p>Chargement des données</p></ngx-spinner>
 <section class="content-header">
   <div class="container-fluid">
     <div class="row mb-2">
@@ -33,11 +34,23 @@
       <h1>Chiffre d'affaires </h1>
       <div class="col-md-6">
         <div class="row">
-          <form (ngSubmit)="loadCAJour()" [formGroup]="form">
+
             <p>Selectionner deux dates : </p>
-            <div class="col-lg-6"><input class="form-control" formControlName="date1" type="date"></div>
-            <div class="col-lg-6"><input class="form-control" formControlName="date2" type="date"></div>
-            <button class="btn btn-primary">Valider</button>
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="loadCAJour()" [formGroup]="form">
+          <div class="row">
+            <div class="col-3">
+              <input class="form-control" formControlName="date1" type="date">
+            </div>
+            <div class="col-4">
+              <input class="form-control" formControlName="date2" type="date">
+            </div>
+            <div class="col-5">
+              <button class="btn btn-primary">Valider</button>
+            </div>
+
+          </div>
           </form>
         </div>
         <div class="card-body p-0">
@@ -52,7 +65,7 @@
             <tbody>
             <tr *ngFor="let chiffreAffaire of chiffreAffaires">
               <td>#.</td>
-              <td> <span class="badge bg-dark">{{chiffreAffaire._id | date :  'dd/MM/yyyy'}}</span></td>
+              <td><span class="badge bg-dark">{{chiffreAffaire._id | date :  'dd/MM/yyyy'}}</span></td>
               <td><span class="badge bg-secondary">{{chiffreAffaire.total | number}} Ar</span></td>
             </tr>
             </tbody>
@@ -71,7 +84,7 @@
           </select>
         </form>
         <br><br><br>
-        <h3>Chiffre d'affaire Mois  : {{chiffreAffaireMois}} Ar</h3>
+        <h3>Chiffre d'affaire par mois : {{chiffreAffaireMois}} Ar</h3>
       </div>
       <!--      <div class="col-md-4"></div>-->
     </div>
