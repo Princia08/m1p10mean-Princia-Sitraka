@@ -5,6 +5,7 @@
     "ng": "ng",
     "start:angular": "ng serve",
     "start:node": "npx nodemon -r dotenv/config",
+    "heroku-postbuild": "ng build",
     "start": "node index.js",
     "build": "ng build",
     "dev": "npx concurrently \"npm run start:angular\" \"npm run start:node\"",

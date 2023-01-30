@@ -22,6 +22,7 @@ import { PaiementComponent } from './pages/paiement/paiement.component';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
 import {NgxSpinnerModule} from "ngx-spinner";
+import { HistoriqueComponent } from './pages/historique/historique.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import {NgxSpinnerModule} from "ngx-spinner";
     StatistiqueComponent,
     DepenseComponent,
     FactureComponent,
-    PaiementComponent
+    PaiementComponent,
+    HistoriqueComponent
   ],
   imports: [
     CommonModule,

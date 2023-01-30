@@ -9,7 +9,6 @@ function VoitureRouter(base) {
 
   app.post(`/api/${base}`, controller.create)
   app.get(`/api/${base}/voitures`, controller.getVoitures)
-  app.get(`/api/${base}/voiturese`, controller.testAgregation)
   app.get(`/api/${base}/:idClient`, controller.getVoitureByClient)
 
 

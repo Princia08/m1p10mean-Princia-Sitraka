@@ -11,6 +11,7 @@ import {StatistiqueComponent} from "./pages/statistique/statistique.component";
 import {DepenseComponent} from "./pages/depense/depense.component";
 import { FactureComponent } from './pages/facture/facture.component';
 import { PaiementComponent } from './pages/paiement/paiement.component';
+import { HistoriqueComponent } from './pages/historique/historique.component';
 
 const routes: Routes = [
   {
@@ -25,7 +26,8 @@ const routes: Routes = [
       {path: 'stat', component: StatistiqueComponent},
       {path: 'depenses', component: DepenseComponent},
       {path: 'facture', component: FactureComponent},
-      {path: 'paiement', component: PaiementComponent}
+      {path: 'paiement', component: PaiementComponent},
+      {path: 'historique', component: HistoriqueComponent}
     ]
   },
 ];

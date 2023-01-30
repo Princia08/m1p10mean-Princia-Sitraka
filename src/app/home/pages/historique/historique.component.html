@@ -1,0 +1,56 @@
+<div class="container-fluid" style="padding: 2%;">
+    <div class="row" style="justify-content: space-between;">
+        <div [ngClass]="reparationList.length==0 ? 'col-md-12' : 'col-md-6'">
+            <h2>Liste de vos voitures</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Marque</th>
+                        <th>Model</th>
+                        <th>Matricule</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let voiture of voitureList" style="cursor: pointer;"
+                        (click)="loadReparationByVoiture(voiture)" >
+                        <td>{{voiture.marque}}</td>
+                        <td>{{voiture.model}}</td>
+                        <td>{{voiture.matricule}}</td>
+                        <td><button type="button" class="btn btn-block btn-dark btn-sm" (click)="loadReparationByVoiture(voiture)">Voir réparation</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- fiche reparation -->
+        <div class="col-md-5" *ngIf="reparationList.length!=0">
+            <div class="form-control">
+                <h2>Liste des réparations de la voiture {{voiture.matricule}}</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Date d'entrée</th>
+                            <th>Date de sortie</th>
+                            <th>Montant total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let reparation of reparationList, let i=index">
+                            <td>{{reparation.date_entree | date: 'dd-MM-YYYY à HH:mm'}}</td>
+                            <td>{{reparation.date_sortie | date: 'dd-MM-YYYY à HH:mm'}}</td>
+                            <td>{{montantList[i] }} Ar</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)"
+             size="medium"
+             color="#fff"
+             type="ball-scale-multiple"
+             [fullScreen] = "true">
+  <p style="font-size: 20px; color: white">Chargement des données ...</p>
+</ngx-spinner>

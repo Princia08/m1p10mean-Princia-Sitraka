@@ -29,7 +29,8 @@ export class HomeComponent implements OnInit {
       this.menuItems = [
         {path: '/home/depot', title: 'Dépôt', icon: 'fas fa-warehouse'},
         {path: '/home/reparation', title: 'Réparation', icon: 'fa fa-wrench'},
-        {path: '/home/facture', title: 'Facture', icon: 'fa fa-file-invoice'}
+        {path: '/home/facture', title: 'Facture', icon: 'fa fa-file-invoice'},
+        {path: '/home/historique', title: 'Historique', icon: 'fa-solid fa-clock-rotate-left'}
       ]
     } else if (this.tokenService.getUserByToken().role == 'responsable_financier') {
       this.menuItems = [

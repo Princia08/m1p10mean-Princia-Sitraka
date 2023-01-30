@@ -15,7 +15,6 @@ async function main() {
     await load()
     // app.get('/api/test', (req, res) => res.json({message: 'Ok Bee'}))
 
-    // UserRouter('user')
     PersonneRouter('personne')
     VoitureRouter('voiture')
     DepotRouter('depot')
@@ -25,7 +24,7 @@ async function main() {
     DepenseRouter('depense')
     FactureRouter('facture')
 
-    // app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'dist/bee-project/index.html')))
+    app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'dist/m1p10mean-Princia-Sitraka/index.html')))
 
     app.listen(process.env.PORT, () => console.log(`Start on ${process.env.PORT}`))
   } catch (e) {
