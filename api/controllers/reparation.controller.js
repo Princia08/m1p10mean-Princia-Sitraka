@@ -61,6 +61,11 @@ class ReparationController {
     try{ res.json(await this.reparationService.getReparationByClient(req.params.idClient)) }
     catch(e) { throw e; }
   }
+ 
+  getReparationByVoiture = async (req, res) => {
+    try{ res.json(await this.reparationService.getReparationByVoiture(req.params.idVoiture)) }
+    catch(e) { res.status(e.status || 500).json({message: e.message || 'Internal Server Error'})  }
+  }
 
   delete = async (req, res) => {
     try {

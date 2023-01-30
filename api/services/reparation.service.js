@@ -72,6 +72,16 @@ class ReparationService {
       throw e;
     }
   }
+
+  getReparationByVoiture = async (idVoiture) => {
+    try {
+      const reparation = await Reparation.find({idVoiture: idVoiture, avancement: "terminée"}).populate({path: 'voiture'});
+      return reparation;
+    } catch (e) {
+      throw e;
+    }
+  }
+  
   
   getAllSousReparation = async (idReparation) => {
     try {
@@ -150,7 +160,6 @@ class ReparationService {
           }
         }
       ]);
-      console.log(list);
       return list;
     } catch (e) {
       console.log(e.message);
