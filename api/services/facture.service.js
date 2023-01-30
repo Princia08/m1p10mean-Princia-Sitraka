@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const {Facture} = require("../models/facture.model");
+const {Reparation} = require("../models/reparation.model");
 const {SousReparationService} = require('../services/sousReparation.service')
 const PDFDocument = require('pdfkit');
 const fs = require('fs');
@@ -226,7 +227,8 @@ class FactureService {
 
   updateEtatPaiement = async (idFacture) => {
     try {
-      const factureUpdated = await Facture.findOneAndUpdate({_id: idFacture}, {$set: {etat_paiement: "paid"}}, {new: true})
+      const factureUpdated = await Facture.findOneAndUpdate({_id: idFacture}, {$set: {etat_paiement: "paid"}}, {new: true});
+      await Reparation.findOneAndUpdate({_id: factureUpdated.idReparation}, {$set: {date_sortie: Date.now()}}, {new: true});
       return factureUpdated;
     } catch (e) {
       throw e
