@@ -12,7 +12,7 @@ import { LoginService } from '../security/login/login.service';
 })
 export class LoginComponent implements OnInit {
   errorMessage!: string;
-
+  inscriptionPath = `${environment.BASE}/inscription`;
   ngOnInit(): void {
   }
 
