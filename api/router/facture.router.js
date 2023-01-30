@@ -9,10 +9,11 @@ function FactureRouter(base) {
   app.post(`/api/${base}`, controller.create);
   app.get(`/api/${base}/idClient/:idClient`, controller.getFactureByIdClient);
   app.get(`/api/${base}/montantFacture/:idFacture`, controller.getMontantTotalFacture);
-  app.get(`/api/${base}/chiffreAffaire/`, controller.getChiffreAffaire);
+  app.post(`/api/${base}/chiffreAffaire`, controller.getChiffreAffaire);
   app.get(`/api/${base}/pdf/:id`, controller.generatePdfFacture);
   app.get(`/api/${base}/unpaid`, controller.getFactureUnpaid);
   app.get(`/api/${base}/update/:idFacture`, controller.updateEtatPaiement);
+  app.get(`/api/${base}/chiffreAffaireMois/:mois`, controller.getChiffreAffaireParMois);
 }
 
 module.exports = {FactureRouter}

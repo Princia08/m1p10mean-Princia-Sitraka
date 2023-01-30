@@ -20,32 +20,62 @@
     <div class="row">
       <div class="col-md-12">
         <ngx-charts-number-card
-          [results]="reparationMoyenne"
+          (select)="onSelect($event)"
           [cardColor]="cardColor"
-          [view]="viewTableau"
-          (select)="onSelect($event)">
+          [results]="reparationMoyenne"
+          [view]="viewTableau">
         </ngx-charts-number-card>
       </div>
-<!--      <div class="col-md-6">Another Statistique here</div>-->
+      <!--      <div class="col-md-6">Another Statistique here</div>-->
     </div>
     <hr>
     <div class="row">
-      <div class="">Graphique chiffre d'affaires ici</div>
-      <div class="">
-        <ngx-charts-line-chart
-          [view]="viewGraphe"
-          [legend]="legend"
-          [showXAxisLabel]="showXAxisLabel"
-          [showYAxisLabel]="showYAxisLabel"
-          [xAxis]="xAxis"
-          [yAxis]="yAxis"
-          [xAxisLabel]="xAxisLabel"
-          [yAxisLabel]="yAxisLabel"
-          [timeline]="timeline"
-          [results]="dataCA">
-        </ngx-charts-line-chart>
+      <h1>Chiffre d'affaires </h1>
+      <div class="col-md-6">
+        <div class="row">
+          <form (ngSubmit)="loadCAJour()" [formGroup]="form">
+            <p>Selectionner deux dates : </p>
+            <div class="col-lg-6"><input class="form-control" formControlName="date1" type="date"></div>
+            <div class="col-lg-6"><input class="form-control" formControlName="date2" type="date"></div>
+            <button class="btn btn-primary">Valider</button>
+          </form>
+        </div>
+        <div class="card-body p-0">
+          <table class="table table-sm">
+            <thead>
+            <tr>
+              <th style="width: 10px">#</th>
+              <th>Date</th>
+              <th>CA</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let chiffreAffaire of chiffreAffaires">
+              <td>#.</td>
+              <td> <span class="badge bg-dark">{{chiffreAffaire._id | date :  'dd/MM/yyyy'}}</span></td>
+              <td><span class="badge bg-secondary">{{chiffreAffaire.total | number}} Ar</span></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <h3>Chiffre d'affaire : {{chiffreAffaire | number}} Ar</h3>
       </div>
 
+      <div class="col-md-6">
+        <p>Selectionner un mois pour voir le chiffre d'affaire</p>
+        <form [formGroup]="formMois">
+          <select (change)="loadCAMois()" class="form-control" formControlName="mois">
+            <option value="">Mois</option>
+            <option *ngFor="let month of months" [value]="month.value">
+              {{ month.viewValue }}</option>
+          </select>
+        </form>
+        <br><br><br>
+        <h3>Chiffre d'affaire Mois  : {{chiffreAffaireMois}} Ar</h3>
+      </div>
+      <!--      <div class="col-md-4"></div>-->
     </div>
+
   </div>
+
 </section>

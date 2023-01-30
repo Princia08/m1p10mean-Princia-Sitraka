@@ -19,6 +19,8 @@ import { NgxChartsModule } from "@swimlane/ngx-charts";
 import { DepenseComponent } from './pages/depense/depense.component';
 import { FactureComponent } from './pages/facture/facture.component';
 import { PaiementComponent } from './pages/paiement/paiement.component';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { PaiementComponent } from './pages/paiement/paiement.component';
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
-    NgxChartsModule
+    NgxChartsModule,
+    MatFormFieldModule,
+    MatSelectModule
   ]
 })
 export class HomeModule { }

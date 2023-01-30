@@ -15,7 +15,7 @@ class FactureController {
   getFactureByIdClient = async (req, res) => {
     try {
       res.json(await this.factureService.getFactureByIdClient(req.params.idClient))
-    } catch (e) { 
+    } catch (e) {
       res.status(e.status || 500).json({ message: e.message || 'Internal Server Error' })
      }
   }
@@ -23,20 +23,20 @@ class FactureController {
   getFactureUnpaid = async (req, res) => {
     try {
       res.json(await this.factureService.getFactureUnpaid())
-    } catch (e) { 
+    } catch (e) {
       res.status(e.status || 500).json({ message: e.message || 'Internal Server Error' })
      }
   }
-  
+
   updateEtatPaiement = async (req, res) => {
     try {
       res.json(await this.factureService.updateEtatPaiement(req.params.idFacture))
-    } catch (e) { 
+    } catch (e) {
       res.status(e.status || 500).json({ message: e.message || 'Internal Server Error' })
      }
   }
-  
-  
+
+
   getMontantTotalFacture = async (req, res) => {
     try {
       res.json(await this.factureService.getMontantTotalParFacture(req.params.idFacture))
@@ -46,7 +46,16 @@ class FactureController {
   }
   getChiffreAffaire = async (req, res) => {
     try {
-      res.json(await this.factureService.getCA())
+      // req.body.date1
+      res.json(await this.factureService.getCA(req.body.date1,req.body.date2))
+    } catch (e) {
+      throw e
+    }
+  }
+  getChiffreAffaireParMois = async (req, res) => {
+    try {
+      const mois = req.params.mois;
+      res.json(await this.factureService.getCAMois(mois))
     } catch (e) {
       throw e
     }
@@ -57,8 +66,8 @@ class FactureController {
     } catch (e) {
       res.status(e.status || 500).json({message: e.message || 'Internal Server Error'})
     }
-    
+
   }
 }
-   
+
 module.exports = { FactureController }

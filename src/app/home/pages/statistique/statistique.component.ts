@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ReparationService} from "../../../@core/services/reparation.service";
 import {DepenseService} from "../../../@core/services/depense.service";
 import {FactureService} from "../../../@core/services/facture.service";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 
 @Component({
@@ -18,29 +19,37 @@ export class StatistiqueComponent implements OnInit {
   };
   cardColor: string = '#3d4662';
 
-  multi!: any[];
+  chiffreAffaire: any;
+  chiffreAffaireMois: any;
+  chiffreAffaires !: any[];
 
-  options !: any;
+  form = new FormGroup({
+    date1: new FormControl('', Validators.required),
+    date2: new FormControl('', Validators.required),
+  });
+  formMois = new FormGroup({
+    mois: new FormControl('', Validators.required),
+  })
 
-  // options
-  legend: boolean = true;
-  showLabels: boolean = true;
-  animations: boolean = true;
-  xAxis: boolean = true;
-  yAxis: boolean = true;
-  showYAxisLabel: boolean = true;
-  showXAxisLabel: boolean = true;
-  xAxisLabel: string = 'Jour';
-  yAxisLabel: string = 'Chiffre d\'affaire';
-  timeline: boolean = true;
-
-  dataCA !: any[];
+  months = [
+    {value: 1, viewValue: 'Janvier'},
+    {value: 2, viewValue: 'Février'},
+    {value: 3, viewValue: 'Mars'},
+    {value: 4, viewValue: 'Avril'},
+    {value: 5, viewValue: 'Mai'},
+    {value: 6, viewValue: 'Juin'},
+    {value: 7, viewValue: 'Juillet'},
+    {value: 8, viewValue: 'Août'},
+    {value: 9, viewValue: 'Septembre'},
+    {value: 10, viewValue: 'Octobre'},
+    {value: 11, viewValue: 'Novembre'},
+    {value: 12, viewValue: 'Décembre'}
+  ];
 
   ngOnInit() {
     this.getDataMean();
-    // this.getDataCA();
+    this.getDataCA();
   }
-
 
   constructor(
     private serviceReparation: ReparationService,
@@ -50,12 +59,13 @@ export class StatistiqueComponent implements OnInit {
 
   }
 
+
   getDataMean() {
     this.serviceReparation.getTempsReparationMoyenne().subscribe(reparationMoyenne => {
       this.serviceDepense.getTotalMois().subscribe(totalDepenseMois => {
         this.reparationMoyenne = [
           {
-            name: "Temps de réparation Moyenne effectué ",
+            name: "Temps de rép Moyenne ",
             value: reparationMoyenne + ' heure(s)'
           },
           {
@@ -66,27 +76,45 @@ export class StatistiqueComponent implements OnInit {
             name: "Chiffre d'affaire ajd",
             value: '420.000 Ar'
           },
-          {
-            name: "Bénéfice par mois",
-            value: '420.000 Ar'
-          },
+
         ];
       })
     })
   }
 
   getDataCA() {
-    this.serviceFacture.getCA().subscribe(response => {
-      this.dataCA = response;
+    this.chiffreAffaire = 0;
+    this.chiffreAffaireMois = 0;
+  }
+
+  loadCAJour() {
+    console.log(this.form.value);
+    this.serviceFacture.getCA(this.form.value).subscribe(response => {
       console.log(response);
+      if (response.length != 0) {
+        this.chiffreAffaires = response;
+      } else {
+        this.chiffreAffaire = 0;
+      }
+      ;
     })
   }
 
+  loadCAMois() {
+    this.serviceFacture.getCAMois(this.formMois.get('mois')?.value).subscribe(response => {
+      if (response.length != 0) {
+        this.chiffreAffaireMois = response[0].total;
+      } else {
+        this.chiffreAffaireMois = 0;
+      }
+    })
+  }
 
   onSelect(event: any) {
     console.log(event);
   }
 }
+
 
 export var multi = [
   {

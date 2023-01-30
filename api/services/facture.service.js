@@ -58,10 +58,10 @@ class FactureService {
       throw e;
     }
   }
-  getCA = async (mois) => {
+  getCA = async (date1,date2) => {
     try {
-      const startDate = new Date("2023-01-01");
-      const endDate = new Date("2023-01-31");
+      const startDate = new Date(date1);
+      const endDate = new Date(date2);
 
       const montant = await Facture.aggregate([
         {
@@ -96,6 +96,58 @@ class FactureService {
             _id: {
               $dateToString: {
                 format: "%Y-%m-%d",
+                date: "$date"
+              }
+            },
+            total: {
+              $sum: "$sousReparations.montant"
+            }
+          }
+        },
+      ]);
+      return montant;
+    } catch (e) {
+      throw e;
+    }
+  }
+  getCAMois = async (month) => {
+    try {
+      const startDate = new Date(`2023-${month}-01`);
+      const endDate = new Date(`2023-${month}-31`);
+
+      const montant = await Facture.aggregate([
+        {
+          $match: {
+            $and: [
+              {etat_paiement: "unpaid"},
+              {date: {$gte: startDate, $lte: endDate}},
+            ]
+          }
+        },
+        {
+          $lookup: {
+            from: "reparations",
+            localField: "idReparation",
+            foreignField: "_id",
+            as: "reparation"
+          }
+        },
+        {
+          $lookup: {
+            from: "sousreparations",
+            localField: "reparation._id",
+            foreignField: "reparation",
+            as: "sousReparations"
+          }
+        },
+        {
+          $unwind: "$sousReparations"
+        },
+        {
+          $group: {
+            _id: {
+              $dateToString: {
+                format: "%Y-%m",
                 date: "$date"
               }
             },

@@ -16,7 +16,6 @@ import {NgxChartsModule} from "@swimlane/ngx-charts";
     AppComponent,
     LoginComponent,
     InscriptionComponent
-
   ],
   imports: [
     BrowserModule,
