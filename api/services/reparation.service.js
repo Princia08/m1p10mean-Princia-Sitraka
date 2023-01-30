@@ -141,10 +141,10 @@ class ReparationService {
           }
         }
       ]);
-      let tempsMoyenneHeure = Math.round(tempsMoyenne[0].tempsMoyenne / (1000 * 60 * 60));
+      let tempsMoyenneHeure = (tempsMoyenne.length!=0) ? Math.round(tempsMoyenne[0].tempsMoyenne / (1000 * 60 * 60)) : 0;
       return tempsMoyenneHeure;
     } catch (e) {
-      console.log(e);
+     throw e;
     }
   }
 

@@ -39,4 +39,8 @@ export class InscriptionComponent implements OnInit {
       })
     }
   }
+
+  public signUp() {
+    this.router.navigateByUrl('/')
+  }
 }
