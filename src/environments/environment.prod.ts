@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  BASE: 'http://url:port/api',
-  directory: 'http://url:port',
+  BASE: 'http://https://angular-deploy13.herokuapp.com/api',
+  directory: 'https://angular-deploy13.herokuapp.com',
 };
