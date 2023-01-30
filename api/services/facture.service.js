@@ -171,9 +171,10 @@ class FactureService {
     try {
       const ca = await this.getCAMois(mois);
       const depense = await this.depenseService.getTotalMois(mois);
-      const benefice = ca[0].total - depense[0].total;
-      console.log("ca :" + ca[0].total);
-      console.log("benefice :" + depense[0].total);
+      let caValue = (ca.length == 0) ? 0 : ca[0].total; 
+      let depenseValue = (depense.length == 0) ? 0 : depense[0].total; 
+      const benefice = caValue - depenseValue;
+      
       return benefice;
     } catch (e) {
       throw e;
