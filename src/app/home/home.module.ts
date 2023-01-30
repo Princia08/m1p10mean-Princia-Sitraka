@@ -23,6 +23,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
 import {NgxSpinnerModule} from "ngx-spinner";
 import { HistoriqueComponent } from './pages/historique/historique.component';
+import {DragDropModule} from "@angular/cdk/drag-drop";
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { HistoriqueComponent } from './pages/historique/historique.component';
     NgxChartsModule,
     MatFormFieldModule,
     MatSelectModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    DragDropModule
   ]
 })
 export class HomeModule { }

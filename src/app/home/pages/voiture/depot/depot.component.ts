@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TokenService } from 'src/app/token/token.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 
 @Component({
   selector: 'app-depot',
@@ -17,6 +18,10 @@ export class DepotComponent implements OnInit {
   description!: string;
   errorMessage!: string;
   errorFormMsg!: string;
+  items = ['Carrots',  'Avocados'];
+
+  basket = ['Oranges', 'Bananas', 'Cucumbers'];
+
 
   public form = new FormGroup({
     matricule: new FormControl('', [Validators.required]),
@@ -38,7 +43,8 @@ export class DepotComponent implements OnInit {
     }).subscribe({
       next: () => Swal.fire("Dépot effectué avec succès"),
       error: err => alert(err)
-    })
+    });
+    this.form.reset();
   }
 
   public createVehicule() {
@@ -52,9 +58,9 @@ export class DepotComponent implements OnInit {
         dans_garage: true
       }
       ).subscribe({
-        next: (res: any) => { 
+        next: (res: any) => {
           this.createDepot(res._id, data.description),
-          this.loadAllVoitureClient() 
+          this.loadAllVoitureClient()
         },
         error: (err) => alert('error')
       })
@@ -75,6 +81,7 @@ export class DepotComponent implements OnInit {
 
   public closePopup() {
     this.displayStyle = 'none';
+    this.description='';
   }
 
   public confirmerDepot(voiture:any) {
@@ -82,6 +89,33 @@ export class DepotComponent implements OnInit {
       this.createDepot(voiture._id, this.description);
       this.closePopup();
     }
-    else this.errorMessage = "Veuillez insérer une description"
+    else this.errorMessage = "Veuillez insérer une description";
+
+  }
+
+  dropVoiture(event: CdkDragDrop<string[]>,voiture : any){
+    if (event.previousContainer === event.container) {
+      // moveItemInArray(this.voitureList, voiture, event.currentIndex);
+    } else {
+      console.log(voiture);
+      event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      this.openPopup(voiture);
+    }
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+    }
   }
 }

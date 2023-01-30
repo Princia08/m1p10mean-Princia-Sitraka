@@ -1,58 +1,114 @@
 <div class="container">
-    <div class="row">
-        <div class="col-md-6">
-            <h2 style="margin-top: 15px;">Nouveau Véhicule</h2>
-            <form class="form" [formGroup]="form" #formRef="ngForm">
-                <div class="form-control" style="padding: 20px;">
-                    <h3 style="margin-top: 10px;">Veuillez entrer les informations suivantes:</h3>
-                    <input class="form-control" type="text" placeholder="Matricule" formControlName="matricule"
-                     [ngStyle]="{'border-color': form.controls['matricule'].hasError('required') && formRef.submitted ? 'red' : 'rgb(230, 230, 230)' }">
-                    <input class="form-control" type="text" placeholder="Marque" formControlName="marque"
-                    [ngStyle]="{'border-color': form.controls['marque'].hasError('required') && formRef.submitted ? 'red' : 'rgb(230, 230, 230)' }">
-                    <input class="form-control" type="text" placeholder ="Model" formControlName="model"
-                    [ngStyle]="{'border-color': form.controls['model'].hasError('required') && formRef.submitted ? 'red' : 'rgb(230, 230, 230)' }">
-                    <input class="form-control" type="text" placeholder ="Description de votre réparation" formControlName="description"
-                    [ngStyle]="{'border-color': form.controls['description'].hasError('required') && formRef.submitted ? 'red' : 'rgb(230, 230, 230)' }">
-                    <p style="color:red;">{{errorFormMsg}}</p>
-                    <p><button type="button" (click)="createVehicule()" type="submit" class="btn btn-dark" style="background-color: rgb(103, 103, 103); border-color:rgb(103, 103, 103);">Valider</button></p>
-                </div>
-            </form>
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <h2 style="margin-top: 15px;">Nouveau Véhicule</h2>
+      <form #formRef="ngForm" [formGroup]="form" class="form">
+        <div class="form-control" style="padding: 20px;">
+          <h3 style="margin-top: 10px;">Veuillez entrer les informations suivantes:</h3>
+          <input
+            [ngStyle]="{'border-color': form.controls['matricule'].hasError('required') && formRef.submitted ? 'red' : 'rgb(230, 230, 230)' }"
+            class="form-control" formControlName="matricule" placeholder="Matricule" type="text">
+          <input
+            [ngStyle]="{'border-color': form.controls['marque'].hasError('required') && formRef.submitted ? 'red' : 'rgb(230, 230, 230)' }"
+            class="form-control" formControlName="marque" placeholder="Marque" type="text">
+          <input
+            [ngStyle]="{'border-color': form.controls['model'].hasError('required') && formRef.submitted ? 'red' : 'rgb(230, 230, 230)' }"
+            class="form-control" formControlName="model" placeholder="Model" type="text">
+          <input
+            [ngStyle]="{'border-color': form.controls['description'].hasError('required') && formRef.submitted ? 'red' : 'rgb(230, 230, 230)' }"
+            class="form-control" formControlName="description" placeholder="Description de votre réparation"
+            type="text">
+          <p style="color:red;">{{errorFormMsg}}</p>
+          <p>
+            <button (click)="createVehicule()" class="btn btn-dark"
+              style="background-color: rgb(103, 103, 103); border-color:rgb(103, 103, 103);" type="button"
+              type="submit">Valider
+            </button>
+          </p>
         </div>
-        <div class="col-md-6">
-            <h2 style="margin-top: 15px;">Choisir parmi vos véhicules</h2>
-            <div class="form-control">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Matricule</th>
-                            <th>Marque</th>
-                            <th>Model</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let voiture of voitureList" style="cursor:pointer;" (click)="openPopup(voiture)">
-                           <td>{{voiture.matricule}}</td>
-                           <td>{{voiture.marque}}</td>
-                           <td>{{voiture.model}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+      </form>
     </div>
+    <div class="col-md-3"></div>
+  </div>
+
+
+  <div cdkDropListGroup>
+    <div class="row">
+      <div class="col-6">
+        <h2 style="margin-top: 15px;">Choisir parmi vos véhicules</h2>
+
+        <div class="form-control">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Matricule</th>
+                <th>Marque</th>
+                <th>Model</th>
+              </tr>
+            </thead>
+            <tbody [cdkDropListData]="voitureList" cdkDropList cdkDropListSortingDisabled>
+              <tr (cdkDragDropped)="dropVoiture($event,voiture)" *ngFor="let voiture of voitureList" cdkDrag
+                style="cursor:move;">
+                <td>{{voiture.matricule}}</td>
+                <td>{{voiture.marque}}</td>
+                <td>{{voiture.model}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-6">
+        <div cdkDropList class="test-drag-drop">
+          <br><br><br><br>
+          <h3><i style="font-size: 30px;" class="fa fa-home" aria-hidden="true"></i></h3>
+          <h2>Deposer vos vehicules dans ce garage ! </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--    <div cdkDropListGroup>-->
+  <!--      <div class="example-container">-->
+  <!--        <h2>Available items</h2>-->
+  <!--        <div-->
+  <!--          (cdkDropListDropped)="drop($event)"-->
+  <!--          [cdkDropListData]="items"-->
+  <!--          cdkDropList-->
+  <!--          cdkDropListSortingDisabled-->
+  <!--          class="example-list">-->
+  <!--          <div *ngFor="let item of items" cdkDrag class="example-box">{{item}}</div>-->
+  <!--        </div>-->
+  <!--      </div>-->
+
+  <!--      <div class="example-container">-->
+  <!--        <h2>Shopping basket</h2>-->
+  <!--        <div-->
+  <!--          (cdkDropListDropped)="drop($event)"-->
+  <!--          [cdkDropListData]="basket"-->
+  <!--          cdkDropList-->
+  <!--          class="example-list">-->
+  <!--          <div *ngFor="let item of basket" cdkDrag class="example-box">{{item}}</div>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--    </div>-->
+
+
 </div>
 
 <!-- dialogue pour choix voiture  -->
-<div class="modal" *ngIf="voiture!=null" [ngStyle]="{'display':displayStyle}"
+<div *ngIf="voiture!=null" [ngStyle]="{'display':displayStyle}" class="modal"
   style="backdrop-filter: blur(3px);margin-top: 1%;">
   <div class="modal-dialog" role="document">
-    <div class="modal-content"  style="background-color: rgb(224, 224, 224);">
+    <div class="modal-content" style="background-color: rgb(224, 224, 224);">
       <div class="modal-body" style="text-align:center;">
         <h2 class="modal-title" style="padding:2% 5%; text-align: center">Veuillez décrire votre réparation:</h2>
-        <p><textarea style="width:70%; height: 70%; border-radius: 3px;" type="text"[(ngModel)]="description"></textarea></p>
+        <p><textarea [(ngModel)]="description" style="width:70%; height: 70%; border-radius: 3px;"
+            type="text"></textarea></p>
         <p style="color: rgb(255, 0, 0);">{{errorMessage}}</p>
-        <button style="color: rgb(96, 96, 96); margin-right: 4%" type="button" class="btn" (click)="closePopup()">Annuler</button>
-        <button type="button" class="btn btn-success" (click)="confirmerDepot(voiture)">Confirmer</button>
+        <button (click)="closePopup()" class="btn" style="color: rgb(96, 96, 96); margin-right: 4%" type="button">
+          Annuler
+        </button>
+        <button (click)="confirmerDepot(voiture)" class="btn btn-success" type="button">Confirmer</button>
       </div>
     </div>
   </div>
